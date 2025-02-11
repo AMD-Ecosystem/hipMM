@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2024, NVIDIA CORPORATION.
+ * Copyright (c) 2020-2025, NVIDIA CORPORATION.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,7 @@
 #include <cuda/stream_ref>
 #include <rmm/cuda_runtime_api.h>
 
-#include <atomic>
 #include <cstddef>
-#include <cstdint>
 
 namespace RMM_NAMESPACE {
 /**
