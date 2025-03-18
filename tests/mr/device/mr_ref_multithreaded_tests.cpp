@@ -46,8 +46,6 @@
 #include <rmm/mr/device/pool_memory_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
-#include <cuda/memory_resource>
-
 #include <gtest/gtest.h>
 
 #include <thread>
