@@ -12,4 +12,5 @@
 # the License.
 # =============================================================================
 
-set(RMM_TAG branch-25.04)
+# TODO(HIP/AMD): adapt
+set(RMM_TAG branch-25.08)
