@@ -81,7 +81,7 @@ Install hipMM with:
 We also provide [nightly conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
 of our latest development branch.
 
-Note: hipMM is supported only on Linux, and only tested with Python versions 3.10, 3.11, and 3.12.
+Note: hipMM is supported only on Linux, and only tested with Python versions 3.10, 3.11, 3.12, and 3.13.
 
 Note: The hipMM package from Conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
 
