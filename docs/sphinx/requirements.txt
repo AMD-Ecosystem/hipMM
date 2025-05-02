@@ -33,7 +33,7 @@ cffi==1.17.1
     # via
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via requests
 click==8.1.8
     # via
@@ -193,7 +193,7 @@ requests==2.32.3
     # via
     #   pygithub
     #   sphinx
-rocm-docs-core==1.18.2
+rocm-docs-core==1.18.3
     # via -r requirements.in
 rpds-py==0.24.0
     # via
