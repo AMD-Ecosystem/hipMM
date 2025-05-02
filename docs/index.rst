@@ -27,4 +27,4 @@ The hipMM documentation is structured as follows:
 
 To contribute to the documentation refer to `Contributing to ROCm-DS  <https://rocm.docs.amd.com/projects/rocm-ds/en/latest/contribute/contributing.html>`_.
 
-You can find licensing information on the `Licensing <https://rocm.docs.amd.com/projects/rocm-ds/en/latest/about/license.html>`_ page.
+You can find licensing information on the `Licensing <https://rocm.docs.amd.com/projects/hipMM/en/latest/license.html>`_ page.
