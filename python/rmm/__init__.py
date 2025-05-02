@@ -12,6 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# NOTE(HIP/AMD): This is a workaround for the map
+# device_id_to_resource (defined in per_device_resource.hpp) potentially not being
+# globally unique when the Cython-generated *.so files are compiled
+# with hipcc/clang and are dlopened with RTLD_LOCAL (default for Python). 
+import sys
+import ctypes
+flags = sys.getdlopenflags()
+sys.setdlopenflags(flags | ctypes.RTLD_GLOBAL)
+
 from rmm import mr
 from rmm._lib.device_buffer import DeviceBuffer
 from rmm._lib.logger import (

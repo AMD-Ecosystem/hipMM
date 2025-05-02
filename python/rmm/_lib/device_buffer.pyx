@@ -11,6 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# MIT License
+#
+# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 import numpy as np
 
 cimport cython
@@ -397,10 +419,12 @@ cdef void _copy_async(const void* src,
     kind : the kind of copy to perform
     stream : CUDA stream to use for copying, default the default stream
     """
-    cdef cudaError_t err = cudaMemcpyAsync(dst, src, count, kind,
-                                           <cudaStream_t>stream)
+    cdef cudaError_t err
+    with gil: # TODO: HIP/AMD: reintroduce nogil to Cython interfaces of HIP Python
+        err = cudaMemcpyAsync(dst, src, count, kind,
+                              <cudaStream_t>stream)
 
-    if err != cudaError.cudaSuccess:
+    if err != ccudart.cudaSuccess:
         raise RuntimeError(f"Memcpy failed with error: {err}")
 
 
@@ -440,7 +464,7 @@ cpdef void copy_ptr_to_host(uintptr_t db,
 
     with nogil:
         _copy_async(<const void*>db, <void*>&hb[0], len(hb),
-                    cudaMemcpyKind.cudaMemcpyDeviceToHost, stream.view())
+                    ccudart.cudaMemcpyDeviceToHost, stream.view())
 
     if stream.c_is_default():
         stream.c_synchronize()
@@ -483,7 +507,7 @@ cpdef void copy_host_to_ptr(const unsigned char[::1] hb,
 
     with nogil:
         _copy_async(<const void*>&hb[0], <void*>db, len(hb),
-                    cudaMemcpyKind.cudaMemcpyHostToDevice, stream.view())
+                    ccudart.cudaMemcpyHostToDevice, stream.view())
 
     if stream.c_is_default():
         stream.c_synchronize()
@@ -516,4 +540,4 @@ cpdef void copy_device_to_ptr(uintptr_t d_src,
 
     with nogil:
         _copy_async(<const void*>d_src, <void*>d_dst, count,
-                    cudaMemcpyKind.cudaMemcpyDeviceToDevice, stream.view())
+                    ccudart.cudaMemcpyDeviceToDevice, stream.view())

@@ -13,6 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// MIT License
+//
+// Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 #pragma once
 
@@ -62,7 +83,7 @@ class stack_trace {
   friend std::ostream& operator<<(std::ostream& os, const stack_trace& trace)
   {
 #if defined(RMM_ENABLE_STACK_TRACES)
-    std::unique_ptr<char*, decltype(&::free)> strings(
+    std::unique_ptr<char*, decltype(&std::free)> strings(
       backtrace_symbols(trace.stack_ptrs.data(), static_cast<int>(trace.stack_ptrs.size())),
       &::free);
 
@@ -77,8 +98,8 @@ class stack_trace {
         if (dladdr(trace.stack_ptrs[i], &info) != 0) {
           int status = -1;  // Demangle the name. This can occasionally fail
 
-          std::unique_ptr<char, decltype(&::free)> demangled(
-            abi::__cxa_demangle(info.dli_sname, nullptr, nullptr, &status), &::free);
+          std::unique_ptr<char, decltype(&std::free)> demangled(
+            abi::__cxa_demangle(info.dli_sname, nullptr, nullptr, &status), &std::free);
           // If it fails, fallback to the dli_name.
           if (status == 0 or (info.dli_sname != nullptr)) {
             auto const* name = status == 0 ? demangled.get() : info.dli_sname;

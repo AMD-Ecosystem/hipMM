@@ -11,6 +11,28 @@
 # or implied. See the License for the specific language governing permissions and limitations under
 # the License.
 # =============================================================================
+# MIT License
+#
+# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# =============================================================================
 
 cmake_minimum_required(VERSION 3.26.4 FATAL_ERROR)
 
@@ -21,10 +43,18 @@ include(rapids-cpm)
 include(rapids-export)
 include(rapids-find)
 
+#: NOTE(HIP/AMD, 04/22/25):
+#:     In contrast to the CUDA implementation, we need to initialize the HIP architectures
+#:     already before calling rapids_find_package(HIP...). Otherwise, GPU_TARGETS will be unset
+#:     on systems without GPUs and find_package(HIP) will warn that it
+#:     cannot autotect an architecture.
+include(rapids-hip)
+rapids_hip_init_architectures(RMM)
+
 project(
   RMM
-  VERSION 23.12.00
-  LANGUAGES CXX)
+  VERSION 1.0.0
+  LANGUAGES C CXX HIP)
 
 # Write the version header
 rapids_cmake_write_version_file(include/rmm/version_config.hpp)
@@ -51,14 +81,15 @@ set_property(CACHE RMM_LOGGING_LEVEL PROPERTY STRINGS "TRACE" "DEBUG" "INFO" "WA
 message(STATUS "RMM: RMM_LOGGING_LEVEL = '${RMM_LOGGING_LEVEL}'")
 
 # cudart can be statically linked or dynamically linked the python ecosystem wants dynamic linking
-option(CUDA_STATIC_RUNTIME "Statically link the CUDA runtime" OFF)
+set(CUDA_STATIC_RUNTIME OFF)
 
 # ##################################################################################################
 # * compiler options -------------------------------------------------------------------------------
+add_compile_options(-Wno-unused-result) # required for HIP build
 
 # find packages we depend on
 rapids_find_package(
-  CUDAToolkit REQUIRED
+	HIP REQUIRED
   BUILD_EXPORT_SET rmm-exports
   INSTALL_EXPORT_SET rmm-exports)
 
@@ -67,6 +98,10 @@ rapids_find_package(
 
 # add third party dependencies using CPM
 rapids_cpm_init()
+
+# prescribe dependencies
+include(cpm/package_override)
+rapids_cpm_package_override(${CMAKE_CURRENT_LIST_DIR}/versions.json)
 
 include(cmake/thirdparty/get_fmt.cmake)
 include(cmake/thirdparty/get_spdlog.cmake)
@@ -82,14 +117,14 @@ target_include_directories(rmm INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOUR
                                          "$<INSTALL_INTERFACE:include>")
 
 if(CUDA_STATIC_RUNTIME)
-  message(STATUS "RMM: Enabling static linking of cudart")
-  target_link_libraries(rmm INTERFACE CUDA::cudart_static)
-  target_compile_definitions(rmm INTERFACE RMM_STATIC_CUDART)
+  # message(STATUS "RMM: Enabling static linking of cudart")
+  # target_link_libraries(rmm INTERFACE CUDA::cudart_static)
+  # target_compile_definitions(rmm INTERFACE RMM_STATIC_CUDART)
 else()
-  target_link_libraries(rmm INTERFACE CUDA::cudart)
+  target_link_libraries(rmm INTERFACE hip::host)
 endif()
 
-target_link_libraries(rmm INTERFACE rmm::Thrust)
+target_link_libraries(rmm INTERFACE roc::rocthrust)
 target_link_libraries(rmm INTERFACE fmt::fmt-header-only)
 target_link_libraries(rmm INTERFACE spdlog::spdlog_header_only)
 target_link_libraries(rmm INTERFACE dl)
@@ -99,14 +134,19 @@ target_compile_features(rmm INTERFACE cxx_std_17 $<BUILD_INTERFACE:cuda_std_17>)
 # * tests and benchmarks ---------------------------------------------------------------------------
 
 if((BUILD_TESTS OR BUILD_BENCHMARKS) AND CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-  include(rapids-cuda)
-  rapids_cuda_init_architectures(RMM)
-  enable_language(CUDA)
+  #: NOTE(HIP/AMD, 04/22/25):
+  #:     In contrast to the CUDA implementation, we need to initialize the HIP architectures
+  #:     already before calling rapids_find_package(HIP...). Otherwise, GPU_TARGETS will be unset
+  #:     on systems without GPUs and find_package(HIP) will warn that it
+  #:     cannot autotect an architecture.
+  #: include(rapids-hip)
+  #: rapids_hip_init_architectures(RMM)
+  enable_language(HIP)
 
-  # Since RMM only enables CUDA optionally we need to manually include the file that
+  # Since RMM only enables HIP optionally we need to manually include the file that
   # rapids_cuda_init_architectures relies on `project` calling
   include("${CMAKE_PROJECT_RMM_INCLUDE}")
-  message(STATUS "RMM: Building benchmarks with GPU Architectures: ${CMAKE_CUDA_ARCHITECTURES}")
+  message(STATUS "RMM: Building benchmarks with GPU Architectures: ${CMAKE_HIP_ARCHITECTURES}")
 endif()
 
 # ##################################################################################################
@@ -131,8 +171,6 @@ endif()
 # ##################################################################################################
 # * install targets --------------------------------------------------------------------------------
 
-include(CPack)
-
 # install export targets
 install(TARGETS rmm EXPORT rmm-exports)
 install(DIRECTORY include/rmm/ DESTINATION include/rmm)
@@ -149,20 +187,13 @@ The goal of the [RMM](https://github.com/rapidsai/rmm) is to provide:
   A collection of data structures that use the interface for memory allocation
 ]=])
 
-set(code_string
-    [=[
-if(NOT TARGET rmm::Thrust)
-  thrust_create_target(rmm::Thrust FROM_OPTIONS)
-endif()
-]=])
-
 rapids_export(
   INSTALL rmm
   EXPORT_SET rmm-exports
   GLOBAL_TARGETS rmm
   NAMESPACE rmm::
   DOCUMENTATION doc_string
-  FINAL_CODE_BLOCK code_string)
+  )
 
 # ##################################################################################################
 # * build export -----------------------------------------------------------------------------------
@@ -173,7 +204,7 @@ rapids_export(
   GLOBAL_TARGETS rmm
   NAMESPACE rmm::
   DOCUMENTATION doc_string
-  FINAL_CODE_BLOCK code_string)
+  )
 
 # ##################################################################################################
 # * make documentation -----------------------------------------------------------------------------
@@ -197,3 +228,15 @@ add_custom_target(
 if(Thrust_SOURCE_DIR)
   configure_file(scripts/load-pretty-printers.in load-pretty-printers @ONLY)
 endif()
+
+set(CPACK_PACKAGE_NAME "hipmm" CACHE STRING "Overwrite package name.")
+set(CPACK_PACKAGE_VENDOR "Advanced Micro Devices, Inc.")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR}")
+set(CPACK_OUTPUT_FILE_PREFIX "dist" CACHE PATH "Package output file prefix.")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/rocm-ds" CACHE PATH "Package install prefix.")
+include(CPack)
+
