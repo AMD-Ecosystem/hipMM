@@ -21,7 +21,6 @@ rapids-generate-pip-constraints test_python ./constraints.txt
 rapids-pip-retry install \
     -v \
     --constraint ./constraints.txt \
-    --constraint "${PIP_CONSTRAINT}" \
     "$(echo "${LIBRMM_WHEELHOUSE}"/librmm_"${RAPIDS_PY_CUDA_SUFFIX}"*.whl)" \
     "$(echo "${RMM_WHEELHOUSE}"/rmm_"${RAPIDS_PY_CUDA_SUFFIX}"*.whl)[test]"
 
