@@ -146,32 +146,41 @@ include(cmake/thirdparty/get_cccl.cmake)
 # ##################################################################################################
 # * library targets --------------------------------------------------------------------------------
 
-add_library(rmm INTERFACE)
+add_library(rmm src/aligned.cpp src/cuda_device.cpp src/cuda_stream_pool.cpp
+                src/cuda_stream_view.cpp src/cuda_stream.cpp)
 add_library(rmm::rmm ALIAS rmm)
 
 target_include_directories(
   rmm
-  INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-            "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>" "$<INSTALL_INTERFACE:include>")
+  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
+  INTERFACE "$<INSTALL_INTERFACE:include>")
 
 if(CUDA_STATIC_RUNTIME)
-  # message(STATUS "RMM: Enabling static linking of cudart")
-  # target_link_libraries(rmm INTERFACE CUDA::cudart_static)
+  message(STATUS "RMM: Enabling static linking of cudart")
+  target_link_libraries(rmm PUBLIC CUDA::cudart_static)
 else()
-  target_link_libraries(rmm INTERFACE hip::host)
+  target_link_libraries(rmm PUBLIC hip::host)
 endif()
 
-target_link_libraries(rmm INTERFACE CCCL::CCCL)
-target_link_libraries(rmm INTERFACE dl)
-#: TODO(HIP/AMD): No nvtx3 equivalent
-#: target_link_libraries(rmm INTERFACE nvtx3::nvtx3-cpp)
-target_link_libraries(rmm INTERFACE rapids_logger::rapids_logger)
-target_compile_features(rmm INTERFACE cxx_std_17 $<BUILD_INTERFACE:cuda_std_17>)
-target_compile_definitions(rmm INTERFACE LIBCUDACXX_ENABLE_EXPERIMENTAL_MEMORY_RESOURCE)
+# TODO(HIP/AMD): no support for nvtx3  nvtx3::nvtx3-cpp
+target_link_libraries(rmm PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS}
+                                 rapids_logger::rapids_logger)
+
+set_target_properties(
+  rmm
+  PROPERTIES BUILD_RPATH "\$ORIGIN"
+             INSTALL_RPATH "\$ORIGIN"
+             CXX_STANDARD 17
+             CXX_STANDARD_REQUIRED ON
+             CXX_VISIBILITY_PRESET hidden
+             POSITION_INDEPENDENT_CODE ON
+             INTERFACE_POSITION_INDEPENDENT_CODE ON)
+target_compile_definitions(rmm PUBLIC LIBCUDACXX_ENABLE_EXPERIMENTAL_MEMORY_RESOURCE)
 
 # Enable NVTX if necessary
 if(RMM_NVTX)
-  target_compile_definitions(rmm INTERFACE RMM_NVTX)
+  target_compile_definitions(rmm PUBLIC RMM_NVTX)
 endif()
 
 # ##################################################################################################
