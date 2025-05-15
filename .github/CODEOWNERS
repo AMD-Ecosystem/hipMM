@@ -1,0 +1,23 @@
+#cpp code owners
+include/           @rapidsai/rmm-cpp-codeowners
+tests/             @rapidsai/rmm-cpp-codeowners
+benchmarks/        @rapidsai/rmm-cpp-codeowners
+
+#python code owners
+python/            @rapidsai/rmm-python-codeowners
+
+#cmake code owners
+**/CMakeLists.txt  @rapidsai/rmm-cmake-codeowners
+**/cmake/          @rapidsai/rmm-cmake-codeowners
+
+#CI code owners
+/.github/                @rapidsai/ci-codeowners
+/ci/                     @rapidsai/ci-codeowners
+/.pre-commit-config.yaml @rapidsai/ci-codeowners
+
+#packaging code owners
+/.devcontainers/   @rapidsai/packaging-codeowners
+/conda/            @rapidsai/packaging-codeowners
+/dependencies.yaml @rapidsai/packaging-codeowners
+/build.sh          @rapidsai/packaging-codeowners
+pyproject.toml     @rapidsai/packaging-codeowners
