@@ -13,6 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// MIT License
+//
+// Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 #pragma once
 
 #include <rmm/cuda_device.hpp>
@@ -22,14 +43,10 @@
 #include <rmm/detail/thrust_namespace.h>
 #include <rmm/mr/device/device_memory_resource.hpp>
 
-#include <cuda_runtime_api.h>
+#include <rmm/cuda_runtime_api.h>
 
 #include <cstddef>
 #include <limits>
-
-#if CUDART_VERSION >= 11020  // 11.2 introduced cudaMallocAsync
-#define RMM_CUDA_MALLOC_ASYNC_SUPPORT
-#endif
 
 namespace rmm::mr {
 /**
@@ -61,6 +78,7 @@ class cuda_async_view_memory_resource final : public device_memory_resource {
         return valid_pool_handle;
       }()}
   {
+#  if ! ( defined(__HIP_PLATFORM_AMD__) || defined(__HIP_PLATFORM_HCC__) ) //: HIP/AMD: RMM_CUDA_MALLOC_ASYNC_SUPPORT implies the support of pools
     // Check if cudaMallocAsync Memory pool supported
     auto const device = rmm::get_current_cuda_device();
     int cuda_pool_supported{};
@@ -68,6 +86,7 @@ class cuda_async_view_memory_resource final : public device_memory_resource {
       cudaDeviceGetAttribute(&cuda_pool_supported, cudaDevAttrMemoryPoolsSupported, device.value());
     RMM_EXPECTS(result == cudaSuccess && cuda_pool_supported,
                 "cudaMallocAsync not supported with this CUDA driver/runtime version");
+#  endif
   }
 #endif
 

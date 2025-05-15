@@ -13,6 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// MIT License
+//
+// Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 /**
  @file exec_policy.hpp
@@ -26,7 +47,7 @@
 #include <rmm/mr/device/thrust_allocator_adaptor.hpp>
 #include <rmm/resource_ref.hpp>
 
-#include <thrust/system/cuda/execution_policy.h>
+#include <thrust/system/hip/execution_policy.h>
 #include <thrust/version.h>
 
 namespace rmm {
@@ -41,7 +62,7 @@ namespace rmm {
  */
 using thrust_exec_policy_t =
   thrust::detail::execute_with_allocator<mr::thrust_allocator<char>,
-                                         thrust::cuda_cub::execute_on_stream_base>;
+                                         thrust::hip_rocprim::execute_on_stream_base>;
 
 /**
  * @brief Helper class usable as a Thrust CUDA execution policy
@@ -58,7 +79,7 @@ class exec_policy : public thrust_exec_policy_t {
   explicit exec_policy(cuda_stream_view stream      = cuda_stream_default,
                        device_async_resource_ref mr = mr::get_current_device_resource())
     : thrust_exec_policy_t(
-        thrust::cuda::par(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
+        thrust::hip::par(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
   {
   }
 };
@@ -70,7 +91,7 @@ class exec_policy : public thrust_exec_policy_t {
  */
 using thrust_exec_policy_nosync_t =
   thrust::detail::execute_with_allocator<mr::thrust_allocator<char>,
-                                         thrust::cuda_cub::execute_on_stream_nosync_base>;
+                                         thrust::hip_rocprim::execute_on_stream_nosync_base>;
 /**
  * @brief Helper class usable as a Thrust CUDA execution policy
  * that uses RMM for temporary memory allocation on the specified stream
@@ -82,7 +103,7 @@ class exec_policy_nosync : public thrust_exec_policy_nosync_t {
   explicit exec_policy_nosync(cuda_stream_view stream      = cuda_stream_default,
                               device_async_resource_ref mr = mr::get_current_device_resource())
     : thrust_exec_policy_nosync_t(
-        thrust::cuda::par_nosync(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
+        thrust::hip::par_nosync(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
   {
   }
 };

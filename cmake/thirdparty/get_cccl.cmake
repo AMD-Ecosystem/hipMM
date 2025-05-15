@@ -11,12 +11,51 @@
 # or implied. See the License for the specific language governing permissions and limitations under
 # the License.
 # =============================================================================
+# MIT License
+#
+# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# =============================================================================
 
 # Use CPM to find or clone CCCL
 function(find_and_configure_cccl)
 
-  include(${rapids-cmake-dir}/cpm/cccl.cmake)
-  rapids_cpm_cccl(BUILD_EXPORT_SET rmm-exports INSTALL_EXPORT_SET rmm-exports)
+  #: TODO(HIP/AMD): Replace the direct include rocthrust by an AMD cccl equivalent as soon as it exists
+  #: include(${rapids-cmake-dir}/cpm/cccl.cmake)
+  #: rapids_cpm_cccl(BUILD_EXPORT_SET rmm-exports INSTALL_EXPORT_SET rmm-exports)
+
+  include(${rapids-cmake-dir}/cpm/rocthrust.cmake)
+  rapids_cpm_rocthrust(
+    NAMESPACE rmm
+    BUILD_EXPORT_SET rmm-exports
+    INSTALL_EXPORT_SET rmm-exports)
+
+  include(${rapids-cmake-dir}/cpm/libhipcxx.cmake)
+  rapids_cpm_libhipcxx(
+    BUILD_EXPORT_SET rmm-exports
+    INSTALL_EXPORT_SET rmm-exports)
+
+  # TODO(HIP/AMD): it would be good to configure hipcub with rapids-cmake, too.
+  # find_package(hipcub REQUIRED CONFIG PATHS "/opt/rocm/hipcub")
+  # add_library(CCCL::CUB ALIAS hip::hipcub)
+  # TODO(HIP/AMD): add CUB to rmm-exports?
 
 endfunction()
 

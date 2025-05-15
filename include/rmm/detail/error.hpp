@@ -13,12 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// MIT License
+//
+// Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 #pragma once
 
 #include <rmm/error.hpp>
 
-#include <cuda_runtime_api.h>
+#include <rmm/cuda_runtime_api.h>
 
 #include <cassert>
 #include <iostream>
@@ -113,9 +133,9 @@
   do {                                                                                       \
     cudaError_t const error = (_call);                                                       \
     if (cudaSuccess != error) {                                                              \
-      cudaGetLastError();                                                                    \
+      static_cast<void>(cudaGetLastError());                                                 \
       /*NOLINTNEXTLINE(bugprone-macro-parentheses)*/                                         \
-      throw _exception_type{std::string{"CUDA error at: "} + __FILE__ + ":" +                \
+      throw _exception_type{std::string{"Device error at: "} + __FILE__ + ":" +                \
                             RMM_STRINGIFY(__LINE__) + ": " + cudaGetErrorName(error) + " " + \
                             cudaGetErrorString(error)};                                      \
     }                                                                                        \
@@ -136,8 +156,8 @@
   do {                                                                                             \
     cudaError_t const error = (_call);                                                             \
     if (cudaSuccess != error) {                                                                    \
-      cudaGetLastError();                                                                          \
-      auto const msg = std::string{"CUDA error at: "} + __FILE__ + ":" + RMM_STRINGIFY(__LINE__) + \
+      static_cast<void>(cudaGetLastError());                                                       \
+      auto const msg = std::string{"Device error at: "} + __FILE__ + ":" + RMM_STRINGIFY(__LINE__) + \
                        ": " + cudaGetErrorName(error) + " " + cudaGetErrorString(error);           \
       if (cudaErrorMemoryAllocation == error) { throw rmm::out_of_memory{msg}; }                   \
       throw rmm::bad_alloc{msg};                                                                   \
@@ -168,18 +188,19 @@
  * RMM_ASSERT_CUDA_SUCCESS(cudaRuntimeApi(...));
  * ```
  *
+ * 
  */
 #ifdef NDEBUG
 #define RMM_ASSERT_CUDA_SUCCESS(_call) \
   do {                                 \
-    (_call);                           \
+    static_cast<void>(_call);          \
   } while (0);
 #else
 #define RMM_ASSERT_CUDA_SUCCESS(_call)                                          \
   do {                                                                          \
     cudaError_t const status__ = (_call);                                       \
     if (status__ != cudaSuccess) {                                              \
-      std::cerr << "CUDA Error detected. " << cudaGetErrorName(status__) << " " \
+      std::cerr << "Device Error detected. " << cudaGetErrorName(status__) << " " \
                 << cudaGetErrorString(status__) << std::endl;                   \
     }                                                                           \
     /* NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay) */   \
