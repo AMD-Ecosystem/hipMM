@@ -1,0 +1,150 @@
+# Copyright (c) 2018-2023, NVIDIA CORPORATION.
+
+{% set version = environ['RAPIDS_PACKAGE_VERSION'].lstrip('v') %}
+{% set cuda_version = '.'.join(environ['RAPIDS_CUDA_VERSION'].split('.')[:2]) %}
+{% set cuda_major = cuda_version.split('.')[0] %}
+{% set cuda_spec = ">=" + cuda_major ~ ",<" + (cuda_major | int + 1) ~ ".0a0" %} # i.e. >=11,<12.0a0
+{% set date_string = environ['RAPIDS_DATE_STRING'] %}
+
+package:
+  name: librmm-split
+
+source:
+  path: ../../..
+
+requirements:
+  build:
+    - cmake {{ cmake_version }}
+    - ninja
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    {% if cuda_major == "11" %}
+    - {{ compiler('cuda11') }} {{ cuda_version }}
+    {% else %}
+    - {{ compiler('cuda') }}
+    {% endif %}
+    - cuda-version ={{ cuda_version }}
+    - sysroot_{{ target_platform }} {{ sysroot_version }}
+  host:
+    - cuda-version ={{ cuda_version }}
+    # We require spdlog and fmt (which was devendored from spdlog
+    # conda-forge packages in 1.11.0) so that the spdlog headers are not
+    # pulled by CPM and installed as a part of the rmm packages. However,
+    # building against librmm still requires these headers. They are also
+    # added as a run requirement via the packages' run_exports.
+    - fmt {{ fmt_version }}
+    - spdlog {{ spdlog_version }}
+    - gtest {{ gtest_version }}
+    - gmock {{ gtest_version }}
+
+build:
+  script_env:
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+    - AWS_SESSION_TOKEN
+    - CMAKE_C_COMPILER_LAUNCHER
+    - CMAKE_CUDA_COMPILER_LAUNCHER
+    - CMAKE_CXX_COMPILER_LAUNCHER
+    - CMAKE_GENERATOR
+    - PARALLEL_LEVEL
+    - SCCACHE_BUCKET
+    - SCCACHE_IDLE_TIMEOUT
+    - SCCACHE_REGION
+    - SCCACHE_S3_KEY_PREFIX=librmm-aarch64 # [aarch64]
+    - SCCACHE_S3_KEY_PREFIX=librmm-linux64 # [linux64]
+    - SCCACHE_S3_USE_SSL
+    - SCCACHE_S3_NO_CREDENTIALS
+
+outputs:
+  - name: librmm
+    version: {{ version }}
+    script: install_librmm.sh
+    build:
+      number: {{ GIT_DESCRIBE_NUMBER }}
+      string: cuda{{ cuda_major }}_{{ date_string }}_{{ GIT_DESCRIBE_HASH }}_{{ GIT_DESCRIBE_NUMBER }}
+      run_exports:
+        - {{ pin_subpackage("librmm", max_pin="x.x") }}
+      ignore_run_exports_from:
+        {% if cuda_major == "11" %}
+        - {{ compiler('cuda11') }}
+        {% endif %}
+    requirements:
+      build:
+        - cmake {{ cmake_version }}
+      run:
+        {% if cuda_major == "11" %}
+        - cudatoolkit
+        {% endif %}
+        - cuda-version {{ cuda_spec }}
+        - fmt {{ fmt_version }}
+        - spdlog {{ spdlog_version }}
+    test:
+      commands:
+        - test -f $PREFIX/include/rmm/thrust_rmm_allocator.h
+        - test -f $PREFIX/include/rmm/logger.hpp
+        - test -f $PREFIX/include/rmm/cuda_stream.hpp
+        - test -f $PREFIX/include/rmm/cuda_stream_view.hpp
+        - test -f $PREFIX/include/rmm/cuda_stream_pool.hpp
+        - test -f $PREFIX/include/rmm/device_uvector.hpp
+        - test -f $PREFIX/include/rmm/device_scalar.hpp
+        - test -f $PREFIX/include/rmm/device_buffer.hpp
+        - test -f $PREFIX/include/rmm/detail/aligned.hpp
+        - test -f $PREFIX/include/rmm/detail/error.hpp
+        - test -f $PREFIX/include/rmm/detail/exec_check_disable.hpp
+        - test -f $PREFIX/include/rmm/mr/device/detail/arena.hpp
+        - test -f $PREFIX/include/rmm/mr/device/detail/free_list.hpp
+        - test -f $PREFIX/include/rmm/mr/device/detail/coalescing_free_list.hpp
+        - test -f $PREFIX/include/rmm/mr/device/detail/fixed_size_free_list.hpp
+        - test -f $PREFIX/include/rmm/mr/device/detail/stream_ordered_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/arena_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/binning_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/cuda_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/device_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/fixed_size_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/limiting_resource_adaptor.hpp
+        - test -f $PREFIX/include/rmm/mr/device/logging_resource_adaptor.hpp
+        - test -f $PREFIX/include/rmm/mr/device/managed_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/owning_wrapper.hpp
+        - test -f $PREFIX/include/rmm/mr/device/per_device_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/pool_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/device/thread_safe_resource_adaptor.hpp
+        - test -f $PREFIX/include/rmm/mr/device/thrust_allocator_adaptor.hpp
+        - test -f $PREFIX/include/rmm/mr/host/host_memory_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/host/new_delete_resource.hpp
+        - test -f $PREFIX/include/rmm/mr/host/pinned_memory_resource.hpp
+    about:
+      home: https://rapids.ai/
+      license: Apache-2.0
+      summary: librmm library
+  - name: librmm-tests
+    version: {{ version }}
+    script: install_librmm_tests.sh
+    build:
+      number: {{ GIT_DESCRIBE_NUMBER }}
+      string: cuda{{ cuda_major }}_{{ date_string }}_{{ GIT_DESCRIBE_HASH }}_{{ GIT_DESCRIBE_NUMBER }}
+      ignore_run_exports_from:
+        {% if cuda_major == "11" %}
+        - {{ compiler('cuda11') }}
+        {% endif %}
+    requirements:
+      build:
+        - cmake {{ cmake_version }}
+      host:
+        - cuda-version ={{ cuda_version }}
+        {% if cuda_major == "11" %}
+        - cudatoolkit
+        {% else %}
+        - cuda-cudart-dev
+        {% endif %}
+      run:
+        {% if cuda_major == "11" %}
+        - cudatoolkit
+        {% endif %}
+        - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}
+        - {{ pin_subpackage('librmm', exact=True) }}
+        - gtest {{ gtest_version }}
+        - gmock {{ gtest_version }}
+    about:
+      home: https://rapids.ai/
+      license: Apache-2.0
+      summary: librmm test & benchmark executables
