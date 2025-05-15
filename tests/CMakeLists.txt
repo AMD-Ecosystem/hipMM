@@ -11,6 +11,28 @@
 # or implied. See the License for the specific language governing permissions and limitations under
 # the License.
 # =============================================================================
+# MIT License
+#
+# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# =============================================================================
 
 # Build options
 option(DISABLE_DEPRECATION_WARNING "Disable warnings generated from deprecated declarations." OFF)
@@ -22,6 +44,7 @@ rapids_test_init()
 # This function takes in a test name and test source and handles setting all of the associated
 # properties and linking to build the test
 function(ConfigureTestInternal TEST_NAME)
+  set_source_files_properties(${ARGN} PROPERTIES LANGUAGE HIP)
   add_executable(${TEST_NAME} ${ARGN})
   target_include_directories(${TEST_NAME} PRIVATE "$<BUILD_INTERFACE:${RMM_SOURCE_DIR}>")
   target_link_libraries(${TEST_NAME} GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main
@@ -30,10 +53,12 @@ function(ConfigureTestInternal TEST_NAME)
     ${TEST_NAME}
     PROPERTIES POSITION_INDEPENDENT_CODE ON
                RUNTIME_OUTPUT_DIRECTORY "$<BUILD_INTERFACE:${RMM_BINARY_DIR}/gtests>"
-               CUDA_ARCHITECTURES "${CMAKE_CUDA_ARCHITECTURES}"
+               HIP_ARCHITECTURES  "${CMAKE_HIP_ARCHITECTURES}"
                INSTALL_RPATH "\$ORIGIN/../../../lib"
                CXX_STANDARD 17
                CXX_STANDARD_REQUIRED ON
+               HIP_STANDARD 17
+               HIP_STANDARD_REQUIRED ON
                CUDA_STANDARD 17
                CUDA_STANDARD_REQUIRED ON)
   target_compile_definitions(${TEST_NAME}
@@ -42,26 +67,26 @@ function(ConfigureTestInternal TEST_NAME)
                                              -Wno-error=deprecated-declarations>)
 
   if(DISABLE_DEPRECATION_WARNING)
-    target_compile_options(
-      ${TEST_NAME} PUBLIC $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-Wno-deprecated-declarations>)
+    # target_compile_options(
+    #   ${TEST_NAME} PUBLIC $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-Wno-deprecated-declarations>)
     target_compile_options(${TEST_NAME}
                            PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-declarations>)
   endif()
 
   if(CODE_COVERAGE)
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" or CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
       set(KEEP_DIR ${CMAKE_CURRENT_BINARY_DIR}/tmp)
       make_directory(${KEEP_DIR})
       target_compile_options(${TEST_NAME} PUBLIC $<$<COMPILE_LANGUAGE:CUDA>:--keep
-                                                 --keep-dir=${KEEP_DIR}>)
+                                                  --keep-dir=${KEEP_DIR}>)
       target_compile_options(
-        ${TEST_NAME}
-        PUBLIC
-          $<$<COMPILE_LANGUAGE:CUDA>:-O0
-          -Xcompiler=--coverage,-fprofile-abs-path,-fkeep-inline-functions,-fno-elide-constructors>)
+         ${TEST_NAME}
+         PUBLIC
+         $<$<COMPILE_LANGUAGE:CUDA>:-O0
+           -Xcompiler=--coverage,-fprofile-abs-path,-fkeep-inline-functions,-fno-elide-constructors>)
       target_compile_options(
-        ${TEST_NAME} PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-O0 --coverage -fprofile-abs-path
+        ${TEST_NAME} PUBLIC $<$<COMPILE_LANGUAGE:HIP,CXX>:-O0 --coverage -fprofile-abs-path
                             -fkeep-inline-functions -fno-elide-constructors>)
       target_link_options(${TEST_NAME} PRIVATE --coverage)
       target_link_libraries(${TEST_NAME} gcov)
@@ -102,7 +127,7 @@ function(ConfigureTest TEST_NAME)
   # Test with per-thread default stream.
   string(REGEX REPLACE "_TEST$" "_PTDS_TEST" PTDS_TEST_NAME "${TEST_NAME}")
   ConfigureTestInternal("${PTDS_TEST_NAME}" ${_RMM_TEST_UNPARSED_ARGUMENTS})
-  target_compile_definitions("${PTDS_TEST_NAME}" PUBLIC CUDA_API_PER_THREAD_DEFAULT_STREAM)
+  target_compile_definitions("${PTDS_TEST_NAME}" PUBLIC CUDA_API_PER_THREAD_DEFAULT_STREAM HIP_API_PER_THREAD_DEFAULT_STREAM __HIP_API_PER_THREAD_DEFAULT_STREAM__)
 
   # Test with custom thrust namespace
   string(REGEX REPLACE "_TEST$" "_NAMESPACE_TEST" NS_TEST_NAME "${TEST_NAME}")

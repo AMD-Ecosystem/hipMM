@@ -1,0 +1,45 @@
+#: NOTE: We commented other conda packages (no TODO mark) as we suspect
+#: them to interfere with the build process. This might be not true
+#: for all commented conda packages.
+channels:
+# - rapidsai #: TODO: Add AMD channel
+- conda-forge
+dependencies:
+- breathe
+#- c-compiler #: linker issues if uses other rt libs than hipcc
+- clang-tools==16.0.6
+#- clang==16.0.6
+- cmake>=3.26.4,<4
+# - cuda-nvcc #: TODO: hipcc as its own conda package?
+# - cuda-python>=11.7.1,<12.0a0 #: TODO: hip-python as its own conda package?
+# - cuda-version=11.8 #: TODO: ROCm HIP SDK as its own conda package?
+# - cudatoolkit #: TODO: ROCm HIP SDK as its own conda package?
+#- cxx-compiler #: linker issues if uses other rt libs than hipcc
+- cython>=3.0.0
+- doxygen=1.9.1
+- fmt>=10.1.1,<11
+- gcc_linux-64=11.*
+- gcovr>=5.0
+- graphviz
+- identify>=2.5.20
+- ipython
+- make
+- nbsphinx
+- ninja
+- numba>=0.57 # :TODO ROCm version of Numba as its own conda package?
+- numpy>=1.21
+- numpydoc
+# - nvcc_linux-64=11.8 #: TODO: ROCm HIP SDK as its own conda package?
+- pre-commit
+- pytest
+- pytest-cov
+- python>=3.9,<3.11
+- scikit-build>=0.13.1
+- spdlog>=1.12.0,<1.13
+- sphinx
+- sphinx-copybutton
+- sphinx-markdown-tables
+- sphinx_rtd_theme
+- sysroot_linux-64==2.17
+- tomli
+name: all_rocm_arch-x86_64

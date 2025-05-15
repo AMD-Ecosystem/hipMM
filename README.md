@@ -1,11 +1,39 @@
-# <div align="left"><img src="img/rapids_logo.png" width="90px"/>&nbsp;RMM: RAPIDS Memory Manager</div>
+<!-- MIT License
+  --
+  -- Modifications Copyright (C) 2024-2025 Advanced Micro Devices, Inc.
+  --
+  -- Permission is hereby granted, free of charge, to any person obtaining a copy
+  -- of this software and associated documentation files (the "Software"), to deal
+  -- in the Software without restriction, including without limitation the rights
+  -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  -- copies of the Software, and to permit persons to whom the Software is
+  -- furnished to do so, subject to the following conditions:
+  --
+  -- The above copyright notice and this permission notice shall be included in all
+  -- copies or substantial portions of the Software.
+  --
+  -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  -- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  -- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  -- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  -- SOFTWARE.
+-->
 
-**NOTE:** For the latest stable [README.md](https://github.com/rapidsai/rmm/blob/main/README.md) ensure you are on the `main` branch.
+# HIP Memory Manager for AMD GPUs (hipMM)
 
-## Resources
+> [!CAUTION]
+> This release is an *early-access* software technology preview. Running production workloads is *not* recommended.
+
+> [!NOTE]
+> This ROCm&trade; port is derived from the NVIDIA RAPIDS&reg; RMM project (**version 23.12**). It aims to
+follow the latter's directory structure, file naming and API naming as closely as possible to minimize porting friction for users that are interested in using both projects.
+
+## RMM Resources
 
 - [RMM Reference Documentation](https://docs.rapids.ai/api/rmm/stable/): Python API reference, tutorials, and topic guides.
-- [librmm Reference Documentation](https://docs.rapids.ai/api/librmm/stable/): C/C++ CUDA library API reference.
+- [librmm Reference Documentation](https://docs.rapids.ai/api/librmm/stable/): C/C++ library API reference.
 - [Getting Started](https://rapids.ai/start.html): Instructions for installing RMM.
 - [RAPIDS Community](https://rapids.ai/community.html): Get help, contribute, and collaborate.
 - [GitHub repository](https://github.com/rapidsai/rmm): Download the RMM source code.
@@ -18,125 +46,199 @@ device memory are allocated. For example, using "pinned" host memory for asynchr
 host <-> device memory transfers, or using a device memory pool sub-allocator to reduce the cost of
 dynamic device memory allocation.
 
-The goal of the RAPIDS Memory Manager (RMM) is to provide:
+The goal of the HIP Memory Manager (hipMM) is to provide:
 - A common interface that allows customizing [device](#device_memory_resource) and
   [host](#host_memory_resource) memory allocation
 - A collection of [implementations](#available-resources) of the interface
 - A collection of [data structures](#device-data-structures) that use the interface for memory allocation
 
-For information on the interface RMM provides and how to use RMM in your C++ code, see
+For information on the interface hipMM provides and how to use hipMM in your C++ code, see
 [below](#using-rmm-in-c).
 
-For a walkthrough about the design of the RAPIDS Memory Manager, read [Fast, Flexible Allocation for NVIDIA CUDA with RAPIDS Memory Manager](https://developer.nvidia.com/blog/fast-flexible-allocation-for-cuda-with-rapids-memory-manager/) on the NVIDIA Developer Blog.
+For a walkthrough about the design of the HIP Memory Manager, read [Fast, Flexible Allocation for NVIDIA with RAPIDS Memory Manager](https://developer.nvidia.com/blog/fast-flexible-allocation-for-cuda-with-rapids-memory-manager/) on the NVIDIA Developer Blog.
 
 ## Installation
 
-### Conda
+> [!NOTE]
+> We support only AMD GPUs. Use the NVIDIA RAPIDS package for NVIDIA GPUs.
 
-RMM can be installed with Conda ([miniconda](https://conda.io/miniconda.html), or the full
+> [!NOTE]
+> Currently, it is not possible to install hipMM via `conda`.
+
+<!-- ### Conda
+
+hipMM can be installed with Conda ([miniconda](https://conda.io/miniconda.html), or the full
 [Anaconda distribution](https://www.anaconda.com/download)) from the `rapidsai` channel:
 
 ```bash
-conda install -c rapidsai -c conda-forge -c nvidia rmm cuda-version=11.8
+# NOTE: Conda installation not supported for hipMM for AMD GPUs.
+# conda install -c rapidsai -c conda-forge -c nvidia rmm cuda-version=11.8
 ```
 
 We also provide [nightly Conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
 of our latest development branch.
 
-Note: RMM is supported only on Linux, and only tested with Python versions 3.9 and 3.10.
+Note: hipMM is supported only on Linux, and only tested with Python versions 3.9 and 3.10.
 
 
-Note: The RMM package from Conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
+Note: The hipMM package from Conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
 
-See the [Get RAPIDS version picker](https://rapids.ai/start.html) for more OS and version info.
+See the [Get RAPIDS version picker](https://rapids.ai/start.html) for more OS and version info. -->
 
 ## Building from Source
 
-### Get RMM Dependencies
+### Get hipMM Dependencies
 
 Compiler requirements:
 
-* `gcc`     version 9.3+
-* `nvcc`    version 11.2+
-* `cmake`   version 3.26.4+
+* `gcc`                    version 9.3+
+* ROCm HIP SDK compilers   version 5.6.0+, recommended is 6.3.0+
+* `cmake`                  version 3.26.4+
 
-CUDA/GPU requirements:
+GPU requirements:
 
-* CUDA 11.2+
-* NVIDIA driver 450.51+
-* Pascal architecture or better
-
-You can obtain CUDA from [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
+* ROCm HIP SDK 5.6.0+, recommended is 6.3.0+
 
 Python requirements:
 * `scikit-build`
-* `cuda-python`
+* `hip-python`
+* `hip-python-as-cuda`
 * `cython`
 
 For more details, see [pyproject.toml](python/pyproject.toml)
 
 
-### Script to build RMM from source
+### Script to build hipMM from source
 
-To install RMM from source, ensure the dependencies are met and follow the steps below:
+To install hipMM from source, ensure the dependencies are met and follow the steps below:
 
 - Clone the repository and submodules
 ```bash
-$ git clone --recurse-submodules https://github.com/rapidsai/rmm.git
-$ cd rmm
+$ git clone --recurse-submodules https://github.com/ROCm-DS/hipMM.git
+$ cd hipMM
 ```
 
 - Create the conda development environment `rmm_dev`
 ```bash
 # create the conda environment (assuming in base `rmm` directory)
-$ conda env create --name rmm_dev --file conda/environments/all_cuda-118_arch-x86_64.yaml
+$ conda env create --name rmm_dev --file conda/environments/all_rocm_arch-x86_64.yaml
 # activate the environment
 $ conda activate rmm_dev
 ```
 
-- Build and install `librmm` using cmake & make. CMake depends on the `nvcc` executable being on
-  your path or defined in `CUDACXX` environment variable.
+- Install ROCm dependencies that are not yet distributed via a conda channel. We install HIP Python and the optional Numba HIP dependency via the Github-distributed `numba-hip` package. We select dependencies of Numba HIP that agree with our ROCm installation by providing a parameter `rocm-${ROCM_MAJOR}-${ROCM-MINOR}-${ROCM-PATCH}`
+(example: `rocm-6-1-2`) in square brackets:
+
+> [!IMPORTANT]
+> Some hipMM dependencies are currently distributed via: https://test.pypi.org/simple
+> We need to specify 'https://test.pypi.org/simple' as additional global extra index URL.
+> To append the URL and not overwrite what else is specified already, we combine `pip
+> config set` and `pip config get` as shown below. We further restore the original URLs.
+> (Note that specifying the `--extra-index-url` command line option does not have
+> the same effect.)
+
+```bash
+(rmm_dev) $ pip install --upgrade pip
+(rmm_dev) $ previous_urls=$(pip config get global.extra-index-url)
+(rmm_dev) $ pip config set global.extra-index-url "${previous_urls} https://test.pypi.org/simple"
+(rmm_dev) $ pip install numba-hip[rocm-${ROCM_MAJOR}-${ROCM-MINOR}-${ROCM-PATCH}]@git+https://github.com/rocm/numba-hip.git
+# example: pip install numba-hip[rocm-6-1-2]@git+https://github.com/rocm/numba-hip.git
+(rmm_dev) $ pip config set global.extra-index-url "${previous_urls}" # restore urls
+```
+
+> [!IMPORTANT]
+> When compiling for AMD GPUs, we always need to set the environment variable `CXX` before building so that the Cython build process uses a HIP C++ compiler.
+>
+> Example:
+>
+> `(rmm_dev) $ export CXX=hipcc`
+>
+> We further need to provide the location of the ROCm CMake scripts to CMake via the `CMAKE_PREFIX_PATH` CMake or environment variable. We append via the `:` char to not modify configurations performeed by the active Conda environment.
+>
+> Example:
+>
+> `(rmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake"`
+>
+
+- Build and install `librmm` using cmake & make.
 
 ```bash
 
-$ mkdir build                                       # make a build directory
-$ cd build                                          # enter the build directory
-$ cmake .. -DCMAKE_INSTALL_PREFIX=/install/path     # configure cmake ... use $CONDA_PREFIX if you're using Anaconda
-$ make -j                                           # compile the library librmm.so ... '-j' will start a parallel job using the number of physical cores available on your system
-$ make install                                      # install the library librmm.so to '/install/path'
+(rmm_dev) $ export CXX="hipcc"                                # Cython CXX compiler, adjust according to your setup.
+(rmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake" # ROCm CMake packages
+(rmm_dev) $ mkdir build                                       # make a build directory
+(rmm_dev) $ cd build                                          # enter the build directory
+(rmm_dev) $ cmake .. -DCMAKE_INSTALL_PREFIX=/install/path     # configure cmake ... use $CONDA_PREFIX if you're using Anaconda
+(rmm_dev) $ make -j                                           # compile the library librmm.so ... '-j' will start a parallel job using the number of physical cores available on your system
+(rmm_dev) $ make install                                      # install the library librmm.so to '/install/path'
 ```
 
 - Building and installing `librmm` and `rmm` using build.sh. Build.sh creates build dir at root of
-  git repository. build.sh depends on the `nvcc` executable being on your path or defined in
-  `CUDACXX` environment variable.
+  git repository.
 
 ```bash
 
-$ ./build.sh -h                                     # Display help and exit
-$ ./build.sh -n librmm                              # Build librmm without installing
-$ ./build.sh -n rmm                                 # Build rmm without installing
-$ ./build.sh -n librmm rmm                          # Build librmm and rmm without installing
-$ ./build.sh librmm rmm                             # Build and install librmm and rmm
+(rmm_dev) $ export CXX="hipcc"                                # Cython CXX compiler, adjust according to your setup.
+(rmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake" # ROCm CMake packages
+(rmm_dev) $ ./build.sh -h                                     # Display help and exit
+(rmm_dev) $ ./build.sh -n librmm                              # Build librmm without installing
+(rmm_dev) $ ./build.sh -n rmm                                 # Build rmm without installing
+(rmm_dev) $ ./build.sh -n librmm rmm                          # Build librmm and rmm without installing
+(rmm_dev) $ ./build.sh librmm rmm                             # Build and install librmm and rmm
 ```
+
+> [!Note]
+> Before rebuilding, it is recommended to remove previous build files.
+> When you are using the `./build.sh` script, this can be accomplished
+> by additionally specifying `clean` (example: `./build.sh clean rmm`).
 
 - To run tests (Optional):
 ```bash
-$ cd build (if you are not already in build directory)
+(rmm_dev) $ cd build (if you are not already in build directory)
 $ make test
 ```
 
 - Build, install, and test the `rmm` python package, in the `python` folder:
 ```bash
-$ python setup.py build_ext --inplace
-$ python setup.py install
-$ pytest -v
+(rmm_dev) $ export CXX="hipcc" # Cython CXX compiler, adjust according to your setup.
+(rmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake" # ROCm CMake packages
+(rmm_dev) $ python setup.py build_ext --inplace
+(rmm_dev) $ python setup.py install
+(rmm_dev) $ pytest -v
 ```
 
-Done! You are ready to develop for the RMM OSS project.
+- Build the `rmm` python package and create a binary wheel, in the `python` folder:
+```bash
+(rmm_dev) $ export CXX="hipcc" # Cython CXX compiler, adjust according to your setup.
+(rmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake" # ROCm CMake packages
+(rmm_dev) $ python3 setup.py bdist_wheel
+```
+
+Done! You are ready to develop for the hipMM OSS project.
+
+### Installing a hipMM Python wheel
+
+When you install the hipMM-ROCm Python wheel, you can again specify the ROCm version of the dependencies via the optional dependency key `rocm-${ROCM_MAJOR}_${ROCM_MINOR}-${ROCM-PATCH}`. Again, you need to specify an extra `pip` index URL to make it possible for `pip` to find some dependencies.
+
+```bash
+$ previous_urls=$(pip config get global.extra-index-url)
+$ pip config set global.extra-index-url "${previous_urls} https://test.pypi.org/simple"
+
+$ pip install ${path_to_wheel}.whl[rocm-${ROCM_MAJOR}_${ROCM_MINOR}-${ROCM-PATCH}]
+# example: pip install ${path_to_wheel}.whl[rocm-6-1-2]
+```
+
+> [!IMPORTANT]
+> Each hipMM-ROCm wheel has been built against a particular ROCm version.
+> The ROCm dependency key helps you to install hipMM dependencies for this
+> particular ROCm version. Using the wheel with an incompatible
+> ROCm installation or specifying dependencies that are not compatible
+> with the ROCm installation assumed by the hipMM wheel,
+> will likely result in issues.
 
 ### Caching third-party dependencies
 
-RMM uses [CPM.cmake](https://github.com/TheLartians/CPM.cmake) to
+hipMM uses [CPM.cmake](https://github.com/TheLartians/CPM.cmake) to
 handle third-party dependencies like spdlog, Thrust, GoogleTest,
 GoogleBenchmark. In general you won't have to worry about it. If CMake
 finds an appropriate version on your system, it uses it (you can
@@ -148,10 +250,10 @@ If you frequently start new builds from scratch, consider setting the
 environment variable `CPM_SOURCE_CACHE` to an external download
 directory to avoid repeated downloads of the third-party dependencies.
 
-## Using RMM in a downstream CMake project
+## Using hipMM in a downstream CMake project
 
-The installed RMM library provides a set of config files that makes it easy to
-integrate RMM into your own CMake project. In your `CMakeLists.txt`, just add
+The installed hipMM library provides a set of config files that makes it easy to
+integrate hipMM into your own CMake project. In your `CMakeLists.txt`, just add
 
 ```cmake
 find_package(rmm [VERSION])
@@ -159,25 +261,25 @@ find_package(rmm [VERSION])
 target_link_libraries(<your-target> (PRIVATE|PUBLIC) rmm::rmm)
 ```
 
-Since RMM is a header-only library, this does not actually link RMM,
+Since hipMM is a header-only library, this does not actually link hipMM,
 but it makes the headers available and pulls in transitive dependencies.
-If RMM is not installed in a default location, use
+If hipMM is not installed in a default location, use
 `CMAKE_PREFIX_PATH` or `rmm_ROOT` to point to its location.
 
-One of RMM's dependencies is the Thrust library, so the above
+One of hipMM's dependencies is the Thrust library, so the above
 automatically pulls in `Thrust` by means of a dependency on the
 `rmm::Thrust` target. By default it uses the standard configuration of
 Thrust. If you want to customize it, you can set the variables
 `THRUST_HOST_SYSTEM` and `THRUST_DEVICE_SYSTEM`; see
 [Thrust's CMake documentation](https://github.com/NVIDIA/thrust/blob/main/thrust/cmake/README.md).
 
-# Using RMM in C++
+# Using hipMM in C++
 
-The first goal of RMM is to provide a common interface for device and host memory allocation.
+The first goal of hipMM is to provide a common interface for device and host memory allocation.
 This allows both _users_ and _implementers_ of custom allocation logic to program to a single
 interface.
 
-To this end, RMM defines two abstract interface classes:
+To this end, hipMM defines two abstract interface classes:
 - [`rmm::mr::device_memory_resource`](#device_memory_resource) for device memory allocation
 - [`rmm::mr::host_memory_resource`](#host_memory_resource) for host memory allocation
 
@@ -210,23 +312,23 @@ on which to perform the (de)allocation.
 
 ## `cuda_stream_view` and `cuda_stream`
 
-`rmm::cuda_stream_view` is a simple non-owning wrapper around a CUDA `cudaStream_t`. This wrapper's
-purpose is to provide strong type safety for stream types. (`cudaStream_t` is an alias for a pointer,
-which can lead to ambiguity in APIs when it is assigned `0`.)  All RMM stream-ordered APIs take a
+`rmm::cuda_stream_view` is a simple non-owning wrapper around a `hipStream_t`. This wrapper's
+purpose is to provide strong type safety for stream types. (`hipStream_t` is an alias for a pointer,
+which can lead to ambiguity in APIs when it is assigned `0`.)  All hipMM stream-ordered APIs take a
 `rmm::cuda_stream_view` argument.
 
-`rmm::cuda_stream` is a simple owning wrapper around a CUDA `cudaStream_t`. This class provides
-RAII semantics (constructor creates the CUDA stream, destructor destroys it). An `rmm::cuda_stream`
-can never represent the CUDA default stream or per-thread default stream; it only ever represents
+`rmm::cuda_stream` is a simple owning wrapper around a `hipStream_t`. This class provides
+RAII semantics (constructor creates the stream, destructor destroys it). An `rmm::cuda_stream`
+can never represent the default stream or per-thread default stream; it only ever represents
 a single non-default stream. `rmm::cuda_stream` cannot be copied, but can be moved.
 
 ## `cuda_stream_pool`
 
-`rmm::cuda_stream_pool` provides fast access to a pool of CUDA streams. This class can be used to
+`rmm::cuda_stream_pool` provides fast access to a pool of streams. This class can be used to
 create a set of `cuda_stream` objects whose lifetime is equal to the `cuda_stream_pool`. Using the
 stream pool can be faster than creating the streams on the fly. The size of the pool is configurable.
 Depending on this size, multiple calls to `cuda_stream_pool::get_stream()` may return instances of
-`rmm::cuda_stream_view` that represent identical CUDA streams.
+`rmm::cuda_stream_view` that represent identical streams.
 
 ### Thread Safety
 
@@ -237,7 +339,7 @@ construction and destruction of the memory resource object.
 
 Note that a class `thread_safe_resource_adapter` is provided which can be used to adapt a memory
 resource that is not thread safe to be thread safe (as described above). This adapter is not needed
-with any current RMM device memory resources.
+with any current hipMM device memory resources.
 
 ### Stream-ordered Memory Allocation
 
@@ -247,17 +349,17 @@ overhead of synchronization.
 
 A call to `device_memory_resource::allocate(bytes, stream_a)` returns a pointer that is valid to use
 on `stream_a`. Using the memory on a different stream (say `stream_b`) is Undefined Behavior unless
-the two streams are first synchronized, for example by using `cudaStreamSynchronize(stream_a)` or by
-recording a CUDA event on `stream_a` and then calling `cudaStreamWaitEvent(stream_b, event)`.
+the two streams are first synchronized, for example by using `hipStreamSynchronize(stream_a)` or by
+recording a event on `stream_a` and then calling `hipStreamWaitEvent(stream_b, event)`.
 
 The stream specified to `device_memory_resource::deallocate` should be a stream on which it is valid
 to use the deallocated memory immediately for another allocation. Typically this is the stream
 on which the allocation was *last* used before the call to `deallocate`. The passed stream may be
 used internally by a `device_memory_resource` for managing available memory with minimal
 synchronization, and it may also be synchronized at a later time, for example using a call to
-`cudaStreamSynchronize()`.
+`hipStreamSynchronize()`.
 
-For this reason, it is Undefined Behavior to destroy a CUDA stream that is passed to
+For this reason, it is Undefined Behavior to destroy a stream that is passed to
 `device_memory_resource::deallocate`. If the stream on which the allocation was last used has been
 destroyed before calling `deallocate` or it is known that it will be destroyed, it is likely better
 to synchronize the stream (before destroying it) and then pass a different stream to `deallocate`
@@ -267,25 +369,25 @@ Note that device memory data structures such as `rmm::device_buffer` and `rmm::d
 follow these stream-ordered memory allocation semantics and rules.
 
 For further information about stream-ordered memory allocation semantics, read
-[Using the NVIDIA CUDA Stream-Ordered Memory
+[Using the NVIDIA Stream-Ordered Memory
 Allocator](https://developer.nvidia.com/blog/using-cuda-stream-ordered-memory-allocator-part-1/)
 on the NVIDIA Developer Blog.
 
 ### Available Resources
 
-RMM provides several `device_memory_resource` derived classes to satisfy various user requirements.
+hipMM provides several `device_memory_resource` derived classes to satisfy various user requirements.
 For more detailed information about these resources, see their respective documentation.
 
 #### `cuda_memory_resource`
 
-Allocates and frees device memory using `cudaMalloc` and `cudaFree`.
+Allocates and frees device memory using `hipMalloc` and `hipFree`.
 
 #### `managed_memory_resource`
 
-Allocates and frees device memory using `cudaMallocManaged` and `cudaFree`.
+Allocates and frees device memory using `hipMallocManaged` and `hipFree`.
 
 Note that `managed_memory_resource` cannot be used with NVIDIA Virtual GPU Software (vGPU, for use
-with virtual machines or hypervisors) because [NVIDIA CUDA Unified Memory is not supported by
+with virtual machines or hypervisors) because [NVIDIA Unified Memory is not supported by
 NVIDIA vGPU](https://docs.nvidia.com/grid/latest/grid-vgpu-user-guide/index.html#cuda-open-cl-support-vgpu).
 
 #### `pool_memory_resource`
@@ -305,23 +407,23 @@ bin sizes. Often configured with multiple bins backed by `fixed_size_memory_reso
 
 ### Default Resources and Per-device Resources
 
-RMM users commonly need to configure a `device_memory_resource` object to use for all allocations
+hipMM users commonly need to configure a `device_memory_resource` object to use for all allocations
 where another resource has not explicitly been provided. A common example is configuring a
 `pool_memory_resource` to use for all allocations to get fast dynamic allocation.
 
-To enable this use case, RMM provides the concept of a "default" `device_memory_resource`. This
+To enable this use case, hipMM provides the concept of a "default" `device_memory_resource`. This
 resource is used when another is not explicitly provided.
 
 Accessing and modifying the default resource is done through two functions:
 - `device_memory_resource* get_current_device_resource()`
-   - Returns a pointer to the default resource for the current CUDA device.
+   - Returns a pointer to the default resource for the current device.
    - The initial default memory resource is an instance of `cuda_memory_resource`.
    - This function is thread safe with respect to concurrent calls to it and
      `set_current_device_resource()`.
    - For more explicit control, you can use `get_per_device_resource()`, which takes a device ID.
 
 - `device_memory_resource* set_current_device_resource(device_memory_resource* new_mr)`
-   - Updates the default memory resource pointer for the current CUDA device to `new_mr`
+   - Updates the default memory resource pointer for the current device to `new_mr`
    - Returns the previous default resource pointer
    - If `new_mr` is `nullptr`, then resets the default resource to `cuda_memory_resource`
    - This function is thread safe with respect to concurrent calls to it and
@@ -340,10 +442,10 @@ rmm::mr::device_memory_resource* mr = rmm::mr::get_current_device_resource(); //
 
 #### Multiple Devices
 
-A `device_memory_resource` should only be used when the active CUDA device is the same device
+A `device_memory_resource` should only be used when the active device is the same device
 that was active when the `device_memory_resource` was created. Otherwise behavior is undefined.
 
-If a `device_memory_resource` is used with a stream associated with a different CUDA device than the
+If a `device_memory_resource` is used with a stream associated with a different device than the
 device for which the memory resource was created, behavior is undefined.
 
 Creating a `device_memory_resource` for each device requires care to set the current device before
@@ -354,7 +456,7 @@ objects for each device and sets them as the per-device resource for that device
 ```c++
 std::vector<unique_ptr<pool_memory_resource>> per_device_pools;
 for(int i = 0; i < N; ++i) {
-  cudaSetDevice(i); // set device i before creating MR
+  hipSetDevice(i); // set device i before creating MR
   // Use a vector of unique_ptr to maintain the lifetime of the MRs
   per_device_pools.push_back(std::make_unique<pool_memory_resource>());
   // Set the per-device resource for device i
@@ -362,20 +464,20 @@ for(int i = 0; i < N; ++i) {
 }
 ```
 
-Note that the CUDA device that is current when creating a `device_memory_resource` must also be
+Note that the device that is current when creating a `device_memory_resource` must also be
 current any time that `device_memory_resource` is used to deallocate memory, including in a
 destructor. This affects RAII classes like `rmm::device_buffer` and `rmm::device_uvector`. Here's an
 (incorrect) example that assumes the above example loop has been run to create a
-`pool_memory_resource` for each device. A correct example adds a call to `cudaSetDevice(0)` on the
+`pool_memory_resource` for each device. A correct example adds a call to `hipSetDevice(0)` on the
 line of the error comment.
 
 ```c++
 {
-  RMM_CUDA_TRY(cudaSetDevice(0));
+  RMM_CUDA_TRY(hipSetDevice(0));
   rmm::device_buffer buf_a(16);
 
   {
-    RMM_CUDA_TRY(cudaSetDevice(1));
+    RMM_CUDA_TRY(hipSetDevice(1));
     rmm::device_buffer buf_b(16);
   }
 
@@ -386,7 +488,7 @@ line of the error comment.
 ### Allocators
 
 C++ interfaces commonly allow customizable memory allocation through an [`Allocator`](https://en.cppreference.com/w/cpp/named_req/Allocator) object.
-RMM provides several `Allocator` and `Allocator`-like classes.
+hipMM provides several `Allocator` and `Allocator`-like classes.
 
 #### `polymorphic_allocator`
 
@@ -416,7 +518,7 @@ adapted.deallocate(p,100);
 
 `thrust_allocator` is a device memory allocator that uses the strongly typed `thrust::device_ptr`, making it usable with containers like `thrust::device_vector`.
 
-See [below](#using-rmm-with-thrust) for more information on using RMM with Thrust.
+See [below](#using-rmm-with-thrust) for more information on using hipMM with Thrust.
 
 ## Device Data Structures
 
@@ -506,25 +608,25 @@ Allocates "pinned" host memory using `cuda(Malloc/Free)Host`.
 
 ## Host Data Structures
 
-RMM does not currently provide any data structures that interface with `host_memory_resource`.
-In the future, RMM will provide a similar host-side structure like `device_buffer` and an allocator
+hipMM does not currently provide any data structures that interface with `host_memory_resource`.
+In the future, hipMM will provide a similar host-side structure like `device_buffer` and an allocator
 that can be used with STL containers.
 
-## Using RMM with Thrust
+## Using hipMM with Thrust
 
-RAPIDS and other CUDA libraries make heavy use of Thrust. Thrust uses CUDA device memory in two
+ROCm-DS and other libraries make heavy use of Thrust. Thrust uses device memory in two
 situations:
 
  1. As the backing store for `thrust::device_vector`, and
  2. As temporary storage inside some algorithms, such as `thrust::sort`.
 
-RMM provides `rmm::mr::thrust_allocator` as a conforming Thrust allocator that uses
+hipMM provides `rmm::mr::thrust_allocator` as a conforming Thrust allocator that uses
 `device_memory_resource`s.
 
 ### Thrust Algorithms
 
 To instruct a Thrust algorithm to use `rmm::mr::thrust_allocator` to allocate temporary storage, you
-can use the custom Thrust CUDA device execution policy: `rmm::exec_policy(stream)`.
+can use the custom Thrust device execution policy: `rmm::exec_policy(stream)`.
 
 ```c++
 thrust::sort(rmm::exec_policy(stream, ...);
@@ -536,7 +638,7 @@ These two arguments must be identical.
 
 ## Logging
 
-RMM includes two forms of logging. Memory event logging and debug logging.
+hipMM includes two forms of logging. Memory event logging and debug logging.
 
 ### Memory Event Logging and `logging_resource_adaptor`
 
@@ -548,7 +650,7 @@ Each row in the log represents either an allocation or a deallocation. The colum
 "Thread, Time, Action, Pointer, Size, Stream".
 
 The CSV output files of the `logging_resource_adaptor` can be used as input to `REPLAY_BENCHMARK`,
-which is available when building RMM from source, in the `gbenchmarks` folder in the build directory.
+which is available when building hipMM from source, in the `gbenchmarks` folder in the build directory.
 This log replayer can be useful for profiling and debugging allocator issues.
 
 The following C++ example creates a logging version of a `cuda_memory_resource` that outputs the log
@@ -570,7 +672,7 @@ set to `True`. The log file name can be set using the `log_file_name` parameter.
 
 ### Debug Logging
 
-RMM includes a debug logger which can be enabled to log trace and debug information to a file. This
+hipMM includes a debug logger which can be enabled to log trace and debug information to a file. This
 information can show when errors occur, when additional memory is allocated from upstream resources,
 etc. The default log file is `rmm_log.txt` in the current working directory, but the environment
 variable `RMM_DEBUG_LOG_FILE` can be set to specify the path and file name.
@@ -586,37 +688,37 @@ run time. C++ applications must must call `rmm::logger().set_level()`, for examp
 levels of logging down to `TRACE`, call `rmm::logger().set_level(spdlog::level::trace)` (and compile
 librmm with `-DRMM_LOGGING_LEVEL=TRACE`). Python applications must call `rmm.set_logging_level()`,
 for example to enable all levels of logging down to `TRACE`, call `rmm.set_logging_level("trace")`
-(and compile the RMM Python module with `-DRMM_LOGGING_LEVEL=TRACE`).
+(and compile the hipMM Python module with `-DRMM_LOGGING_LEVEL=TRACE`).
 
 Note that debug logging is different from the CSV memory allocation logging provided by
 `rmm::mr::logging_resource_adapter`. The latter is for logging a history of allocation /
-deallocation actions which can be useful for replay with RMM's replay benchmark.
+deallocation actions which can be useful for replay with hipMM's replay benchmark.
 
-## RMM and CUDA Memory Bounds Checking
+## hipMM and Memory Bounds Checking
 
 Memory allocations taken from a memory resource that allocates a pool of memory (such as
-`pool_memory_resource` and `arena_memory_resource`) are part of the same low-level CUDA memory
+`pool_memory_resource` and `arena_memory_resource`) are part of the same low-level memory
 allocation. Therefore, out-of-bounds or misaligned accesses to these allocations are not likely to
-be detected by CUDA tools such as
-[CUDA Compute Sanitizer](https://docs.nvidia.com/cuda/compute-sanitizer/index.html) memcheck.
+be detected by tools such as
+[Compute Sanitizer](https://docs.nvidia.com/cuda/compute-sanitizer/index.html) memcheck.
 
-Exceptions to this are `cuda_memory_resource`, which wraps `cudaMalloc`, and
-`cuda_async_memory_resource`, which uses `cudaMallocAsync` with CUDA's built-in memory pool
-functionality (CUDA 11.2 or later required). Illegal memory accesses to memory allocated by these
+Exceptions to this are `cuda_memory_resource`, which wraps `hipMalloc`, and
+`cuda_async_memory_resource`, which uses `hipMallocAsync` with the device runtime's built-in memory pool
+functionality (11.2 or later required). Illegal memory accesses to memory allocated by these
 resources are detectable with Compute Sanitizer Memcheck.
 
 It may be possible in the future to add support for memory bounds checking with other memory
 resources using NVTX APIs.
 
-## Using RMM in Python Code
+## Using hipMM in Python Code
 
-There are two ways to use RMM in Python code:
+There are two ways to use hipMM in Python code:
 
 1. Using the `rmm.DeviceBuffer` API to explicitly create and manage
    device memory allocations
 2. Transparently via external libraries such as CuPy and Numba
 
-RMM provides a `MemoryResource` abstraction to control _how_ device
+hipMM provides a `MemoryResource` abstraction to control _how_ device
 memory is allocated in both the above uses.
 
 ### DeviceBuffers
@@ -662,18 +764,18 @@ array([1., 2., 3.])
 ### MemoryResource objects
 
 `MemoryResource` objects are used to configure how device memory allocations are made by
-RMM.
+hipMM.
 
-By default if a `MemoryResource` is not set explicitly, RMM uses the `CudaMemoryResource`, which
-uses `cudaMalloc` for allocating device memory.
+By default if a `MemoryResource` is not set explicitly, hipMM uses the `CudaMemoryResource`, which
+uses `hipMalloc` for allocating device memory.
 
-`rmm.reinitialize()` provides an easy way to initialize RMM with specific memory resource options
+`rmm.reinitialize()` provides an easy way to initialize hipMM with specific memory resource options
 across multiple devices. See `help(rmm.reinitialize)` for full details.
 
 For lower-level control, the `rmm.mr.set_current_device_resource()` function can be
-used to set a different MemoryResource for the current CUDA device.  For
-example, enabling the `ManagedMemoryResource` tells RMM to use
-`cudaMallocManaged` instead of `cudaMalloc` for allocating memory:
+used to set a different MemoryResource for the current device.  For
+example, enabling the `ManagedMemoryResource` tells hipMM to use
+`hipMallocManaged` instead of `hipMalloc` for allocating memory:
 
 ```python
 >>> import rmm
@@ -710,12 +812,15 @@ resources
 MemoryResources are highly configurable and can be composed together in different ways.
 See `help(rmm.mr)` for more information.
 
-## Using RMM with third-party libraries
+## Using hipMM with third-party libraries
 
-### Using RMM with CuPy
+> [!WARNING]
+> The contents of this section have not been tested explicitly with **hipMM**.
 
-You can configure [CuPy](https://cupy.dev/) to use RMM for memory
-allocations by setting the CuPy CUDA allocator to
+### Using hipMM with CuPy
+
+You can configure [CuPy](https://cupy.dev/) to use hipMM for memory
+allocations by setting the CuPy allocator to
 `rmm_cupy_allocator`:
 
 ```python
@@ -725,13 +830,13 @@ allocations by setting the CuPy CUDA allocator to
 ```
 
 
-**Note:** This only configures CuPy to use the current RMM resource for allocations.
+**Note:** This only configures CuPy to use the current hipMM resource for allocations.
 It does not initialize nor change the current resource, e.g., enabling a memory pool.
 See [here](#memoryresource-objects) for more information on changing the current memory resource.
 
-### Using RMM with Numba
+### Using hipMM with Numba
 
-You can configure Numba to use RMM for memory allocations using the
+You can configure Numba to use hipMM for memory allocations using the
 Numba [EMM Plugin](https://numba.readthedocs.io/en/stable/cuda/external-memory.html#setting-emm-plugin).
 
 This can be done in two ways:
@@ -750,15 +855,15 @@ This can be done in two ways:
   >>> cuda.set_memory_manager(RMMNumbaManager)
   ```
 
-**Note:** This only configures Numba to use the current RMM resource for allocations.
+**Note:** This only configures Numba to use the current hipMM resource for allocations.
 It does not initialize nor change the current resource, e.g., enabling a memory pool.
 See [here](#memoryresource-objects) for more information on changing the current memory resource.
 
-### Using RMM with PyTorch
+### Using hipMM with PyTorch
 
-[PyTorch](https://pytorch.org/docs/stable/notes/cuda.html) can use RMM
+[PyTorch](https://pytorch.org/docs/stable/notes/cuda.html) can use hipMM
 for memory allocation.  For example, to configure PyTorch to use an
-RMM-managed pool:
+hipMM-managed pool:
 
 ```python
 import rmm
@@ -769,7 +874,7 @@ rmm.reinitialize(pool_allocator=True)
 torch.cuda.memory.change_current_allocator(rmm_torch_allocator)
 ```
 
-PyTorch and RMM will now share the same memory pool.
+PyTorch and hipMM will now share the same memory pool.
 
 You can, of course, use a custom memory resource with PyTorch as well:
 
@@ -778,13 +883,13 @@ import rmm
 from rmm.allocators.torch import rmm_torch_allocator
 import torch
 
-# note that you can configure PyTorch to use RMM either before or
-# after changing RMM's memory resource.  PyTorch will use whatever
+# note that you can configure PyTorch to use hipMM either before or
+# after changing hipMM's memory resource.  PyTorch will use whatever
 # memory resource is configured to be the "current" memory resource at
 # the time of allocation.
 torch.cuda.change_current_allocator(rmm_torch_allocator)
 
-# configure RMM to use a managed memory resource, wrapped with a
+# configure hipMM to use a managed memory resource, wrapped with a
 # statistics resource adaptor that can report information about the
 # amount of memory allocated:
 mr = rmm.mr.StatisticsResourceAdaptor(rmm.mr.ManagedMemoryResource())

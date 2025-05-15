@@ -11,8 +11,72 @@
 # or implied. See the License for the specific language governing permissions and limitations under
 # the License.
 # =============================================================================
-if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
-  file(DOWNLOAD https://raw.githubusercontent.com/rapidsai/rapids-cmake/branch-23.12/RAPIDS.cmake
-       ${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
+# MIT License
+#
+# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# =============================================================================
+
+set(
+  RAPIDS_CMAKE_MODULE_PATH
+  $ENV{RAPIDS_CMAKE_MODULE_PATH}
+  CACHE FILEPATH
+  "Announce that ROCmDS-CMake is available via the provided module path."
+)
+if (NOT "${RAPIDS_CMAKE_MODULE_PATH}" STREQUAL "")
+  list(APPEND CMAKE_MODULE_PATH "${RAPIDS_CMAKE_MODULE_PATH}")
+  # NOTE(HIP/AMD): needed to set rapids-cmake-dir variable
+  include(rapids-cmake)
+  return()
 endif()
+if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
+  if(DEFINED ENV{RAPIDS_CMAKE_SCRIPT_REPO})
+    set(RAPIDS_CMAKE_SCRIPT_REPO "$ENV{RAPIDS_CMAKE_SCRIPT_REPO}")
+  else()
+    set(RAPIDS_CMAKE_SCRIPT_REPO ROCm-DS/ROCmDS-CMake)
+  endif()
+  if(DEFINED ENV{RAPIDS_CMAKE_SCRIPT_BRANCH})
+    set(RAPIDS_CMAKE_SCRIPT_BRANCH "$ENV{RAPIDS_CMAKE_SCRIPT_BRANCH}")
+  else()
+    set(RAPIDS_CMAKE_SCRIPT_BRANCH release/1.0.x)
+  endif()
+
+  set(URL "https://raw.githubusercontent.com/${RAPIDS_CMAKE_SCRIPT_REPO}/${RAPIDS_CMAKE_SCRIPT_BRANCH}/RAPIDS.cmake")
+  file(DOWNLOAD ${URL}
+    ${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake
+    STATUS DOWNLOAD_STATUS
+  )
+  list(GET DOWNLOAD_STATUS 0 STATUS_CODE)
+  list(GET DOWNLOAD_STATUS 1 ERROR_MESSAGE)
+
+  if(${STATUS_CODE} EQUAL 0)
+    message(STATUS "Downloaded 'RMM_RAPIDS.cmake' successfully!")
+  else()
+    file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
+    # for debuging: message(FATAL_ERROR "Failed to download 'RMM_RAPIDS.cmake'. URL: ${URL}, Reason: ${ERROR_MESSAGE}")
+    message(FATAL_ERROR "Failed to download 'RMM_RAPIDS.cmake'. Reason: ${ERROR_MESSAGE}")
+  endif()
+endif()
+
+if(DEFINED ENV{RAPIDS_CMAKE_BRANCH})
+  set(rapids-cmake-branch $ENV{RAPIDS_CMAKE_BRANCH})
+endif()
+
 include(${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
