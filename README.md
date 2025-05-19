@@ -75,7 +75,7 @@ Install hipMM with:
 
 ```bash
 # NOTE: Conda installation not supported for hipMM for AMD GPUs.
-# conda install -c rapidsai -c conda-forge -c nvidia rmm cuda-version=12.9
+# conda install -c rapidsai -c conda-forge -c nvidia rmm cuda-version=12.8
 ```
 
 We also provide [nightly conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
