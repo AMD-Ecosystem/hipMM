@@ -55,6 +55,8 @@ function(ConfigureBench BENCH_NAME)
   set_target_properties(
     ${BENCH_NAME}
     PROPERTIES POSITION_INDEPENDENT_CODE ON
+               CXX_STANDARD 20
+               CXX_STANDARD_REQUIRED ON
                RUNTIME_OUTPUT_DIRECTORY "$<BUILD_INTERFACE:${RMM_BINARY_DIR}/gbenchmarks>"
                HIP_ARCHITECTURES "${CMAKE_HIP_ARCHITECTURES}"
                INSTALL_RPATH "\$ORIGIN/../../../lib")
