@@ -42,6 +42,10 @@ repos:
       - id: clang-format
         types_or: [c, c++, cuda]
         args: ["-fallback-style=none", "-style=file", "-i"]
+        exclude: |
+          (?x)^(
+            ^cpp/benchmarks/utilities/cxxopts.hpp
+          )
   - repo: https://github.com/sirosen/texthooks
     rev: 0.6.8
     hooks:
@@ -87,6 +91,28 @@ repos:
         types_or: [file]
         language: system
         pass_filenames: false
+        verbose: true
+  - repo: https://github.com/rapidsai/pre-commit-hooks
+    rev: v0.6.0
+    hooks:
+      - id: verify-copyright
+        args: [--fix, --main-branch=main]
+        exclude: |
+          (?x)^(
+            ^cpp/benchmarks/utilities/cxxopts.hpp
+          )
+      - id: verify-alpha-spec
+  - repo: https://github.com/rapidsai/dependency-file-generator
+    rev: v1.18.1
+    hooks:
+      - id: rapids-dependency-file-generator
+        args: ["--clean"]
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args: ["--severity=warning"]
+        files: ^ci/
 
 default_language_version:
       python: python3
