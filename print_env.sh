@@ -63,17 +63,17 @@ echo
 
 echo "***Environment Variables***"
 
-printf '%-32s: %s\n' PATH $PATH
+printf '%-32s: %s\n' PATH "$PATH"
 
-printf '%-32s: %s\n' LD_LIBRARY_PATH $LD_LIBRARY_PATH
+printf '%-32s: %s\n' LD_LIBRARY_PATH "$LD_LIBRARY_PATH"
 
-# printf '%-32s: %s\n' NUMBAPRO_NVVM $NUMBAPRO_NVVM
+printf '%-32s: %s\n' NUMBAPRO_NVVM "$NUMBAPRO_NVVM"
 
-# printf '%-32s: %s\n' NUMBAPRO_LIBDEVICE $NUMBAPRO_LIBDEVICE
+printf '%-32s: %s\n' NUMBAPRO_LIBDEVICE "$NUMBAPRO_LIBDEVICE"
 
-printf '%-32s: %s\n' CONDA_PREFIX $CONDA_PREFIX
+printf '%-32s: %s\n' CONDA_PREFIX "$CONDA_PREFIX"
 
-printf '%-32s: %s\n' PYTHON_PATH $PYTHON_PATH
+printf '%-32s: %s\n' PYTHON_PATH "$PYTHON_PATH"
 
 echo
 
