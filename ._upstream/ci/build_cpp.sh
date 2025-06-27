@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-rapids-configure-conda-channels
+source ./ci/use_gha_tools_from_branch.sh
 
 source rapids-configure-sccache
 source rapids-date-string
