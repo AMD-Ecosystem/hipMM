@@ -629,7 +629,7 @@ be detected by tools such as
 
 Exceptions to this are `cuda_memory_resource`, which wraps `hipMalloc`, and
 `cuda_async_memory_resource`, which uses `hipMallocAsync` with the device runtime's built-in memory pool
-functionality (11.2 or later required). Illegal memory accesses to memory allocated by these
+functionality. Illegal memory accesses to memory allocated by these
 resources are detectable with Compute Sanitizer Memcheck.
 
 It may be possible in the future to add support for memory bounds checking with other memory
