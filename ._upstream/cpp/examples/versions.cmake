@@ -12,5 +12,9 @@
 # the License.
 # =============================================================================
 
-# TODO(HIP/AMD): adapt
-set(RMM_TAG branch-25.08)
+# <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
+# # TODO(HIP/AMD): adapt
+# set(RMM_TAG branch-25.08)
+# =======
+set(RMM_TAG branch-25.12)
+# >>>>>>> END NEW CODE (8b3d2692)
