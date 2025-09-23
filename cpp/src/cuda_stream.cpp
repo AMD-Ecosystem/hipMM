@@ -43,6 +43,8 @@
 
 #include <type_traits>
 
+#include <type_traits>
+
 namespace rmm {
 
 cuda_stream::cuda_stream(cuda_stream::flags flags)
