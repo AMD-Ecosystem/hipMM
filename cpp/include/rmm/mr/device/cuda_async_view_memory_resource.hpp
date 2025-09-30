@@ -81,11 +81,7 @@ class cuda_async_view_memory_resource final : public device_memory_resource {
   {
 #  if !defined(__HIP_PLATFORM_AMD__) // NOTE(HIP/AMD): RMM_CUDA_MALLOC_ASYNC_SUPPORT implies the support of pools
     // Check if cudaMallocAsync Memory pool supported
-    auto const device = rmm::get_current_cuda_device();
-    int cuda_pool_supported{};
-    auto result =
-      cudaDeviceGetAttribute(&cuda_pool_supported, cudaDevAttrMemoryPoolsSupported, device.value());
-    RMM_EXPECTS(result == cudaSuccess && cuda_pool_supported,
+    RMM_EXPECTS(rmm::detail::runtime_async_alloc::is_supported(),
                 "cudaMallocAsync not supported with this CUDA driver/runtime version");
 #  endif
   }
