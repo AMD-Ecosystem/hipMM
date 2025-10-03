@@ -54,7 +54,7 @@ cache:
       - cuda-version =${{ cuda_version }}
       - ${{ stdlib("c") }}
     host:
-      - rapids-logger =0.1
+      - rapids-logger =0.2
       - cuda-driver-dev
 
 outputs:
@@ -78,10 +78,12 @@ outputs:
       host:
         - cuda-version =${{ cuda_version }}
         - cuda-cudart-dev
+        - rapids-logger =0.2
+# >>>>>>> END NEW CODE (96be1638)
       run:
         - ${{ pin_compatible("cuda-version", upper_bound="x", lower_bound="x") }}
         - cuda-cudart
-        - rapids-logger =0.1
+        - rapids-logger =0.2
       run_exports:
         - ${{ pin_subpackage("librmm", upper_bound="x.x") }}
       ignore_run_exports:
@@ -119,7 +121,7 @@ outputs:
       run:
         - ${{ pin_compatible("cuda-version", upper_bound="x", lower_bound="x") }}
         - ${{ pin_subpackage("librmm", exact=True) }}
-        - rapids-logger =0.1
+        - rapids-logger =0.2
         - cuda-cudart
       ignore_run_exports:
         from_package:
