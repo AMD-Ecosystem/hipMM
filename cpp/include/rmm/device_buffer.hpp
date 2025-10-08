@@ -228,6 +228,10 @@ class device_buffer {
    * copied on `stream` to the new allocation. The old allocation is then freed.
    * The bytes from `[size(), new_capacity)` are uninitialized.
    *
+   * @note This function does not synchronize `stream`. `new_capacity` is allocated on `stream`, so
+   * the caller is responsible for synchroning the current stream (accessed by `stream()`) before
+   * calling this function to ensure that the data is valid when the allocation occurs (if any).
+   *
    * @throws rmm::bad_alloc If creating the new allocation fails
    * @throws rmm::cuda_error if the copy from the old to new allocation
    * fails
@@ -255,6 +259,10 @@ class device_buffer {
    *
    * The invariant `size() <= capacity()` holds.
    *
+   * @note This function does not synchronize `stream`. `new_size` is allocated on `stream`, so
+   * the caller is responsible for synchroning the current stream (accessed by `stream()`) before
+   * calling this function to ensure that the data is valid when the allocation occurs (if any).
+   *
    * @throws rmm::bad_alloc If creating the new allocation fails
    * @throws rmm::cuda_error if the copy from the old to new allocation
    * fails
@@ -271,6 +279,10 @@ class device_buffer {
    * allocation to reduce `capacity()` to `size()`.
    *
    * If `size() == capacity()`, no allocations or copies occur.
+   *
+   * @note This function does not synchronize `stream`. The new buffer is allocated on `stream`, so
+   * the caller is responsible for synchroning the current stream (accessed by `stream()`) before
+   * calling this function to ensure that the data is valid when the allocation occurs (if any).
    *
    * @throws rmm::bad_alloc If creating the new allocation fails
    * @throws rmm::cuda_error If the copy from the old to new allocation fails
