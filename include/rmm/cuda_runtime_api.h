@@ -64,6 +64,12 @@
 #ifndef cudaMemcpyDefault
 #  define cudaMemcpyDefault hipMemcpyDefault
 #endif
+#ifndef cudaMemcpyHostToDevice
+#  define cudaMemcpyHostToDevice hipMemcpyHostToDevice
+#endif
+#ifndef cudaMemcpyDeviceToHost
+#  define cudaMemcpyDeviceToHost hipMemcpyDeviceToHost
+#endif
 #ifndef cudaMemPoolAttrReleaseThreshold
 #  define cudaMemPoolAttrReleaseThreshold hipMemPoolAttrReleaseThreshold
 #endif
@@ -211,6 +217,9 @@
 
 #ifndef cudaMemcpyAsync
 #  define cudaMemcpyAsync hipMemcpyAsync
+#endif
+#ifndef cudaMemcpy
+#  define cudaMemcpy hipMemcpy
 #endif
 #ifndef cudaMemsetAsync
 #  define cudaMemsetAsync hipMemsetAsync
