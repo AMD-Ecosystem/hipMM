@@ -192,7 +192,7 @@ class cuda_async_memory_resource final : public device_memory_resource {
   void* do_allocate(std::size_t bytes, rmm::cuda_stream_view stream) override
   {
     void* ptr{nullptr};
-    ptr = pool_.allocate(bytes, stream);
+    ptr = pool_.allocate(stream, bytes);
     return ptr;
   }
 
@@ -206,7 +206,7 @@ class cuda_async_memory_resource final : public device_memory_resource {
    */
   void do_deallocate(void* ptr, std::size_t bytes, rmm::cuda_stream_view stream) noexcept override
   {
-    pool_.deallocate(ptr, bytes, stream);
+    pool_.deallocate(stream, ptr, bytes);
   }
 
   /**
