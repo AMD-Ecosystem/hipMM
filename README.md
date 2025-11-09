@@ -65,7 +65,16 @@ See [build instructions](docs/install/BUILD.rst).
 <!--
 ### Conda
 
-hipMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
+# <<<<<<< OLD CODE from 2efba4d2 (106a6ccf) - COMMENTED OUT
+# hipMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
+# =======
+```bash
+# create the conda environment (assuming in base `rmm` directory)
+$ conda env create --name rmm_dev --file conda/environments/all_cuda-130_arch-$(uname -m).yaml
+# activate the environment
+$ conda activate rmm_dev
+```
+# >>>>>>> END NEW CODE (106a6ccf)
 
 Install hipMM with:
 
