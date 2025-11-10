@@ -137,12 +137,17 @@ commit-files = [
 matrix-entry = "cuda_suffixed=true"
 requires = [
     "cmake>=3.30.4",
-    "hip-python-as-cuda>=7.0.0",
-    "hip-python>=7.0.0",
-    "cython>=3.0.0",
-# <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-#     "amd-libhipmm==4.*,>=4.0.0a0",
+# <<<<<<< OLD CODE from 964bf74a (4680f7c6) - COMMENTED OUT
+#     "hip-python-as-cuda>=7.0.0",
+#     "hip-python>=7.0.0",
+#     "cython>=3.0.0",
+# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
+# #     "amd-libhipmm==4.*,>=4.0.0a0",
+# # =======
 # =======
+    "cuda-python>=13.0.1,<14.0a0",
+    "cython>=3.0.0,<3.2.0",
+# >>>>>>> END NEW CODE (4680f7c6)
     "librmm==25.12.*,>=0.0.0a0",
 # >>>>>>> END NEW CODE (8b3d2692)
     "ninja",
