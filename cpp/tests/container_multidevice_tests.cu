@@ -50,7 +50,7 @@ TYPED_TEST_SUITE(ContainerMultiDeviceTest, containers);
 
 TYPED_TEST(ContainerMultiDeviceTest, CreateDestroyDifferentActiveDevice)
 {
-  // Get the number of cuda devices
+  // Get the number of CUDA devices
   int num_devices = rmm::get_num_cuda_devices();
 
   // only run on multidevice systems
@@ -77,7 +77,7 @@ TYPED_TEST(ContainerMultiDeviceTest, CreateDestroyDifferentActiveDevice)
 
 TYPED_TEST(ContainerMultiDeviceTest, CreateMoveDestroyDifferentActiveDevice)
 {
-  // Get the number of cuda devices
+  // Get the number of CUDA devices
   int num_devices = rmm::get_num_cuda_devices();
 
   // only run on multidevice systems
@@ -117,7 +117,7 @@ TYPED_TEST(ContainerMultiDeviceTest, CreateMoveDestroyDifferentActiveDevice)
 
 TYPED_TEST(ContainerMultiDeviceTest, ResizeDifferentActiveDevice)
 {
-  // Get the number of cuda devices
+  // Get the number of CUDA devices
   int num_devices = rmm::get_num_cuda_devices();
 
   // only run on multidevice systems
@@ -140,7 +140,7 @@ TYPED_TEST(ContainerMultiDeviceTest, ResizeDifferentActiveDevice)
 
 TYPED_TEST(ContainerMultiDeviceTest, ShrinkDifferentActiveDevice)
 {
-  // Get the number of cuda devices
+  // Get the number of CUDA devices
   int num_devices = rmm::get_num_cuda_devices();
 
   // only run on multidevice systems
