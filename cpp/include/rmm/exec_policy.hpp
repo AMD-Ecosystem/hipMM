@@ -51,7 +51,7 @@
 #include <rmm/cuda_stream_view.hpp>
 #include <rmm/detail/export.hpp>
 #include <rmm/detail/thrust_namespace.h>
-#include <rmm/mr/device/thrust_allocator_adaptor.hpp>
+#include <rmm/mr/thrust_allocator_adaptor.hpp>
 #include <rmm/resource_ref.hpp>
 
 #include <thrust/system/hip/execution_policy.h>
