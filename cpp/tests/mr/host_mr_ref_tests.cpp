@@ -3,41 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// MIT License
+// <<<<<<< OLD CODE from 19aab0bb (84156184) - COMMENTED OUT
+// // MIT License
+// //
+// // Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+// //
+// // Permission is hereby granted, free of charge, to any person obtaining a copy
+// // of this software and associated documentation files (the "Software"), to deal
+// // in the Software without restriction, including without limitation the rights
+// // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// // copies of the Software, and to permit persons to whom the Software is
+// // furnished to do so, subject to the following conditions:
+// //
+// // The above copyright notice and this permission notice shall be included in all
+// // copies or substantial portions of the Software.
+// //
+// // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// // SOFTWARE.
 //
-// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
-#include "../../byte_literals.hpp"
+// #include "../../byte_literals.hpp"
+// =======
+#include "../byte_literals.hpp"
+// >>>>>>> END NEW CODE (84156184)
 
 #include <rmm/aligned.hpp>
 #include <rmm/detail/cuda_memory_resource.hpp>
-
-// Suppress deprecation warnings for testing deprecated functionality
-#if defined(__GNUC__) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#endif
-
-#include <rmm/mr/host/new_delete_resource.hpp>
-#include <rmm/mr/host/pinned_memory_resource.hpp>
 #include <rmm/mr/pinned_host_memory_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
@@ -108,15 +103,9 @@ struct MRRefTest : public ::testing::Test {
   }
 };
 
-using resources = ::testing::Types<rmm::mr::new_delete_resource,
-                                   rmm::mr::pinned_memory_resource,
-                                   rmm::mr::pinned_host_memory_resource>;
+using resources = ::testing::Types<rmm::mr::pinned_host_memory_resource>;
 
 // static property checks
-static_assert(
-  rmm::detail::polyfill::resource_with<rmm::mr::new_delete_resource, cuda::mr::host_accessible>);
-static_assert(
-  rmm::detail::polyfill::resource_with<rmm::mr::pinned_memory_resource, cuda::mr::host_accessible>);
 static_assert(rmm::detail::polyfill::resource_with<rmm::mr::pinned_host_memory_resource,
                                                    cuda::mr::host_accessible>);
 
@@ -286,16 +275,6 @@ TYPED_TEST(MRRefTest, UnsupportedAlignmentTest)
   }
 }
 
-TEST(PinnedResource, isPinned)
-{
-  rmm::mr::pinned_memory_resource mr;
-  rmm::host_resource_ref ref{mr};
-  void* ptr{nullptr};
-  EXPECT_NO_THROW(ptr = ref.allocate_sync(100));
-  EXPECT_TRUE(is_pinned_memory(ptr));
-  EXPECT_NO_THROW(ref.deallocate_sync(ptr, 100));
-}
-
 TEST(PinnedHostResource, isPinned)
 {
   rmm::mr::pinned_host_memory_resource mr;
@@ -306,7 +285,3 @@ TEST(PinnedHostResource, isPinned)
   EXPECT_NO_THROW(ref.deallocate_sync(ptr, 100));
 }
 }  // namespace rmm::test
-
-#if defined(__GNUC__) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
