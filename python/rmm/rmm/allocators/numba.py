@@ -23,6 +23,8 @@
 
 import ctypes
 import inspect
+from collections.abc import Callable
+from typing import Any
 
 from cuda.bindings.driver import CUdeviceptr, cuIpcGetMemHandle
 from numba import config, hip as cuda
@@ -31,14 +33,16 @@ from numba.hip import HostOnlyCUDAMemoryManager, IpcHandle, MemoryPointer
 from rmm import pylibrmm
 
 
-def _make_emm_plugin_finalizer(handle, allocations):
+def _make_emm_plugin_finalizer(
+    handle: int, allocations: dict[int, Any]
+) -> Callable[[], None]:
     """
     Factory to make the finalizer function.
     We need to bind *handle* and *allocations* into the actual finalizer, which
     takes no args.
     """
 
-    def finalizer():
+    def finalizer() -> None:
         """
         Invoked when the MemoryPointer is freed
         """
@@ -71,11 +75,11 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
     details of the interface being implemented here.
     """
 
-    def initialize(self):
+    def initialize(self) -> None:
         # No special initialization needed to use RMM within a given context.
         pass
 
-    def memalloc(self, size):
+    def memalloc(self, size: int) -> MemoryPointer:
         """
         Allocate an on-device array from the RMM pool.
         """
@@ -98,7 +102,7 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
 
         return MemoryPointer(ctx, ptr, size, finalizer=finalizer)
 
-    def get_ipc_handle(self, memory):
+    def get_ipc_handle(self, memory: MemoryPointer) -> IpcHandle:
         """
         Get an IPC handle for the MemoryPointer memory with offset modified by
         the RMM memory pool.
@@ -121,7 +125,7 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
             memory, ipc_handle, memory.size, source_info, offset=offset
         )
 
-    def get_memory_info(self):
+    def get_memory_info(self) -> tuple[int, int]:
         """Returns ``(free, total)`` memory in bytes in the context.
 
         This implementation raises `NotImplementedError` because the allocation
@@ -131,7 +135,7 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
         raise NotImplementedError()
 
     @property
-    def interface_version(self):
+    def interface_version(self) -> int:
         return 1
 
 
