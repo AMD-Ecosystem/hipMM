@@ -92,11 +92,18 @@ endif()
 if(NOT rapids-cmake-branch)
   set(rapids-cmake-branch "${_rapids_branch}")
 endif()
+# <<<<<<< OLD CODE from 3e29e3a2 (6d2055cd) - COMMENTED OUT
+#
+# # NOTE(HIP/AMD): We intentionally diverge from upstream here. Instead of
+# # vendoring RAPIDS.cmake in the repo, we download ROCmDS-CMake's RAPIDS.cmake
+# # into the build directory (as RMM_RAPIDS.cmake) using the configurable
+# # RAPIDS_CMAKE_SCRIPT_REPO / RAPIDS_CMAKE_SCRIPT_BRANCH env variables above.
+# # To vendor it in the future, drop the download block and swap the include
+# # below for: include(${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake)
+# include(${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
+# =======
+include("${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake")
 
-# NOTE(HIP/AMD): We intentionally diverge from upstream here. Instead of
-# vendoring RAPIDS.cmake in the repo, we download ROCmDS-CMake's RAPIDS.cmake
-# into the build directory (as RMM_RAPIDS.cmake) using the configurable
-# RAPIDS_CMAKE_SCRIPT_REPO / RAPIDS_CMAKE_SCRIPT_BRANCH env variables above.
-# To vendor it in the future, drop the download block and swap the include
-# below for: include(${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake)
-include(${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
+# Don't use sccache-dist for CMake's compiler tests
+set(ENV{SCCACHE_NO_DIST_COMPILE} "1")
+# >>>>>>> END NEW CODE (6d2055cd)
