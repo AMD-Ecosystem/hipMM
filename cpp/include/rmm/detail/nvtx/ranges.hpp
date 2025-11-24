@@ -38,8 +38,8 @@
 
 #pragma once
 
-#undef RMM_NVTX
-// #include <nvtx3/nvtx3.hpp>
+#ifdef RMM_NVTX
+#include <nvtx3/nvtx3.hpp>
 
 namespace rmm {
 /**
