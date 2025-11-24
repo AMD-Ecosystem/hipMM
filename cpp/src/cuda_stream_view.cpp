@@ -45,7 +45,7 @@
 
 #include <ostream>
 
-namespace rmm {
+namespace RMM_NAMESPACE {
 
 cuda_stream_view::cuda_stream_view(cudaStream_t stream) noexcept : stream_{stream} {}
 

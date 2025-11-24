@@ -39,13 +39,14 @@
 #include <rmm/aligned.hpp>
 #include <rmm/cuda_device.hpp>
 #include <rmm/detail/error.hpp>
+#include <rmm/detail/export.hpp>
 
 #include <rmm/cuda_runtime_api.h>
 
 #include <cstddef>
 #include <utility>
 
-namespace rmm {
+namespace RMM_NAMESPACE {
 
 cuda_device_id get_current_cuda_device()
 {
