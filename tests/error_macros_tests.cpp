@@ -163,7 +163,7 @@ TEST(ErrorMacrosTest, ErrorMessages)
     FAIL() << "Expected RMM_CUDA_TRY to throw an exception";
   } catch (const rmm::cuda_error& e) {
     std::string error_message = e.what();
-    EXPECT_TRUE(error_message.find("CUDA error at:") != std::string::npos);
+    EXPECT_TRUE(error_message.find("Device error at:") != std::string::npos);
     EXPECT_TRUE(error_message.find("invalid argument") != std::string::npos);
   }
 
