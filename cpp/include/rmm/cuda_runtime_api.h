@@ -61,6 +61,12 @@
 #ifndef cudaStreamPerThread
 #  define cudaStreamPerThread hipStreamPerThread
 #endif
+#ifndef cudaStreamDefault
+#  define cudaStreamDefault hipStreamDefault
+#endif
+#ifndef cudaStreamNonBlocking
+#  define cudaStreamNonBlocking hipStreamNonBlocking
+#endif
 #ifndef cudaMemcpyDefault
 #  define cudaMemcpyDefault hipMemcpyDefault
 #endif
@@ -85,6 +91,12 @@
 #ifndef cudaDevAttrL2CacheSize
 #  define cudaDevAttrL2CacheSize hipDeviceAttributeL2CacheSize
 #endif
+#ifndef cudaDevAttrConcurrentManagedAccess
+#  define cudaDevAttrConcurrentManagedAccess hipDeviceAttributeConcurrentManagedAccess
+#endif
+#ifndef cudaDevAttrPageableMemoryAccessUsesHostPageTables
+#  define cudaDevAttrPageableMemoryAccessUsesHostPageTables hipDeviceAttributePageableMemoryAccessUsesHostPageTables
+#endif
 #ifndef cudaErrorInvalidValue
 #  define cudaErrorInvalidValue hipErrorInvalidValue
 #endif
@@ -102,6 +114,15 @@
 #endif
 #ifndef cudaMemHandleTypeNone
 #  define cudaMemHandleTypeNone hipMemHandleTypeNone
+#endif
+#ifndef cudaMemHandleTypePosixFileDescriptor
+#  define cudaMemHandleTypePosixFileDescriptor hipMemHandleTypePosixFileDescriptor
+#endif
+#ifndef cudaMemHandleTypeWin32
+#  define cudaMemHandleTypeWin32 hipMemHandleTypeWin32
+#endif
+#ifndef cudaMemHandleTypeWin32Kmt
+#  define cudaMemHandleTypeWin32Kmt hipMemHandleTypeWin32Kmt
 #endif
 #ifndef cudaMemLocationTypeDevice
 #  define cudaMemLocationTypeDevice hipMemLocationTypeDevice
@@ -232,11 +253,18 @@
 #ifndef cudaStreamCreate
 #  define cudaStreamCreate hipStreamCreate
 #endif
+#ifndef cudaStreamCreateWithFlags
+#  define cudaStreamCreateWithFlags hipStreamCreateWithFlags
+#endif
 #ifndef cudaStreamDestroy
 #  define cudaStreamDestroy hipStreamDestroy
 #endif
 #ifndef cudaStreamSynchronize
 #  define cudaStreamSynchronize hipStreamSynchronize
+#endif
+
+#ifndef cudaStreamGetFlags
+#  define cudaStreamGetFlags hipStreamGetFlags
 #endif
 
 #ifndef cudaStreamWaitEvent
