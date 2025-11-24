@@ -170,7 +170,7 @@ ConfigureTest(ADAPTOR_TEST mr/device/adaptor_tests.cpp)
 # pool mr tests
 ConfigureTest(POOL_MR_TEST mr/device/pool_mr_tests.cpp GPUS 1 PERCENT 100)
 
-ConfigureTest(HWDECOMPRESS_TEST mr/device/hwdecompress_tests.cpp LINK_DRIVER)
+ConfigureTest(HWDECOMPRESS_TEST mr/device/hwdecompress_tests.cpp) # TODO(HIP/AMD): HW decompression not supported, LINK_DRIVER equivalent?
 
 # cuda_async mr tests
 ConfigureTest(CUDA_ASYNC_MR_STATIC_CUDART_TEST mr/device/cuda_async_mr_tests.cpp GPUS 1 PERCENT 60
