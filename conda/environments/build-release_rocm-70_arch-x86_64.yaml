@@ -47,7 +47,7 @@ dependencies:
 - pre-commit
 - pytest
 - pytest-cov
-- python>=3.10,<3.13 # TODO(HIP/AMD): <3.14; tmpfix as numba-hip does not yet support 3.13
+- python>=3.10,<3.14
 - rapids-build-backend>=0.3.0,<0.4.0.dev0
 - scikit-build-core >=0.10.0
 - spdlog>=1.14.1,<1.15
