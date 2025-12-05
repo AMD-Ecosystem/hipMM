@@ -66,19 +66,26 @@ requirements:
     - cuda-version =${{ cuda_version }}
     - cuda-cudart-dev
     - if: cuda_major == "12"
-      then: cuda-python >=12.9.2,<13.0a0
-      else: cuda-python >=13.0.1,<14.0a0
-# <<<<<<< OLD CODE from dadb7d92 (1b1be4eb) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 964bf74a (4680f7c6) - COMMENTED OUT
-# #     - cython >=3.0.0
-# #     - rapids-build-backend >=0.3.0,<0.4.0.dev0
+# <<<<<<< OLD CODE from ae3e5239 (90a55a37) - COMMENTED OUT
+#       then: cuda-python >=12.9.2,<13.0a0
+#       else: cuda-python >=13.0.1,<14.0a0
+# # <<<<<<< OLD CODE from dadb7d92 (1b1be4eb) - COMMENTED OUT
+# # # <<<<<<< OLD CODE from 964bf74a (4680f7c6) - COMMENTED OUT
+# # #     - cython >=3.0.0
+# # #     - rapids-build-backend >=0.3.0,<0.4.0.dev0
+# # # =======
+# #     - cython >=3.0.0,<3.2.0
 # # =======
-#     - cython >=3.0.0,<3.2.0
+#     - cython >=3.0.0,<3.2.0a0
+# # >>>>>>> END NEW CODE (1b1be4eb)
+#     - rapids-build-backend >=0.4.0,<0.5.0.dev0
+# # >>>>>>> END NEW CODE (4680f7c6)
 # =======
-    - cython >=3.0.0,<3.2.0a0
-# >>>>>>> END NEW CODE (1b1be4eb)
-    - rapids-build-backend >=0.4.0,<0.5.0.dev0
-# >>>>>>> END NEW CODE (4680f7c6)
+      then: cuda-python >=12.9.2,<13.0
+      else: cuda-python >=13.0.1,<14.0
+    - cython >=3.0.0,<3.2.0
+    - rapids-build-backend >=0.4.0,<0.5.0
+# >>>>>>> END NEW CODE (90a55a37)
     - librmm =${{ version }}
     - python =${{ py_version }}
     - pip
@@ -86,10 +93,10 @@ requirements:
   run:
     - cuda-cudart
     - if: cuda_major == "12"
-      then: cuda-python >=12.9.2,<13.0a0
-      else: cuda-python >=13.0.1,<14.0a0
+      then: cuda-python >=12.9.2,<13.0
+      else: cuda-python >=13.0.1,<14.0
     - ${{ pin_compatible("cuda-version", upper_bound="x", lower_bound="x") }}
-    - numpy >=1.23,<3.0a0
+    - numpy >=1.23,<3.0
     - python
   ignore_run_exports:
     from_package:
