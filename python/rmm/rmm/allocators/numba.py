@@ -1,34 +1,42 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION.
 # SPDX-License-Identifier: Apache-2.0
 
-# Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+# <<<<<<< OLD CODE from ae62a015 (26c82425) - COMMENTED OUT
+# # Modifications Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+# #
+# # Permission is hereby granted, free of charge, to any person obtaining a copy
+# # of this software and associated documentation files (the "Software"), to deal
+# # in the Software without restriction, including without limitation the rights
+# # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# # copies of the Software, and to permit persons to whom the Software is
+# # furnished to do so, subject to the following conditions:
+# #
+# # The above copyright notice and this permission notice shall be included in all
+# # copies or substantial portions of the Software.
+# #
+# # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# # SOFTWARE.
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-import ctypes
+# import ctypes
+# =======
+# >>>>>>> END NEW CODE (26c82425)
 import inspect
 from collections.abc import Callable
 from typing import Any
 
 from cuda.bindings.driver import CUdeviceptr, cuIpcGetMemHandle
-from numba import config, hip as cuda
-from numba.hip import HostOnlyCUDAMemoryManager, IpcHandle, MemoryPointer
+# <<<<<<< OLD CODE from ae62a015 (26c82425) - COMMENTED OUT
+# from numba import config, hip as cuda
+# from numba.hip import HostOnlyCUDAMemoryManager, IpcHandle, MemoryPointer
+# =======
+from numba import cuda
+from numba.cuda import HostOnlyCUDAMemoryManager, IpcHandle, MemoryPointer
+# >>>>>>> END NEW CODE (26c82425)
 
 from rmm import pylibrmm
 
@@ -85,12 +93,7 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
         """
         buf = pylibrmm.DeviceBuffer(size=size)
         ctx = self.context
-
-        if config.CUDA_USE_NVIDIA_BINDING:
-            ptr = CUdeviceptr(int(buf.ptr))
-        else:
-            # expect ctypes bindings in numba
-            ptr = ctypes.c_uint64(int(buf.ptr))
+        ptr = CUdeviceptr(int(buf.ptr))
 
         finalizer = _make_emm_plugin_finalizer(int(buf.ptr), self.allocations)
 
@@ -108,17 +111,9 @@ class RMMNumbaManager(HostOnlyCUDAMemoryManager):
         the RMM memory pool.
         """
         start, _ = cuda.cudadrv.driver.device_extents(memory)
+        _, ipc_handle = cuIpcGetMemHandle(start)
+        offset = int(memory.handle) - int(start)
 
-        if config.CUDA_USE_NVIDIA_BINDING:
-            _, ipc_handle = cuIpcGetMemHandle(start)
-            offset = int(memory.handle) - int(start)
-        else:
-            ipc_handle = (ctypes.c_byte * 64)()  # IPC handle is 64 bytes
-            cuda.cudadrv.driver.driver.cuIpcGetMemHandle(
-                ctypes.byref(ipc_handle),
-                start,
-            )
-            offset = memory.handle.value - start
         source_info = cuda.current_context().device.get_device_identity()
 
         return IpcHandle(
