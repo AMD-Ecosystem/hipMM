@@ -99,4 +99,8 @@ endif()
 if(NOT rapids-cmake-branch)
   set(rapids-cmake-branch "${_rapids_branch}")
 endif()
+
+# TODO(HIP/AMD): Here we diverge from upstream and still use the downloaded script.
+# We might decide to vendor RAPIDS.cmake in the future, too:
+# include(${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake)
 include(${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
