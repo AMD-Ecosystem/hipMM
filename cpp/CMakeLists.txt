@@ -106,10 +106,13 @@ message(VERBOSE "RMM: Build with NVTX support: ${RMM_NVTX}")
 # build type for cmake-gui.
 message(STATUS "RMM: RMM_LOGGING_LEVEL = '${RMM_LOGGING_LEVEL}'")
 
-# cudart can be linked statically or dynamically
-option(CUDA_STATIC_RUNTIME "Statically link the CUDA runtime" OFF)
-handle_unsupported_cmake_option("CUDA_STATIC_RUNTIME" FALSE)
-
+# <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
+# # cudart can be linked statically or dynamically
+# option(CUDA_STATIC_RUNTIME "Statically link the CUDA runtime" OFF)
+# handle_unsupported_cmake_option("CUDA_STATIC_RUNTIME" FALSE)
+#
+# =======
+# >>>>>>> END NEW CODE (4d996426)
 # ##################################################################################################
 # * compiler options -------------------------------------------------------------------------------
 add_compile_options(-Wno-unused-result) # required for HIP build
@@ -150,12 +153,16 @@ target_include_directories(
          "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
   INTERFACE "$<INSTALL_INTERFACE:include>")
 
-if(CUDA_STATIC_RUNTIME)
-  message(STATUS "RMM: Enabling static linking of cudart")
-  target_link_libraries(rmm PUBLIC CUDA::cudart_static)
-else()
-  target_link_libraries(rmm PUBLIC hip::host)
-endif()
+# <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
+# if(CUDA_STATIC_RUNTIME)
+#   message(STATUS "RMM: Enabling static linking of cudart")
+#   target_link_libraries(rmm PUBLIC CUDA::cudart_static)
+# else()
+#   target_link_libraries(rmm PUBLIC hip::host)
+# endif()
+# =======
+target_link_libraries(rmm PUBLIC CUDA::cudart_static)
+# >>>>>>> END NEW CODE (4d996426)
 
 # TODO(HIP/AMD): no support for nvtx3  nvtx3::nvtx3-cpp
 target_link_libraries(rmm PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS}
