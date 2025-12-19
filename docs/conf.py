@@ -8,10 +8,10 @@ import re
 from rocm_docs import ROCmDocs
 
 version_number = "1.0.0b1"
-left_nav_title = f"hipMM {version_number} Documentation"
+left_nav_title = f"hipMM {version_number} documentation"
 
 # for PDF output on Read the Docs
-project = "hipMM Documentation"
+project = "hipMM"
 author = "Advanced Micro Devices, Inc."
 copyright = "Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved."
 version = version_number
