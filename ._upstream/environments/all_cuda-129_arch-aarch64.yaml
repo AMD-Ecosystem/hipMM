@@ -45,8 +45,12 @@ dependencies:
 - rapids-build-backend>=0.4.0,<0.5.0
 # >>>>>>> END NEW CODE (90a55a37)
 - rapids-logger==0.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (96be1638)
-- scikit-build-core >=0.10.0
+# <<<<<<< OLD CODE from 4936e3ac (3eed334d) - COMMENTED OUT
+# # >>>>>>> END NEW CODE (96be1638)
+# - scikit-build-core >=0.10.0
+# =======
+- scikit-build-core>=0.11.0
+# >>>>>>> END NEW CODE (3eed334d)
 - sphinx
 - sphinx-copybutton
 - sphinx-markdown-tables
