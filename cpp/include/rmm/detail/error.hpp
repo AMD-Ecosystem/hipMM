@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright (c) 2020-2025, NVIDIA CORPORATION.
+ * SPDX-FileCopyrightText: Copyright (c) 2020-2026, NVIDIA CORPORATION.
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -196,7 +196,6 @@
  * In "Debug" builds, invokes `_call` and uses `assert` to verify the returned `cudaError_t` is
  * equal to `cudaSuccess`.
  *
- *
  * Replaces use cases such as:
  * ```cpp
  * auto status = cudaRuntimeApi(...);
@@ -208,7 +207,12 @@
  * RMM_ASSERT_CUDA_SUCCESS(cudaRuntimeApi(...));
  * ```
  *
- * 
+// <<<<<<< OLD CODE from 3b3b081e (948c3790) - COMMENTED OUT
+//  * 
+// =======
+ * @note For destructor cleanup that may run during program shutdown, use
+ * RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN instead, which also accepts `cudaErrorCudartUnloading`.
+// >>>>>>> END NEW CODE (948c3790)
  */
 #ifdef NDEBUG
 #define RMM_ASSERT_CUDA_SUCCESS(_call) \
@@ -225,5 +229,42 @@
     }                                                                           \
     /* NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay) */   \
     assert(status__ == cudaSuccess);                                            \
+  } while (0)
+#endif
+
+/**
+ * @brief Variant of RMM_ASSERT_CUDA_SUCCESS for use in destructors.
+ *
+ * This macro treats `cudaErrorCudartUnloading` as success, which can occur
+ * when CUDA resources are released after the CUDA runtime has begun shutting
+ * down (e.g., during static object destruction after main() exits).
+ *
+ * In "Release" builds, simply invokes the `_call`.
+ *
+ * In "Debug" builds, invokes `_call` and uses `assert` to verify the returned `cudaError_t` is
+ * equal to `cudaSuccess` or `cudaErrorCudartUnloading`.
+ *
+ * Example:
+ * ```cpp
+ * ~my_resource() {
+ *   RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(cudaFree(ptr_));
+ * }
+ * ```
+ */
+#ifdef NDEBUG
+#define RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(_call) \
+  do {                                               \
+    (_call);                                         \
+  } while (0);
+#else
+#define RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(_call)                            \
+  do {                                                                          \
+    cudaError_t const status__ = (_call);                                       \
+    if (status__ != cudaSuccess && status__ != cudaErrorCudartUnloading) {      \
+      std::cerr << "CUDA Error detected. " << cudaGetErrorName(status__) << " " \
+                << cudaGetErrorString(status__) << std::endl;                   \
+    }                                                                           \
+    /* NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay) */   \
+    assert(status__ == cudaSuccess || status__ == cudaErrorCudartUnloading);    \
   } while (0)
 #endif
