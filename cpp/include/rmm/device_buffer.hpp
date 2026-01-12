@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright (c) 2019-2025, NVIDIA CORPORATION.
+ * SPDX-FileCopyrightText: Copyright (c) 2019-2026, NVIDIA CORPORATION.
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -34,7 +34,12 @@
 #include <rmm/mr/per_device_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
-#include <rmm/cuda_runtime_api.h>
+// <<<<<<< OLD CODE from bc997a17 (45586bd0) - COMMENTED OUT
+// #include <rmm/cuda_runtime_api.h>
+// =======
+#include <cuda/memory_resource>
+#include <cuda_runtime_api.h>
+// >>>>>>> END NEW CODE (45586bd0)
 
 #include <cassert>
 #include <cstddef>
@@ -343,7 +348,7 @@ class device_buffer {
   /**
    * @briefreturn{The resource used to allocate and deallocate}
    */
-  [[nodiscard]] rmm::device_async_resource_ref memory_resource() const noexcept { return _mr; }
+  [[nodiscard]] rmm::device_async_resource_ref memory_resource() noexcept { return _mr; }
 
  private:
   void* _data{nullptr};        ///< Pointer to device memory allocation
@@ -351,9 +356,8 @@ class device_buffer {
   std::size_t _capacity{};     ///< The actual size of the device memory allocation
   cuda_stream_view _stream{};  ///< Stream to use for device memory deallocation
 
-  rmm::device_async_resource_ref _mr{
-    rmm::mr::get_current_device_resource_ref()};  ///< The memory resource used to
-                                                  ///< allocate/deallocate device memory
+  cuda::mr::any_resource<cuda::mr::device_accessible> _mr;  ///< The memory resource used to
+                                                            ///< allocate/deallocate device memory
   cuda_device_id _device{get_current_cuda_device()};
 
   /**
