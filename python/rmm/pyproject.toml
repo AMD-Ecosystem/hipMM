@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2021-2025, NVIDIA CORPORATION.
+# SPDX-FileCopyrightText: Copyright (c) 2021-2026, NVIDIA CORPORATION.
 # SPDX-License-Identifier: Apache-2.0
 
 # MIT License
@@ -92,17 +92,21 @@ classifiers = [
 
 [project.optional-dependencies]
 test = [
-# <<<<<<< OLD CODE from ae62a015 (26c82425) - COMMENTED OUT
-# # <<<<<<< OLD CODE from ae3e5239 (90a55a37) - COMMENTED OUT
-# #     "numba>=0.60.0,<0.62.0a0",
-# # # <<<<<<< OLD CODE from 6f2776c8 (4d3d663a) - COMMENTED OUT
-# # #     "numba-hip>=0.1.6",
+# <<<<<<< OLD CODE from b8817815 (2855f3c5) - COMMENTED OUT
+# # <<<<<<< OLD CODE from ae62a015 (26c82425) - COMMENTED OUT
+# # # <<<<<<< OLD CODE from ae3e5239 (90a55a37) - COMMENTED OUT
+# # #     "numba>=0.60.0,<0.62.0a0",
+# # # # <<<<<<< OLD CODE from 6f2776c8 (4d3d663a) - COMMENTED OUT
+# # # #     "numba-hip>=0.1.6",
+# # # # =======
 # # # =======
+# #     "numba-cuda[cu13]>=0.19.1,<0.20.0",
 # # =======
-#     "numba-cuda[cu13]>=0.19.1,<0.20.0",
+#     "numba-cuda[cu13]>=0.22.1,<0.23.0",
+# # >>>>>>> END NEW CODE (26c82425)
 # =======
-    "numba-cuda[cu13]>=0.22.1,<0.23.0",
-# >>>>>>> END NEW CODE (26c82425)
+    "numba-cuda>=0.22.1,<0.23.0",
+# >>>>>>> END NEW CODE (2855f3c5)
     "numba>=0.60.0,<0.62.0",
 # >>>>>>> END NEW CODE (90a55a37)
     "packaging",
