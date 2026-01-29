@@ -39,11 +39,16 @@ authors = [
     { name = "Advanced Micro Devices, Inc." },
     { name = "NVIDIA Corporation" },
 ]
-# NOTE(HIP/AMD): AMD ships rmm as a dual-licensed (Apache-2.0 AND MIT)
-# package. Expressed in PEP 639 SPDX form to match upstream's adoption of the
-# new license-field convention.
-license = "Apache-2.0 AND MIT"
-requires-python = ">=3.10"
+# <<<<<<< OLD CODE from 5df4128a (97624815) - COMMENTED OUT
+# # NOTE(HIP/AMD): AMD ships rmm as a dual-licensed (Apache-2.0 AND MIT)
+# # package. Expressed in PEP 639 SPDX form to match upstream's adoption of the
+# # new license-field convention.
+# license = "Apache-2.0 AND MIT"
+# requires-python = ">=3.10"
+# =======
+license = "Apache-2.0"
+requires-python = ">=3.11"
+# >>>>>>> END NEW CODE (97624815)
 dependencies = [
     # NOTE(HIP/AMD): AMD substitutes upstream `cuda-python` with the AMD pair
     # `rocm-bindings-hip` + `hip-python-interop` (the latter exposes a `cuda.*`
@@ -60,7 +65,6 @@ classifiers = [
     "Topic :: Database",
     "Topic :: Scientific/Engineering",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
