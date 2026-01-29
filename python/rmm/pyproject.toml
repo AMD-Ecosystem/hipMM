@@ -68,14 +68,18 @@ classifiers = [
 
 [project.optional-dependencies]
 test = [
-# <<<<<<< OLD CODE from 8508d9af (361bedd0) - COMMENTED OUT
-#     # NOTE(HIP/AMD): use numba-hip (the AMD numba backend) instead of upstream
-#     # numba-cuda. This matches the import substitution in
-#     # `python/rmm/rmm/allocators/numba.py` (`from numba import hip as cuda`).
-#     "numba-hip>=0.1.6",
+# <<<<<<< OLD CODE from 4706a780 (f4fb3449) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 8508d9af (361bedd0) - COMMENTED OUT
+# #     # NOTE(HIP/AMD): use numba-hip (the AMD numba backend) instead of upstream
+# #     # numba-cuda. This matches the import substitution in
+# #     # `python/rmm/rmm/allocators/numba.py` (`from numba import hip as cuda`).
+# #     "numba-hip>=0.1.6",
+# # =======
+#     "numba-cuda>=0.22.1,<0.23.0",
+# # >>>>>>> END NEW CODE (361bedd0)
 # =======
-    "numba-cuda>=0.22.1,<0.23.0",
-# >>>>>>> END NEW CODE (361bedd0)
+    "numba-cuda>=0.22.1",
+# >>>>>>> END NEW CODE (f4fb3449)
     "numba>=0.60.0,<0.62.0",
     "packaging",
     "pytest-cov",
