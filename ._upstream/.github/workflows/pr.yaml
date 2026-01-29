@@ -54,22 +54,96 @@ jobs:
     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.02
     with:
       files_yaml: |
+        build_docs:
+          - '**'
+          - '!.devcontainer/**'
+          - '!.github/ISSUE_TEMPLATE/**'
+          - '!.github/copy-pr-bot.yaml'
+          - '!.github/labeler.yml'
+          - '!.github/ops-bot.yaml'
+          - '!.github/PULL_REQUEST_TEMPLATE.md'
+          - '!.github/release.yml'
+          - '!.github/workflows/new-issues-to-triage-projects.yml'
+          - '!.github/workflows/trigger-rbeaking-change-alert.yaml'
+          - '!.pre-commit-config.yaml'
+          - '!.shellcheckrc'
+          - '!ci/build_wheel*.sh'
+          - '!ci/check_style.sh'
+          - '!ci/check_symbols.sh'
+          - '!ci/release/update-version.sh'
+          - '!ci/test_wheel.sh'
+          - '!ci/validate_wheel.sh'
         test_cpp:
           - '**'
           - '!.devcontainer/**'
+          - '!.github/ISSUE_TEMPLATE/**'
+          - '!.github/copy-pr-bot.yaml'
+          - '!.github/labeler.yml'
+          - '!.github/ops-bot.yaml'
+          - '!.github/PULL_REQUEST_TEMPLATE.md'
+          - '!.github/release.yml'
+          - '!.github/workflows/new-issues-to-triage-projects.yml'
+          - '!.github/workflows/trigger-rbeaking-change-alert.yaml'
           - '!.pre-commit-config.yaml'
+          - '!.shellcheckrc'
           - '!CONTRIBUTING.md'
           - '!README.md'
+          - '!ci/build_docs.sh'
+          - '!ci/build_python.sh'
+          - '!ci/build_wheel*.sh'
           - '!ci/release/update-version.sh'
+          - '!ci/run_pytests.sh'
+          - '!ci/test_python.sh'
+          - '!ci/test_wheel.sh'
+          - '!ci/validate_wheel.sh'
+          - '!docs/**'
           - '!img/**'
           - '!python/**'
-        test_python:
+        test_python_conda:
           - '**'
           - '!.devcontainer/**'
+          - '!.github/ISSUE_TEMPLATE/**'
+          - '!.github/copy-pr-bot.yaml'
+          - '!.github/labeler.yml'
+          - '!.github/ops-bot.yaml'
+          - '!.github/PULL_REQUEST_TEMPLATE.md'
+          - '!.github/release.yml'
+          - '!.github/workflows/new-issues-to-triage-projects.yml'
+          - '!.github/workflows/trigger-rbeaking-change-alert.yaml'
           - '!.pre-commit-config.yaml'
+          - '!.shellcheckrc'
           - '!CONTRIBUTING.md'
           - '!README.md'
+          - '!ci/build_wheel*.sh'
+          - '!ci/check_style.sh'
           - '!ci/release/update-version.sh'
+          - '!ci/test_wheel.sh'
+          - '!ci/validate_wheel.sh'
+          - '!docs/**'
+          - '!img/**'
+        test_python_wheels:
+          - '**'
+          - '!.devcontainer/**'
+          - '!.github/ISSUE_TEMPLATE/**'
+          - '!.github/copy-pr-bot.yaml'
+          - '!.github/labeler.yml'
+          - '!.github/ops-bot.yaml'
+          - '!.github/PULL_REQUEST_TEMPLATE.md'
+          - '!.github/release.yml'
+          - '!.github/workflows/new-issues-to-triage-projects.yml'
+          - '!.github/workflows/trigger-rbeaking-change-alert.yaml'
+          - '!.pre-commit-config.yaml'
+          - '!.shellcheckrc'
+          - '!CONTRIBUTING.md'
+          - '!README.md'
+          - '!ci/build_cpp.sh'
+          - '!ci/build_docs.sh'
+          - '!ci/build_python.sh'
+          - '!ci/check_style.sh'
+          - '!ci/release/update-version.sh'
+          - '!ci/test_cpp.sh'
+          - '!ci/test_python.sh'
+          - '!docs/**'
           - '!img/**'
   checks:
     secrets: inherit
@@ -108,16 +182,26 @@ jobs:
   conda-python-tests:
     needs: [conda-python-build, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.02
-    if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.02
+#     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+    if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
+# >>>>>>> END NEW CODE (2ab8f841)
     with:
       build_type: pull-request
       script: ci/test_python.sh
       sccache-dist-token-secret-name: GIST_REPO_READ_ORG_GITHUB_TOKEN
   docs-build:
-    needs: conda-python-build
+    needs: [conda-python-build, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.02
+# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+    if: fromJSON(needs.changed-files.outputs.changed_file_groups).build_docs
+# >>>>>>> END NEW CODE (2ab8f841)
     with:
       build_type: pull-request
       node_type: "gpu-l4-latest-1"
@@ -150,8 +234,13 @@ jobs:
   wheel-tests:
     needs: [wheel-build-python, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.02
-    if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.02
+#     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+    if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
+# >>>>>>> END NEW CODE (2ab8f841)
     with:
       build_type: pull-request
       script: ci/test_wheel.sh
