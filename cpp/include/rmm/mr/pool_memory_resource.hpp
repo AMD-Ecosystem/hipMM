@@ -33,7 +33,6 @@
 #include <rmm/detail/export.hpp>
 #include <rmm/detail/format.hpp>
 #include <rmm/detail/logging_assert.hpp>
-#include <rmm/detail/thrust_namespace.h>
 #include <rmm/logger.hpp>
 #include <rmm/mr/detail/coalescing_free_list.hpp>
 #include <rmm/mr/detail/stream_ordered_memory_resource.hpp>
@@ -42,9 +41,13 @@
 #include <rmm/resource_ref.hpp>
 
 #include <cuda/std/type_traits>
-#include <rmm/cuda_runtime_api.h>
-#include <thrust/iterator/counting_iterator.h>
-#include <thrust/iterator/transform_iterator.h>
+// <<<<<<< OLD CODE from fc931991 (ccf3bc48) - COMMENTED OUT
+// #include <rmm/cuda_runtime_api.h>
+// #include <thrust/iterator/counting_iterator.h>
+// #include <thrust/iterator/transform_iterator.h>
+// =======
+#include <cuda_runtime_api.h>
+// >>>>>>> END NEW CODE (ccf3bc48)
 
 #include <algorithm>
 #include <cstddef>

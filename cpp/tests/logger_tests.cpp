@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright (c) 2020-2025, NVIDIA CORPORATION.
+ * SPDX-FileCopyrightText: Copyright (c) 2020-2026, NVIDIA CORPORATION.
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -8,6 +8,9 @@
 #include <rmm/mr/cuda_memory_resource.hpp>
 #include <rmm/mr/logging_resource_adaptor.hpp>
 
+#include <cuda/iterator>
+
+// >>>>>>> END NEW CODE (ccf3bc48)
 #include <benchmarks/utilities/log_parser.hpp>
 #include <gtest/gtest.h>
 
@@ -94,20 +97,38 @@ void expect_log_events(std::string const& filename,
 {
   auto actual_events = rmm::detail::parse_csv(filename);
 
-  std::equal(expected_events.begin(),
-             expected_events.end(),
-             actual_events.begin(),
-             [](auto expected, auto actual) {
-               // We don't test the logged thread id since it may be different from what we record.
-               // The actual value doesn't matter so long as events from different threads have
-               // different ids
-               // EXPECT_EQ(expected.thread_id, actual.thread_id);
-               // EXPECT_EQ(expected.stream, actual.stream);
-               EXPECT_EQ(expected.act, actual.act);
-               EXPECT_EQ(expected.size, actual.size);
-               EXPECT_EQ(expected.pointer, actual.pointer);
-               return true;
-             });
+// <<<<<<< OLD CODE from fc931991 (ccf3bc48) - COMMENTED OUT
+//   std::equal(expected_events.begin(),
+//              expected_events.end(),
+//              actual_events.begin(),
+//              [](auto expected, auto actual) {
+//                // We don't test the logged thread id since it may be different from what we record.
+//                // The actual value doesn't matter so long as events from different threads have
+//                // different ids
+//                // EXPECT_EQ(expected.thread_id, actual.thread_id);
+//                // EXPECT_EQ(expected.stream, actual.stream);
+//                EXPECT_EQ(expected.act, actual.act);
+//                EXPECT_EQ(expected.size, actual.size);
+//                EXPECT_EQ(expected.pointer, actual.pointer);
+//                return true;
+//              });
+// =======
+  auto begin =
+    cuda::make_zip_iterator(cuda::std::make_tuple(expected_events.begin(), actual_events.begin()));
+  auto end =
+    cuda::make_zip_iterator(cuda::std::make_tuple(expected_events.end(), actual_events.end()));
+
+  std::for_each(begin, end, [](auto const& zipped) {
+    auto [expected, actual] = zipped;
+    // We don't test the logged thread id since it may be different from what
+    // we record. The actual value doesn't matter so long as events from
+    // different threads have different ids EXPECT_EQ(expected.thread_id,
+    // actual.thread_id); EXPECT_EQ(expected.stream, actual.stream);
+    EXPECT_EQ(expected.act, actual.act);
+    EXPECT_EQ(expected.size, actual.size);
+    EXPECT_EQ(expected.pointer, actual.pointer);
+  });
+// >>>>>>> END NEW CODE (ccf3bc48)
 }
 
 TEST(Adaptor, FilenameConstructor)

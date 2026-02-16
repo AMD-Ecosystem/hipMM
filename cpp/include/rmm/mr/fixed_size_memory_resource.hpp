@@ -32,14 +32,18 @@
 #include <rmm/detail/error.hpp>
 #include <rmm/detail/export.hpp>
 #include <rmm/detail/logging_assert.hpp>
-#include <rmm/detail/thrust_namespace.h>
 #include <rmm/mr/detail/fixed_size_free_list.hpp>
 #include <rmm/mr/detail/stream_ordered_memory_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
-#include <rmm/cuda_runtime_api.h>
-#include <thrust/iterator/counting_iterator.h>
-#include <thrust/iterator/transform_iterator.h>
+// <<<<<<< OLD CODE from fc931991 (ccf3bc48) - COMMENTED OUT
+// #include <rmm/cuda_runtime_api.h>
+// #include <thrust/iterator/counting_iterator.h>
+// #include <thrust/iterator/transform_iterator.h>
+// =======
+#include <cuda/iterator>
+#include <cuda_runtime_api.h>
+// >>>>>>> END NEW CODE (ccf3bc48)
 
 #include <algorithm>
 #include <cstddef>
@@ -199,7 +203,7 @@ class fixed_size_memory_resource
       return block_type{static_cast<char*>(ptr) + index * block_size_};
     };
     auto first =
-      thrust::make_transform_iterator(thrust::make_counting_iterator(std::size_t{0}), block_gen);
+      cuda::make_transform_iterator(cuda::make_counting_iterator(std::size_t{0}), block_gen);
     return free_list(first, first + num_blocks);
   }
 
