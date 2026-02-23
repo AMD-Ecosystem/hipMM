@@ -113,4 +113,4 @@ You should see output that is similar to:
    Type "help", "copyright", "credits" or "license" for more information.
    >>> import hipmm
    >>> print(hipmm.__version__)
-   '3.0.00'
+   '4.0.00'
