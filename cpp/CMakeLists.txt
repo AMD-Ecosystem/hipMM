@@ -55,7 +55,7 @@ project(
   RMM
   # TODO(HIP/AMD): Use RAPIDS_VERSION in CI scripts
   # VERSION "${RAPIDS_VERSION}"
-  VERSION 3.0.0
+  VERSION 4.0.0
   LANGUAGES C CXX HIP)
 
 # Write the version header
