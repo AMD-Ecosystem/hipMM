@@ -24,10 +24,6 @@
 
 # HIP Memory Manager for AMD GPUs (hipMM)
 
-> [!CAUTION]
-> This release focuses on the C++ API of hipMM.
-> While the Python build process has been ported and binary wheels can be created, porting the Python component of this project is still ongoing work.
-
 > [!NOTE]
 > This ROCm&trade; port is derived from the NVIDIA RAPIDS&reg; RMM project (**version 25.10**). It aims to
 follow the latter's directory structure, file naming and API naming as closely as possible to minimize porting friction for users that are interested in using both projects.
