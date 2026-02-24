@@ -68,6 +68,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 
 [project.optional-dependencies]
@@ -83,8 +84,12 @@ test = [
 # # >>>>>>> END NEW CODE (361bedd0)
 # =======
     "numba-cuda>=0.22.1",
-# >>>>>>> END NEW CODE (f4fb3449)
-    "numba>=0.60.0,<0.62.0",
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+# # >>>>>>> END NEW CODE (f4fb3449)
+#     "numba>=0.60.0,<0.62.0",
+# =======
+    "numba>=0.60.0,<0.65.0",
+# >>>>>>> END NEW CODE (eb5cd67b)
     "packaging",
     "pytest-cov",
     "pytest<9.0.0",

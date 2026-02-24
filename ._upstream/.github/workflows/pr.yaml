@@ -26,7 +26,11 @@ jobs:
       - devcontainer
       - telemetry-setup
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     if: always()
     with:
       needs: ${{ toJSON(needs) }}
@@ -66,7 +70,11 @@ jobs:
     needs:
       - telemetry-setup
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       files_yaml: |
         build_docs:
@@ -184,14 +192,22 @@ jobs:
     secrets: inherit
     needs:
       - telemetry-setup
-    uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       enable_check_generated_files: false
       ignored_pr_jobs: "telemetry-summarize conda-python-tests-integration-optional wheel-tests-integration-optional"
   conda-cpp-build:
     needs: checks
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       build_type: pull-request
       node_type: cpu8
@@ -199,7 +215,11 @@ jobs:
   conda-cpp-tests:
     needs: [conda-cpp-build, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
@@ -207,7 +227,7 @@ jobs:
   conda-cpp-debug-tests:
     needs: [checks, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@python-3.14
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
@@ -218,7 +238,11 @@ jobs:
   conda-python-build:
     needs: conda-cpp-build
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       build_type: pull-request
       script: ci/build_python.sh
@@ -227,11 +251,15 @@ jobs:
   conda-python-tests:
     needs: [conda-python-build, changed-files]
     secrets: inherit
-# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.02
-#     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+# # <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.02
+# #     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
 # >>>>>>> END NEW CODE (2ab8f841)
     with:
@@ -240,7 +268,7 @@ jobs:
   conda-python-tests-integration-optional:
     needs: [conda-python-build, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@python-3.14
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
     with:
       build_type: pull-request
@@ -248,10 +276,14 @@ jobs:
   docs-build:
     needs: [conda-python-build, changed-files]
     secrets: inherit
-# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+# # <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.02
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).build_docs
 # >>>>>>> END NEW CODE (2ab8f841)
     with:
@@ -263,7 +295,11 @@ jobs:
   wheel-build-cpp:
     needs: checks
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       matrix_filter: group_by([.ARCH, (.CUDA_VER|split(".")|map(tonumber)|.[0])]) | map(max_by(.PY_VER|split(".")|map(tonumber)))
       build_type: pull-request
@@ -274,7 +310,11 @@ jobs:
   wheel-build-python:
     needs: wheel-build-cpp
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       # Build a wheel for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -286,11 +326,15 @@ jobs:
   wheel-tests:
     needs: [wheel-build-python, changed-files]
     secrets: inherit
-# <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.02
-#     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+# # <<<<<<< OLD CODE from b7dbce32 (2ab8f841) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.02
+# #     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
 # >>>>>>> END NEW CODE (2ab8f841)
     with:
@@ -299,7 +343,7 @@ jobs:
   wheel-tests-integration-optional:
     needs: [wheel-build-python, changed-files]
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@python-3.14
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
     with:
       build_type: pull-request
@@ -308,7 +352,11 @@ jobs:
     secrets: inherit
     needs:
       - telemetry-setup
-    uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.02
+# <<<<<<< OLD CODE from 0af5388b (eb5cd67b) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@python-3.14
+# >>>>>>> END NEW CODE (eb5cd67b)
     with:
       arch: '["amd64", "arm64"]'
       cuda: '["13.1"]'
