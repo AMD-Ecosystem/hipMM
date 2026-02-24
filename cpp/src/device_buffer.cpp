@@ -30,6 +30,8 @@
 
 #include <rmm/cuda_runtime_api.h>
 
+#include <memory>
+
 namespace rmm {
 
 device_buffer::device_buffer() : _mr{rmm::mr::get_current_device_resource_ref()} {}
@@ -78,7 +80,7 @@ device_buffer::device_buffer(device_buffer&& other) noexcept
 
 device_buffer& device_buffer::operator=(device_buffer&& other) noexcept
 {
-  if (&other != this) {
+  if (this != std::addressof(other)) {
     cuda_set_device_raii dev{_device};
     deallocate_async();
 
