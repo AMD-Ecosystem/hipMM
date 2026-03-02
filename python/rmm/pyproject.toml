@@ -160,14 +160,19 @@ commit-files = [
 matrix-entry = "cuda_suffixed=true"
 requires = [
     "cmake>=3.30.4",
-    # NOTE(HIP/AMD): substitute upstream `cuda-python` and `librmm` with their
-    # AMD equivalents (`hip-python` + `hip-python-as-cuda`, `amd-libhipmm`),
-    # bumped to AMD semantic version 5.x. Adopt new cython upper bound from
-    # upstream.
-    "hip-python-as-cuda>=7.0.0",
-    "hip-python>=7.0.0",
-    "amd-libhipmm==5.*,>=5.0.0a0",
-    "cython>=3.0.0,<3.2.0",
+# <<<<<<< OLD CODE from 9dc2ea46 (c663ddf0) - COMMENTED OUT
+#     # NOTE(HIP/AMD): substitute upstream `cuda-python` and `librmm` with their
+#     # AMD equivalents (`hip-python` + `hip-python-as-cuda`, `amd-libhipmm`),
+#     # bumped to AMD semantic version 5.x. Adopt new cython upper bound from
+#     # upstream.
+#     "hip-python-as-cuda>=7.0.0",
+#     "hip-python>=7.0.0",
+#     "amd-libhipmm==5.*,>=5.0.0a0",
+#     "cython>=3.0.0,<3.2.0",
+# =======
+    "cuda-python>=13.0.1,<14.0",
+    "cython>=3.2.2",
+# >>>>>>> END NEW CODE (c663ddf0)
     "librmm==26.4.*,>=0.0.0a0",
 # >>>>>>> END NEW CODE (04748d56)
     "ninja",
