@@ -4,7 +4,7 @@
       "version": "1.0.0",
       "git_shallow": false,
       "git_url": "https://$ENV{GITHUB_PASS}@github.com/AMD-AIOSS/ROCmDS-Logger",
-      "git_tag": "amd-integration/2.0.x"
+      "git_tag": "amd-integration"
     } 
   }
 }
