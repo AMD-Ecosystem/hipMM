@@ -72,7 +72,7 @@ minimal environment (``conda/environments/install_rocm-latest_arch-x86_64.yaml``
       - hip-python-as-cuda~=7.2.1.0
       - numba-hip~=0.1.6
       - amd-cupy~=13.5.1
-      - amd-hipmm==3.0.0
+      - amd-hipmm==4.0.0
    name: hipmm
 
 You can install both the environment and hipMM in it with a single

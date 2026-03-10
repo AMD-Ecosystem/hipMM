@@ -123,13 +123,13 @@ Given the following conda environment
    - conda-forge
    dependencies:
    - c-compiler
-   - clang-tools==16.0.6
-   - clang==16.0.6
-   - cmake>=3.26.4,<4,!=3.30.0
+   - clang-tools==20.1.4
+   - clang==20.1.4
+   - cmake>=3.30.4
    - cxx-compiler
    - cython>=3.0.0
    - fmt>=11.0.2,<12
-   - gcc_linux-64=11.*
+   - gcc_linux-64=13.*
    - gcovr>=5.0
    - identify>=2.5.20
    - ipython
@@ -139,10 +139,11 @@ Given the following conda environment
    - pre-commit
    - pytest
    - pytest-cov
-   - python>=3.10,<3.13
+   - python>=3.10,<3.14
    - rapids-build-backend>=0.3.0,<0.4.0.dev0
    - scikit-build-core >=0.10.0
    - spdlog>=1.14.1,<1.15
+   - sysroot_linux-64==2.28
    - pip
    - pip:
      - --extra-index-url=https://pypi.amd.com/rocm-7.2.1/simple
@@ -150,7 +151,7 @@ Given the following conda environment
      - hip-python~=7.2.1.0
      - hip-python-as-cuda~=7.2.1.0
      - numba-hip~=0.1.6
-   - amd-cupy~=13.5.1
+     - amd-cupy~=13.5.1
    name: hipmm_dev
 
 Create and activate the ``hipmm_dev`` Conda environment via:
