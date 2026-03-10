@@ -145,12 +145,11 @@ Given the following conda environment
    - spdlog>=1.14.1,<1.15
    - pip
    - pip:
-   - --pre
-   - --extra-index-url=https://pypi.amd.com/rocm-7.0.2/simple
-   - rocm-llvm-python~=7.0.2.0
-   - hip-python~=7.0.2.0
-   - hip-python-as-cuda~=7.0.2.0
-   - numba-hip~=0.1.3
+     - --extra-index-url=https://pypi.amd.com/rocm-7.2.1/simple
+     - rocm-llvm-python~=7.2.1.0
+     - hip-python~=7.2.1.0
+     - hip-python-as-cuda~=7.2.1.0
+     - numba-hip~=0.1.6
    - amd-cupy~=13.5.1
    name: hipmm_dev
 

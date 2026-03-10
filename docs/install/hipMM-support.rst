@@ -31,8 +31,8 @@
 hipMM supported environments, features, and interfaces
 *******************************************************
 
-hipMM requires ROCm 7.0.2 running on a `ROCm-supported operating system <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.0.2/reference/system-requirements.html#supported-operating-systems>`__. Using Ubuntu 22.04 or later is recommended.
-See `ROCm installation for Linux <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.0.2/>`_
+hipMM requires ROCm 7.2.1 running on a `ROCm-supported operating system <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.1/reference/system-requirements.html#supported-operating-systems>`__. Using Ubuntu 22.04 or later is recommended.
+See `ROCm installation for Linux <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.1/>`_
 for installation instructions.
 
 In particular, ensure that the following ROCm components are installed:

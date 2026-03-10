@@ -51,7 +51,7 @@ Install hipMM via AMD PyPI
    third‑party or unofficial indexes.
 
 Packaged versions of hipMM and its dependencies are distributed via `AMD
-PyPI <https://pypi.amd.com/rocm-7.0.2/simple>`__. This section discusses how to
+PyPI <https://pypi.amd.com/rocm-7.2.1/simple>`__. This section discusses how to
 install hipMM via this package index.
 
 Create and activate a Conda environment with Python 3.12 and latest ``libstdcxx-ng`` using the
@@ -66,12 +66,11 @@ minimal environment (``conda/environments/install_rocm-latest_arch-x86_64.yaml``
    - libstdcxx-ng
    - pip
    - pip:
-      - --pre
-      - --extra-index-url=https://pypi.amd.com/rocm-7.0.2/simple
-      - rocm-llvm-python~=7.0.2.0
-      - hip-python~=7.0.2.0
-      - hip-python-as-cuda~=7.0.2.0
-      - numba-hip~=0.1.3
+      - --extra-index-url=https://pypi.amd.com/rocm-7.2.1/simple
+      - rocm-llvm-python~=7.2.1.0
+      - hip-python~=7.2.1.0
+      - hip-python-as-cuda~=7.2.1.0
+      - numba-hip~=0.1.6
       - amd-cupy~=13.5.1
       - amd-hipmm==3.0.0
    name: hipmm
