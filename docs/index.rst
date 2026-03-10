@@ -35,7 +35,7 @@ The HIP Memory Manager (hipMM) provides advanced GPU memory management utilities
 Based on the RAPIDS® Memory Manager (RMM 25.02), hipMM supports efficient allocation, pooling, and data movement, ensuring
 stable performance in complex, multi-library GPU workflows.
 
-hipMM 3.0.0 improves memory usage efficiency for workloads that leverage hipDF, hipGRAPH, hipRAFT, and hipVS.
+hipMM 4.0.0 improves memory usage efficiency for workloads that leverage hipDF, hipGRAPH, hipRAFT, and hipVS.
 
 The hipMM code is open and hosted at `https://github.com/ROCm-DS/hipMM <https://github.com/ROCm-DS/hipMM>`_.
 
