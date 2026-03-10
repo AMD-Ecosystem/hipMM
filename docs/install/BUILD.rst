@@ -107,7 +107,7 @@ repository:
    mkdir -p /tmp/hipmm # NOTE: feel free to adapt
 
    cd /tmp/hipmm
-   git clone https://github.com/ROCm-DS/hipMM hipmm -b release/rocmds-25.10
+   git clone https://github.com/ROCm-DS/hipMM hipmm -b release/rocmds-26.03
 
 Step 3: Create and activate the hipMM conda environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
