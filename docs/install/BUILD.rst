@@ -1,6 +1,6 @@
 .. MIT License
 ..
-.. Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+.. Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 ..
 .. Permission is hereby granted, free of charge, to any person obtaining a copy
 .. of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ Build the hipMM C++/HIP components using the following command:
 
 .. code:: bash
 
-   ./build.sh lib tests benchmarks
+   ./build.sh librmm tests benchmarks
 
 Here, ``tests`` and ``benchmarks`` are optional flags that enable the
 respective functionality.
@@ -174,7 +174,6 @@ text for the script.
 
 .. code:: bash
 
-   (hipmm_dev) $ export CXX="hipcc"    # Cython CXX compiler, adjust according to your setup.
    (hipmm_dev) $ export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}:/opt/rocm/lib/cmake"     # Locate ROCm CMake packages
    (hipmm_dev) $ ./build.sh librmm rmm     # Build and install librmm and rmm (can also use the default ./build.sh)
 
