@@ -109,7 +109,7 @@ static void BM_MultiStreamAllocations(benchmark::State& state, MRFactoryFunc con
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
     run_test(num_kernels, stream_pool, mr.get());
-    cudaDeviceSynchronize();
+    (void)cudaDeviceSynchronize();
   }
 
   state.SetItemsProcessed(static_cast<int64_t>(state.iterations() * num_kernels));

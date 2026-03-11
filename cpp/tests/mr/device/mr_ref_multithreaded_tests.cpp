@@ -261,7 +261,7 @@ void allocate_async_loop(rmm::device_async_resource_ref ref,
   }
 
   // Work around for threads going away before cudaEvent has finished async processing
-  cudaEventSynchronize(event);
+  RMM_CUDA_TRY(cudaEventSynchronize(event));
 }
 
 void deallocate_async_loop(rmm::device_async_resource_ref ref,
@@ -285,7 +285,7 @@ void deallocate_async_loop(rmm::device_async_resource_ref ref,
   }
 
   // Work around for threads going away before cudaEvent has finished async processing
-  cudaEventSynchronize(event);
+  RMM_CUDA_TRY(cudaEventSynchronize(event));
 }
 
 void test_allocate_async_free_different_threads(rmm::device_async_resource_ref ref,

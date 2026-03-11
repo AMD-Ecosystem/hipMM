@@ -74,7 +74,7 @@ void touch_on_gpu(void* ptr, std::size_t size)
   dim3 blockSize(256);
   dim3 gridSize((size + blockSize.x - 1) / blockSize.x);
   touch_memory_kernel<<<gridSize, blockSize>>>(static_cast<char*>(ptr), size);
-  cudaDeviceSynchronize();
+  RMM_CUDA_TRY(cudaDeviceSynchronize());
 }
 
 using system_mr = rmm::mr::system_memory_resource;

@@ -19,7 +19,7 @@
 #include <rmm/device_buffer.hpp>
 
 #ifdef NDEBUG
-#define RMM_CUDA_ASSERT_OK(expr) expr
+#define RMM_CUDA_ASSERT_OK(expr) (void)(expr)
 #else
 #define RMM_CUDA_ASSERT_OK(expr)       \
   do {                                 \

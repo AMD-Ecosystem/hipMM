@@ -66,7 +66,7 @@ void BM_UvectorSizeConstruction(benchmark::State& state)
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
     rmm::device_uvector<std::int32_t> vec(state.range(0), rmm::cuda_stream_view{});
-    cudaDeviceSynchronize();
+    (void)cudaDeviceSynchronize();
   }
 
   state.SetItemsProcessed(static_cast<std::int64_t>(state.iterations()));
@@ -88,7 +88,7 @@ void BM_ThrustVectorSizeConstruction(benchmark::State& state)
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
     rmm::device_vector<std::int32_t> vec(state.range(0));
-    cudaDeviceSynchronize();
+    (void)cudaDeviceSynchronize();
   }
 
   state.SetItemsProcessed(static_cast<std::int64_t>(state.iterations()));
@@ -126,7 +126,7 @@ Vector make_vector(std::int64_t num_elements, rmm::cuda_stream_view stream, bool
   } else if constexpr (std::is_same_v<Vector, rmm_uvector>) {
     auto vec = Vector(num_elements, stream);
     if (zero_init) {
-      cudaMemsetAsync(vec.data(), 0, num_elements * sizeof(std::int32_t), stream.value());
+      (void)cudaMemsetAsync(vec.data(), 0, num_elements * sizeof(std::int32_t), stream.value());
     }
     return vec;
   }
