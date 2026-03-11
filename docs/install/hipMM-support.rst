@@ -1,7 +1,7 @@
 ..
     MIT License
 
-    Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+    Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -45,4 +45,4 @@ In particular, ensure that the following ROCm components are installed:
 
 You should also have ``gcc`` 13.* and  ``cmake`` 3.30.4 (or later) installed.
 
-hipMM is supported on gfx942 and gfx90a.
+hipMM is supported on gfx90a, gfx942, and gfx950.
