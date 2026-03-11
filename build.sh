@@ -1,6 +1,27 @@
 #!/bin/bash
 
 # Copyright (c) 2019-2025, NVIDIA CORPORATION.
+# MIT License
+#
+# Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 # rmm build script
 
@@ -38,6 +59,14 @@ HELP="$0 [clean] [librmm] [rmm] [-v] [-g] [-n] [-s] [--ptds] [--cmake-args=\"<ar
 LIBRMM_BUILD_DIR=${LIBRMM_BUILD_DIR:=${REPODIR}/cpp/build}
 RMM_BUILD_DIR="${REPODIR}/python/rmm/build"
 BUILD_DIRS="${LIBRMM_BUILD_DIR} ${RMM_BUILD_DIR}"
+
+#: NOTE(HIP/AMD): We need to use hipcc as CXX and C compiler because of CMake target rocThrust->...->hip::device, which
+#:                leads to the addition of flags such as `-x hip`; hipcc can compile host and HIP device code.
+#: NOTE(HIP/AMD): We need to use declare -x (or export) to forward the variables to subprocesses such as those related to scikit-build.
+#:                scikit-build checks CXX + CC on Linux, it is used to compile Cython files.
+#: NOTE(HIP/AMD): RMM_HIPCC allows to point to specific 'hipcc' implementations that are not part of the $PATH.
+declare -x CXX=${RMM_HIPCC:-hipcc}
+declare -x CC=${RMM_HIPCC:-hipcc}
 
 # Set defaults for vars modified by flags to this script
 VERBOSE_FLAG=""
@@ -91,6 +120,8 @@ function ensureCMakeRan {
         echo "Executing cmake for librmm..."
         cmake -S "${REPODIR}"/cpp -B "${LIBRMM_BUILD_DIR}" \
               -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
+              -DCMAKE_CXX_COMPILER="${CXX}" \
+              -DCMAKE_C_COMPILER="${CC}" \
               -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
               -DPER_THREAD_DEFAULT_STREAM="${PER_THREAD_DEFAULT_STREAM}" \
               -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
