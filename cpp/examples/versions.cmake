@@ -5,4 +5,8 @@
 # cmake-format: on
 # =============================================================================
 
-set(RMM_TAG release/26.02)
+# <<<<<<< OLD CODE from 688cf14c (f25e46eb) - COMMENTED OUT
+# set(RMM_TAG release/26.02)
+# =======
+set(RMM_TAG release/26.04)
+# >>>>>>> END NEW CODE (f25e46eb)

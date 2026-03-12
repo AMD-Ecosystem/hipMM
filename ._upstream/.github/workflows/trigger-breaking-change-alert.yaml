@@ -12,7 +12,11 @@ jobs:
   trigger-notifier:
     if: contains(github.event.pull_request.labels.*.name, 'breaking')
     secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@release/26.02
+# <<<<<<< OLD CODE from 688cf14c (f25e46eb) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@release/26.02
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@release/26.04
+# >>>>>>> END NEW CODE (f25e46eb)
     with:
       sender_login: ${{ github.event.sender.login }}
       sender_avatar: ${{ github.event.sender.avatar_url }}
