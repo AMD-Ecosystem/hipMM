@@ -37,10 +37,13 @@ def _load_wheel_installation(soname: str):
 
     Returns ``None`` if the library cannot be loaded.
     """
-    if os.path.isfile(
-        lib := os.path.join(os.path.dirname(__file__), "lib64", soname)
-    ):
-        return ctypes.CDLL(lib, PREFERRED_LOAD_FLAG)
+    # NOTE(HIP/AMD): Check both lib64 and lib directories for portability
+    # On some systems, the *.so may be in lib folder
+    for libdir in ["lib64", "lib"]:
+        if os.path.isfile(
+            lib := os.path.join(os.path.dirname(__file__), libdir, soname)
+        ):
+            return ctypes.CDLL(lib, PREFERRED_LOAD_FLAG)
     return None
 
 
