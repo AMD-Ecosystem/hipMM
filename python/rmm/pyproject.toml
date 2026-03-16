@@ -74,6 +74,14 @@ test = [
     "numba-hip>=0.1.6",
     "hip-python-interop>=7.2.3",
     "rocm-bindings-hip>=7.2.3",
+# <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+#     # NOTE(HIP/AMD): use numba-hip (the AMD numba backend) instead of upstream
+#     # numba-cuda. This matches the import substitution in
+#     # `python/rmm/rmm/allocators/numba.py` (`from numba import hip as cuda`).
+#     "numba-hip>=0.1.6",
+# =======
+    "numba-cuda>=0.22.1,<0.29.0",
+# >>>>>>> END NEW CODE (596580d3)
     "numba>=0.60.0,<0.65.0",
     "packaging",
     "pytest",

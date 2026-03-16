@@ -11,9 +11,19 @@
   "runArgs": [
     "--rm",
     "--name",
-    "${localEnv:USER:anon}-rapids-${localWorkspaceFolderBasename}-26.04-cuda13.1-conda",
+# <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     "${localEnv:USER:anon}-rapids-${localWorkspaceFolderBasename}-26.04-cuda13.1-conda",
+# #     "--ulimit",
+# #     "nofile=500000"
+# # =======
+#     "${localEnv:USER:anon}-rapids-${localWorkspaceFolderBasename}-26.06-cuda13.1-conda"
+# # >>>>>>> END NEW CODE (933eb9f8)
+# =======
+    "${localEnv:USER:anon}-rapids-${localWorkspaceFolderBasename}-26.06-cuda13.1-conda",
     "--ulimit",
     "nofile=500000"
+# >>>>>>> END NEW CODE (596580d3)
   ],
   "hostRequirements": {"gpu": "optional"},
   "features": {

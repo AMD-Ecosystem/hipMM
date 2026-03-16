@@ -31,17 +31,26 @@ constexpr auto num_allocations{10};
 constexpr auto num_more_allocations{5};
 constexpr auto ten_MiB{10_MiB};
 
-struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
-
-INSTANTIATE_TEST_SUITE_P(StatisticsTest, allocation_size, ::testing::Values(0, 256));
-
-TEST_P(allocation_size, MultiThreaded)
+// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
+//
+// INSTANTIATE_TEST_SUITE_P(StatisticsTest, allocation_size, ::testing::Values(0, 256));
+//
+// TEST_P(allocation_size, MultiThreaded)
+// {
+//   const std::size_t allocation_size = GetParam();
+//   auto upstream                     = rmm::mr::cuda_memory_resource{};
+//   auto delayed = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
+//   auto mr      = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
+//   auto stream  = rmm::cuda_stream{};
+// =======
+TEST(StatisticsTest, MultiThreaded)
 {
-  const std::size_t allocation_size = GetParam();
-  auto upstream                     = rmm::mr::cuda_memory_resource{};
-  auto delayed = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
-  auto mr      = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
-  auto stream  = rmm::cuda_stream{};
+  auto upstream = rmm::mr::cuda_memory_resource{};
+  auto delayed  = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
+  auto mr       = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
+  auto stream   = rmm::cuda_stream{};
+// >>>>>>> END NEW CODE (596580d3)
   // Provoke interleaving to test that statistics counters are updated with correct ordering
   // relative to upstream deallocate. The delayed memory resource frees the pointer upstream
   // immediately then sleeps, simulating the window where the address is available for reuse
@@ -49,26 +58,46 @@ TEST_P(allocation_size, MultiThreaded)
   //
   // Thread-0             Thread-1
   // alloc
+// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+//   //                      alloc
+//   //                      dealloc-start
+//   // dealloc-start
+//   //                      dealloc-end
+//   // dealloc-end
+// =======
+  // dealloc-start
   //                      alloc
   //                      dealloc-start
-  // dealloc-start
-  //                      dealloc-end
+  //
   // dealloc-end
+  //                      dealloc-end
+// >>>>>>> END NEW CODE (596580d3)
   //
   // After both threads complete, the counters must reflect zero outstanding allocations.
   std::vector<std::thread> threads;
   for (int i = 0; i < 2; i++) {
     threads.emplace_back([&, i = i]() {
-      void* ptr{nullptr};
-      if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-      EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
-      if (allocation_size != 0) {
-        EXPECT_NE(ptr, nullptr);
+// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+//       void* ptr{nullptr};
+//       if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+//       EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
+//       if (allocation_size != 0) {
+//         EXPECT_NE(ptr, nullptr);
+//       } else {
+//         EXPECT_EQ(ptr, nullptr);
+//       }
+//       if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+//       mr.deallocate(stream, ptr, allocation_size);
+// =======
+      if (i == 0) {
+        void* ptr = mr.allocate(stream, 256);
+        mr.deallocate(stream, ptr, 256);
       } else {
-        EXPECT_EQ(ptr, nullptr);
+        std::this_thread::sleep_for(std::chrono::milliseconds{100});
+        void* ptr = mr.allocate(stream, 256);
+        mr.deallocate(stream, ptr, 256);
       }
-      if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-      mr.deallocate(stream, ptr, allocation_size);
+// >>>>>>> END NEW CODE (596580d3)
     });
   }
   for (auto& t : threads) {
@@ -77,7 +106,11 @@ TEST_P(allocation_size, MultiThreaded)
   EXPECT_EQ(mr.get_bytes_counter().value, 0);
   EXPECT_EQ(mr.get_allocations_counter().value, 0);
   EXPECT_EQ(mr.get_allocations_counter().total, 2);
-  EXPECT_EQ(mr.get_bytes_counter().total, 2 * allocation_size);
+// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+//   EXPECT_EQ(mr.get_bytes_counter().total, 2 * allocation_size);
+// =======
+  EXPECT_EQ(mr.get_bytes_counter().total, 512);
+// >>>>>>> END NEW CODE (596580d3)
 }
 
 TEST(StatisticsTest, ThrowOnNullUpstream)
