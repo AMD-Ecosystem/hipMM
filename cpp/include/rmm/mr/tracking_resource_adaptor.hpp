@@ -200,11 +200,15 @@ class tracking_resource_adaptor final : public device_memory_resource {
     // track it.
     if (bytes != 0) {
       write_lock_t lock(mtx_);
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//       auto [_, inserted] = allocations_.try_emplace(ptr, bytes, capture_stacks_);
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //       auto [_, inserted] = allocations_.try_emplace(ptr, bytes, capture_stacks_);
+// // =======
+//       auto [_, inserted] = allocations_.emplace(ptr, allocation_info{bytes, capture_stacks_});
+// // >>>>>>> END NEW CODE (596580d3)
 // =======
-      auto [_, inserted] = allocations_.emplace(ptr, allocation_info{bytes, capture_stacks_});
-// >>>>>>> END NEW CODE (596580d3)
+      auto [_, inserted] = allocations_.try_emplace(ptr, bytes, capture_stacks_);
+// >>>>>>> END NEW CODE (7ef8b69d)
       RMM_EXPECTS(inserted, "pointer is already tracked");
     }
     allocated_bytes_ += bytes;
@@ -221,11 +225,15 @@ class tracking_resource_adaptor final : public device_memory_resource {
    */
   void do_deallocate(void* ptr, std::size_t bytes, cuda_stream_view stream) noexcept override
   {
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//     if (bytes != 0) {
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //     if (bytes != 0) {
+// // =======
+//     {
+// // >>>>>>> END NEW CODE (596580d3)
 // =======
-    {
-// >>>>>>> END NEW CODE (596580d3)
+    if (bytes != 0) {
+// >>>>>>> END NEW CODE (7ef8b69d)
       write_lock_t lock(mtx_);
 
       const auto found = allocations_.find(ptr);

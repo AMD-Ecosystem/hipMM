@@ -33,20 +33,31 @@ constexpr auto num_allocations{10};
 constexpr auto num_more_allocations{5};
 constexpr auto ten_MiB{10_MiB};
 
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-// struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
-//
-// INSTANTIATE_TEST_SUITE_P(TrackingTest, allocation_size, ::testing::Values(0, 256));
-//
-// TEST_P(allocation_size, MultiThreaded)
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// // struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
+// //
+// // INSTANTIATE_TEST_SUITE_P(TrackingTest, allocation_size, ::testing::Values(0, 256));
+// //
+// // TEST_P(allocation_size, MultiThreaded)
+// // {
+// //   const std::size_t allocation_size = GetParam();
+// //   auto upstream                     = rmm::mr::cuda_memory_resource{};
+// // =======
+// TEST(TrackingTest, MultiThreaded)
 // {
-//   const std::size_t allocation_size = GetParam();
-//   auto upstream                     = rmm::mr::cuda_memory_resource{};
+//   auto upstream = rmm::mr::cuda_memory_resource{};
+// // >>>>>>> END NEW CODE (596580d3)
 // =======
-TEST(TrackingTest, MultiThreaded)
+struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
+
+INSTANTIATE_TEST_SUITE_P(TrackingTest, allocation_size, ::testing::Values(0, 256));
+
+TEST_P(allocation_size, MultiThreaded)
 {
-  auto upstream = rmm::mr::cuda_memory_resource{};
-// >>>>>>> END NEW CODE (596580d3)
+  const std::size_t allocation_size = GetParam();
+  auto upstream                     = rmm::mr::cuda_memory_resource{};
+// >>>>>>> END NEW CODE (7ef8b69d)
   std::vector<std::thread> threads;
   auto delayed = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
   auto mr      = rmm::mr::tracking_resource_adaptor<delayed_memory_resource>(delayed);
@@ -54,70 +65,92 @@ TEST(TrackingTest, MultiThreaded)
   // Idea, we want to provoke address reuse to test ABA problems in the tracking resource
   // adaptor. To do so, the delayed memory resource frees (and hence returns to the
   // upstream) an address immediately and then makes that thread sleep. So thread 0
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//   // allocates, sleeps, deallocates, sleeps. Thread 1 sleeps, allocates, deallocates, sleeps. We
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //   // allocates, sleeps, deallocates, sleeps. Thread 1 sleeps, allocates, deallocates, sleeps. We
+// // =======
+//   // allocates, deallocates, sleeps. Thread 1 sleeps, allocates, deallocates, sleeps. We
+// // >>>>>>> END NEW CODE (596580d3)
 // =======
-  // allocates, deallocates, sleeps. Thread 1 sleeps, allocates, deallocates, sleeps. We
-// >>>>>>> END NEW CODE (596580d3)
+  // allocates, sleeps, deallocates, sleeps. Thread 1 sleeps, allocates, deallocates, sleeps. We
+// >>>>>>> END NEW CODE (7ef8b69d)
   // therefore expect an interleaving:
   //
   // Thread-0             Thread-1
   // alloc
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//   //                      alloc
-//   //                      dealloc-start
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //   //                      alloc
+// //   //                      dealloc-start
+// //   // dealloc-start
+// //   //                      dealloc-end
+// //   // dealloc-end
+// // =======
 //   // dealloc-start
-//   //                      dealloc-end
-//   // dealloc-end
 // =======
-  // dealloc-start
+// >>>>>>> END NEW CODE (7ef8b69d)
   //                      alloc
   //                      dealloc-start
-  //
-  // dealloc-end
+  // dealloc-start
   //                      dealloc-end
-// >>>>>>> END NEW CODE (596580d3)
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // >>>>>>> END NEW CODE (596580d3)
+// =======
+  // dealloc-end
+// >>>>>>> END NEW CODE (7ef8b69d)
   //
   // In this scenario, if the tracking adaptor doesn't correctly handle ordering,
   // allocation tracking should be morally an acquire-release pair bounded by the upstream
   // allocate/deallocate, then we can get ABA reuse of the upstream's pointer.
   for (int i = 0; i < 2; i++) {
     threads.emplace_back([&, i = i]() {
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//       void* ptr{nullptr};
-//       if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-//       EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
-//       if (allocation_size != 0) {
-//         EXPECT_NE(ptr, nullptr);
-//       } else {
-//         EXPECT_EQ(ptr, nullptr);
-//       }
-//       if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-//       mr.deallocate(stream, ptr, allocation_size);
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //       void* ptr{nullptr};
+// //       if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+// //       EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
+// //       if (allocation_size != 0) {
+// //         EXPECT_NE(ptr, nullptr);
+// //       } else {
+// //         EXPECT_EQ(ptr, nullptr);
+// //       }
+// //       if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+// //       mr.deallocate(stream, ptr, allocation_size);
+// // =======
+//       if (i == 0) {
+//         void* ptr{nullptr};
+//         EXPECT_NO_THROW(ptr = mr.allocate(stream, 256));
 // =======
-      if (i == 0) {
-        void* ptr{nullptr};
-        EXPECT_NO_THROW(ptr = mr.allocate(stream, 256));
+      void* ptr{nullptr};
+      if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+      EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
+      if (allocation_size != 0) {
+// >>>>>>> END NEW CODE (7ef8b69d)
         EXPECT_NE(ptr, nullptr);
-        mr.deallocate(stream, ptr, 256);
       } else {
-        std::this_thread::sleep_for(std::chrono::milliseconds{100});
-        void* ptr{nullptr};
-        EXPECT_NO_THROW(ptr = mr.allocate(stream, 256));
-        EXPECT_NE(ptr, nullptr);
-        mr.deallocate(stream, ptr, 256);
+        EXPECT_EQ(ptr, nullptr);
       }
-// >>>>>>> END NEW CODE (596580d3)
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // >>>>>>> END NEW CODE (596580d3)
+// =======
+      if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
+      mr.deallocate(stream, ptr, allocation_size);
+// >>>>>>> END NEW CODE (7ef8b69d)
     });
   }
   for (auto& t : threads) {
     t.join();
   }
-// <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-//   EXPECT_EQ(mr.get_outstanding_allocations().size(), 0);
-//   EXPECT_EQ(mr.get_allocated_bytes(), 0);
+// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
+// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
+// //   EXPECT_EQ(mr.get_outstanding_allocations().size(), 0);
+// //   EXPECT_EQ(mr.get_allocated_bytes(), 0);
+// // =======
+// // >>>>>>> END NEW CODE (596580d3)
 // =======
-// >>>>>>> END NEW CODE (596580d3)
+  EXPECT_EQ(mr.get_outstanding_allocations().size(), 0);
+  EXPECT_EQ(mr.get_allocated_bytes(), 0);
+// >>>>>>> END NEW CODE (7ef8b69d)
 }
 
 TEST(TrackingTest, ThrowOnNullUpstream)
