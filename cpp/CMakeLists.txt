@@ -160,14 +160,26 @@ target_include_directories(
 # AMD HIP runtime equivalent.
 if(CUDA_STATIC_RUNTIME)
   message(STATUS "RMM: Enabling static linking of cudart")
-  target_link_libraries(rmm PUBLIC CUDA::cudart_static)
+  set(cudart_dep CUDA::cudart_static)
 else()
-  target_link_libraries(rmm PUBLIC hip::host)
+# <<<<<<< OLD CODE from a9a3ce81 (3f59cf08) - COMMENTED OUT
+#   target_link_libraries(rmm PUBLIC hip::host)
+# endif()
+#
+# # TODO(HIP/AMD): no support for nvtx3  nvtx3::nvtx3-cpp
+# target_link_libraries(rmm PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS}
+#                                  rapids_logger::rapids_logger)
+# =======
+  set(cudart_dep CUDA::cudart)
 endif()
 
-# TODO(HIP/AMD): no support for nvtx3  nvtx3::nvtx3-cpp
-target_link_libraries(rmm PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS}
-                                 rapids_logger::rapids_logger)
+target_link_libraries(
+  rmm
+  PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS} nvtx3::nvtx3-cpp rapids_logger::rapids_logger
+  PRIVATE "${cudart_dep}"
+  INTERFACE
+    "$<IF:$<BOOL:$<TARGET_PROPERTY:NO_CUDART_DEP>>,$<COMPILE_ONLY:${cudart_dep}>,${cudart_dep}>")
+# >>>>>>> END NEW CODE (3f59cf08)
 
 set_target_properties(
   rmm
