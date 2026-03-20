@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright (c) 2020-2025, NVIDIA CORPORATION.
+ * SPDX-FileCopyrightText: Copyright (c) 2020-2026, NVIDIA CORPORATION.
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -30,7 +30,12 @@
 #include <rmm/cuda_stream_view.hpp>
 #include <rmm/detail/export.hpp>
 
-#include <rmm/cuda_runtime_api.h>
+// <<<<<<< OLD CODE from a1ff1bd4 (69306d0b) - COMMENTED OUT
+// #include <rmm/cuda_runtime_api.h>
+// =======
+#include <cuda/stream_ref>
+#include <cuda_runtime_api.h>
+// >>>>>>> END NEW CODE (69306d0b)
 
 #include <functional>
 #include <memory>
@@ -119,6 +124,13 @@ class cuda_stream {
    * @return A view of the owned stream
    */
   operator cuda_stream_view() const;
+
+  /**
+   * @brief Implicit conversion to cuda::stream_ref
+   *
+   * @return A stream_ref for the owned stream
+   */
+  operator cuda::stream_ref() const noexcept;
 
   /**
    * @brief Synchronize the owned CUDA stream.
