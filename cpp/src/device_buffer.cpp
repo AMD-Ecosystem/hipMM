@@ -3,30 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// MIT License
+// <<<<<<< OLD CODE from 28085527 (99d03129) - COMMENTED OUT
+// // MIT License
+// //
+// // Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+// //
+// // Permission is hereby granted, free of charge, to any person obtaining a copy
+// // of this software and associated documentation files (the "Software"), to deal
+// // in the Software without restriction, including without limitation the rights
+// // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// // copies of the Software, and to permit persons to whom the Software is
+// // furnished to do so, subject to the following conditions:
+// //
+// // The above copyright notice and this permission notice shall be included in all
+// // copies or substantial portions of the Software.
+// //
+// // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// // SOFTWARE.
 //
-// Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
+// =======
+#include <rmm/aligned.hpp>
+// >>>>>>> END NEW CODE (99d03129)
 #include <rmm/detail/error.hpp>
 #include <rmm/device_buffer.hpp>
+#include <rmm/error.hpp>
 
 #include <rmm/cuda_runtime_api.h>
 
@@ -39,8 +44,19 @@ device_buffer::device_buffer() : _mr{rmm::mr::get_current_device_resource_ref()}
 device_buffer::device_buffer(std::size_t size,
                              cuda_stream_view stream,
                              device_async_resource_ref mr)
-  : _stream{stream}, _mr{mr}
+  : device_buffer::device_buffer(size, rmm::CUDA_ALLOCATION_ALIGNMENT, stream, mr)
 {
+}
+
+device_buffer::device_buffer(std::size_t size,
+                             std::size_t alignment,
+                             cuda_stream_view stream,
+                             device_async_resource_ref mr)
+  : _alignment{alignment}, _stream{stream}, _mr{mr}
+{
+  RMM_EXPECTS(rmm::is_supported_alignment(alignment),
+              "Requested alignment is not a power of 2",
+              rmm::invalid_argument);
   cuda_set_device_raii dev{_device};
   allocate_async(size);
 }
@@ -49,8 +65,20 @@ device_buffer::device_buffer(void const* source_data,
                              std::size_t size,
                              cuda_stream_view stream,
                              device_async_resource_ref mr)
-  : _stream{stream}, _mr{mr}
+  : device_buffer::device_buffer(source_data, size, rmm::CUDA_ALLOCATION_ALIGNMENT, stream, mr)
 {
+}
+
+device_buffer::device_buffer(void const* source_data,
+                             std::size_t size,
+                             std::size_t alignment,
+                             cuda_stream_view stream,
+                             device_async_resource_ref mr)
+  : _alignment{alignment}, _stream{stream}, _mr{mr}
+{
+  RMM_EXPECTS(rmm::is_supported_alignment(alignment),
+              "Requested alignment is not a power of 2",
+              rmm::invalid_argument);
   cuda_set_device_raii dev{_device};
   allocate_async(size);
   copy_async(source_data, size);
@@ -59,21 +87,23 @@ device_buffer::device_buffer(void const* source_data,
 device_buffer::device_buffer(device_buffer const& other,
                              cuda_stream_view stream,
                              device_async_resource_ref mr)
-  : device_buffer{other.data(), other.size(), stream, mr}
+  : device_buffer{other.data(), other.size(), other.alignment(), stream, mr}
 {
 }
 
 device_buffer::device_buffer(device_buffer&& other) noexcept
   : _data{other._data},
     _size{other._size},
+    _alignment{other._alignment},
     _capacity{other._capacity},
     _stream{other.stream()},
     _mr{std::move(other._mr)},
     _device{other._device}
 {
-  other._data     = nullptr;
-  other._size     = 0;
-  other._capacity = 0;
+  other._data      = nullptr;
+  other._size      = 0;
+  other._alignment = 1;
+  other._capacity  = 0;
   other.set_stream(cuda_stream_view{});
   other._device = cuda_device_id{-1};
 }
@@ -84,16 +114,18 @@ device_buffer& device_buffer::operator=(device_buffer&& other) noexcept
     cuda_set_device_raii dev{_device};
     deallocate_async();
 
-    _data     = other._data;
-    _size     = other._size;
-    _capacity = other._capacity;
+    _data      = other._data;
+    _size      = other._size;
+    _alignment = other._alignment;
+    _capacity  = other._capacity;
     set_stream(other.stream());
     _mr     = std::move(other._mr);
     _device = other._device;
 
-    other._data     = nullptr;
-    other._size     = 0;
-    other._capacity = 0;
+    other._data      = nullptr;
+    other._size      = 0;
+    other._alignment = 1;
+    other._capacity  = 0;
     other.set_stream(cuda_stream_view{});
     other._device = cuda_device_id{-1};
   }
@@ -111,15 +143,16 @@ void device_buffer::allocate_async(std::size_t bytes)
 {
   _size     = bytes;
   _capacity = bytes;
-  _data     = (bytes > 0) ? _mr.allocate(stream(), bytes) : nullptr;
+  _data     = (bytes > 0) ? _mr.allocate(stream(), bytes, alignment()) : nullptr;
 }
 
 void device_buffer::deallocate_async() noexcept
 {
-  if (capacity() > 0) { _mr.deallocate(stream(), data(), capacity()); }
-  _size     = 0;
-  _capacity = 0;
-  _data     = nullptr;
+  if (capacity() > 0) { _mr.deallocate(stream(), data(), capacity(), alignment()); }
+  _size      = 0;
+  _alignment = 1;
+  _capacity  = 0;
+  _data      = nullptr;
 }
 
 void device_buffer::copy_async(void const* source, std::size_t bytes)
@@ -137,7 +170,7 @@ void device_buffer::reserve(std::size_t new_capacity, cuda_stream_view stream)
   set_stream(stream);
   if (new_capacity > capacity()) {
     cuda_set_device_raii dev{_device};
-    auto tmp            = device_buffer{new_capacity, stream, _mr};
+    auto tmp            = device_buffer{new_capacity, alignment(), stream, _mr};
     auto const old_size = size();
     RMM_CUDA_TRY(cudaMemcpyAsync(tmp.data(), data(), size(), cudaMemcpyDefault, stream.value()));
     *this = std::move(tmp);
@@ -154,7 +187,7 @@ void device_buffer::resize(std::size_t new_size, cuda_stream_view stream)
     _size = new_size;
   } else {
     cuda_set_device_raii dev{_device};
-    auto tmp = device_buffer{new_size, stream, _mr};
+    auto tmp = device_buffer{new_size, alignment(), stream, _mr};
     RMM_CUDA_TRY(cudaMemcpyAsync(tmp.data(), data(), size(), cudaMemcpyDefault, stream.value()));
     *this = std::move(tmp);
   }
