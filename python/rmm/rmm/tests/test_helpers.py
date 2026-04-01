@@ -25,6 +25,8 @@
 
 """Shared test utilities and constants for RMM tests."""
 
+from typing import Any
+
 import numpy as np
 from cuda.bindings import runtime
 from numba import hip as cuda
@@ -65,7 +67,7 @@ _MEMORY_POOL_HANDLE_TYPES_SUPPORTED = rmm._cuda.gpu.getDeviceAttribute(
 )
 
 
-def array_tester(dtype, nelem, alloc):
+def array_tester(dtype: type[np.generic], nelem: int, alloc: Any) -> None:
     """Test helper for array allocation and copy operations."""
     # data
     h_in = np.full(nelem, 3.2, dtype)
@@ -80,7 +82,7 @@ def array_tester(dtype, nelem, alloc):
     np.testing.assert_array_equal(h_result, h_in)
 
 
-def assert_prefetched(buffer, device_id):
+def assert_prefetched(buffer: rmm.DeviceBuffer, device_id: int) -> None:
     """Check if a buffer has been prefetched to a specific device."""
     if getattr(runtime, "HIP_PYTHON", False):
         import ctypes
