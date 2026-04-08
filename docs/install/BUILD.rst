@@ -29,9 +29,11 @@
 Building and installing hipMM from source
 =========================================
 
-For developers, the following topic provides details on building the C++
-components, running tests and benchmarks, and for building
-the full hipMM installation including the Python package. End users should see the :ref:`Installation instructions <hipmm-install>`.
+For developers, the following topic provides details on building the C++ components, running tests and
+benchmarks, and for building the full hipMM installation including the Python package. End users should see the :ref:`hipmm-install`.
+
+See :ref:`hipMM-support` for information regarding supported operating systems, ROCm versions,
+and AMD GPUs before building and installing hipMM.
 
 Build procedure for C++ components
 ----------------------------------

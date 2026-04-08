@@ -30,13 +30,23 @@ Installing hipMM
 ================
 
 You can install hipMM via AMD PyPI, which is recommended for end users, or build
-and install it from source as described in :ref:`Building hipMM from source <hipmm-build>`.
+and install it from source as described in :ref:`hipMM-build`.
 
-Requirements
-------------
+See :ref:`hipMM-support` for information regarding supported operating systems, ROCm versions,
+and AMD GPUs before installing hipMM.
 
-System requirements can be found in :ref:`hipMM supported environments, features, and interfaces <hipmm-support>`,
-including supported GPU architectures.
+Prerequisites
+-------------
+
+The following ROCm components must be installed:
+
+- `hipBLAS <https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html>`__
+- `hipFFT <https://rocm.docs.amd.com/projects/hipFFT/en/latest/index.html>`__
+- `hipRAND <https://rocm.docs.amd.com/projects/hipRAND/en/latest/index.html>`__
+- `rocRAND <https://rocm.docs.amd.com/projects/rocRAND/en/latest/index.html>`__
+- `hipSPARSE <https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/>`__
+
+You should also have ``gcc`` 13.* and  ``cmake`` 3.30.4 (or later) installed.
 
 The steps in this guide require a Conda installation. A minimal free
 version of Conda is `Miniforge <https://conda-forge.org/download/>`__.

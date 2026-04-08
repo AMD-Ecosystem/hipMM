@@ -28,21 +28,23 @@
 .. _hipMM-support:
 
 *******************************************************
-hipMM supported environments, features, and interfaces
+System requirements
 *******************************************************
 
-hipMM requires ROCm 7.2.1 running on a `ROCm-supported operating system <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.1/reference/system-requirements.html#supported-operating-systems>`__. Using Ubuntu 22.04 or later is recommended.
-See `ROCm installation for Linux <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.1/>`_
-for installation instructions.
+This topic lists the system requirements for using hipDF.
 
-In particular, ensure that the following ROCm components are installed:
+* ROCm version: `7.2.0 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.0/>`__ or `7.2.1 <https://rocm.docs.amd.com/projects/install-on-linux/en/docs-7.2.1/>`__
+* Operating Systems: Ubuntu 24.04 and 22.04  
+* AMD Instinct GPUs: 
 
-- `hipBLAS <https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html>`__
-- `hipFFT <https://rocm.docs.amd.com/projects/hipFFT/en/latest/index.html>`__
-- `hipRAND <https://rocm.docs.amd.com/projects/hipRAND/en/latest/index.html>`__
-- `rocRAND <https://rocm.docs.amd.com/projects/rocRAND/en/latest/index.html>`__
-- `hipSPARSE <https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/>`__
+  - MI350X / MI355X (GPU target gfx950) 
+  - MI300A / MI300X (GPU target gfx942) 
+  - MI250X / MI250 / MI210 (GPU target gfx90a) 
 
-You should also have ``gcc`` 13.* and  ``cmake`` 3.30.4 (or later) installed.
+* Python versions: 3.10, 3.11, 3.12, 3.13
 
-hipMM is supported on gfx90a, gfx942, and gfx950.
+Conda virtual environment
+-------------------------
+
+The steps in this guide require a Conda installation.
+A minimal free version of Conda is `Miniforge <https://conda-forge.org/download/>`__.
