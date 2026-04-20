@@ -14,7 +14,7 @@
 
 # MIT License
 #
-# Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+# Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -100,7 +100,10 @@ if(NOT rapids-cmake-branch)
   set(rapids-cmake-branch "${_rapids_branch}")
 endif()
 
-# TODO(HIP/AMD): Here we diverge from upstream and still use the downloaded script.
-# We might decide to vendor RAPIDS.cmake in the future, too:
-# include(${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake)
+# NOTE(HIP/AMD): We intentionally diverge from upstream here. Instead of
+# vendoring RAPIDS.cmake in the repo, we download ROCmDS-CMake's RAPIDS.cmake
+# into the build directory (as RMM_RAPIDS.cmake) using the configurable
+# RAPIDS_CMAKE_SCRIPT_REPO / RAPIDS_CMAKE_SCRIPT_BRANCH env variables above.
+# To vendor it in the future, drop the download block and swap the include
+# below for: include(${CMAKE_CURRENT_LIST_DIR}/RAPIDS.cmake)
 include(${CMAKE_CURRENT_BINARY_DIR}/RMM_RAPIDS.cmake)
