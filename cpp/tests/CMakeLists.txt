@@ -14,7 +14,7 @@
 
 # MIT License
 #
-# Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+# Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -170,7 +170,13 @@ ConfigureTest(ADAPTOR_TEST mr/device/adaptor_tests.cpp)
 # pool mr tests
 ConfigureTest(POOL_MR_TEST mr/device/pool_mr_tests.cpp GPUS 1 PERCENT 100)
 
-ConfigureTest(HWDECOMPRESS_TEST mr/device/hwdecompress_tests.cpp) # TODO(HIP/AMD): HW decompression not supported, LINK_DRIVER equivalent?
+# NOTE(HIP/AMD): The hardware-decompression probe uses NVIDIA-only CUDA driver
+# APIs (cuPointerGetAttribute with CU_POINTER_ATTRIBUTE_IS_HW_DECOMPRESS_CAPABLE).
+# hwdecompress_tests.cpp guards those calls with
+#   #if defined(CUDA_VERSION) && CUDA_VERSION >= RMM_MIN_HWDECOMPRESS_CUDA_DRIVER_VERSION
+# so on HIP (where CUDA_VERSION is undefined) each test body runs GTEST_SKIP().
+# No LINK_DRIVER equivalent is needed on HIP; a plain ConfigureTest() is enough.
+ConfigureTest(HWDECOMPRESS_TEST mr/device/hwdecompress_tests.cpp)
 
 # cuda_async mr tests
 ConfigureTest(CUDA_ASYNC_MR_STATIC_CUDART_TEST mr/device/cuda_async_mr_tests.cpp GPUS 1 PERCENT 60
