@@ -92,7 +92,7 @@ TYPED_TEST_SUITE(PrefetchTest, resources);
 
 TYPED_TEST(PrefetchTest, PointerAndSize)
 {
-  rmm::device_buffer buff(this->size, this->stream, &this->mr);
+  rmm::device_buffer buff(this->size, this->stream, this->mr);
   // verify not prefetched before prefetching
   this->expect_prefetched(buff.data(), buff.size(), rmm::cuda_device_id(cudaInvalidDeviceId));
   rmm::prefetch(buff.data(), buff.size(), rmm::get_current_cuda_device(), this->stream);
@@ -103,14 +103,14 @@ TYPED_TEST(PrefetchTest, PointerAndSize)
 TYPED_TEST(PrefetchTest, DeviceUVector)
 {
   {
-    rmm::device_uvector<int> uvec(this->size, this->stream, &this->mr);
+    rmm::device_uvector<int> uvec(this->size, this->stream, this->mr);
     rmm::prefetch<int>(uvec, rmm::get_current_cuda_device(), this->stream);
     this->expect_prefetched(uvec.data(), uvec.size() * sizeof(int), rmm::get_current_cuda_device());
   }
 
   // test iterator range of part of the vector (implicitly constructs a span)
   {
-    rmm::device_uvector<int> uvec(this->size, this->stream, &this->mr);
+    rmm::device_uvector<int> uvec(this->size, this->stream, this->mr);
     rmm::prefetch<int>(
       {uvec.begin(), std::next(uvec.begin(), static_cast<std::ptrdiff_t>(this->size / 2))},  // span
       rmm::get_current_cuda_device(),
@@ -122,7 +122,7 @@ TYPED_TEST(PrefetchTest, DeviceUVector)
 
 TYPED_TEST(PrefetchTest, DeviceScalar)
 {
-  rmm::device_scalar<int> scalar(this->stream, &this->mr);
+  rmm::device_scalar<int> scalar(this->stream, this->mr);
   // Implicitly constructs a span from the data and size
   rmm::prefetch<int>({scalar.data(), scalar.size()}, rmm::get_current_cuda_device(), this->stream);
   this->expect_prefetched(scalar.data(), sizeof(int), rmm::get_current_cuda_device());
