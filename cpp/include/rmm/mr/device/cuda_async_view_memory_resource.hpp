@@ -16,7 +16,7 @@
 
 // MIT License
 //
-// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+// Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ class cuda_async_view_memory_resource final : public device_memory_resource {
         return pool_handle;
       }()}
   {
-#  if ! ( defined(__HIP_PLATFORM_AMD__) || defined(__HIP_PLATFORM_HCC__) ) //: HIP/AMD: RMM_CUDA_MALLOC_ASYNC_SUPPORT implies the support of pools
+#  if !defined(__HIP_PLATFORM_AMD__) // NOTE(HIP/AMD): RMM_CUDA_MALLOC_ASYNC_SUPPORT implies the support of pools
     // Check if cudaMallocAsync Memory pool supported
     auto const device = rmm::get_current_cuda_device();
     int cuda_pool_supported{};
