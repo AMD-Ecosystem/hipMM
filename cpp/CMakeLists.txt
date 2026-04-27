@@ -51,6 +51,9 @@ include(rapids-find)
 include(rapids-hip)
 rapids_hip_init_architectures(RMM)
 
+# NOTE(HIP/AMD): RAPIDS_VERSION is parsed from the repo-root VERSION file by
+#     ../cmake/rapids_config.cmake (included above). Using it here makes VERSION
+#     the single source of truth for the project version.
 project(
   RMM
   VERSION "${RAPIDS_VERSION}"
