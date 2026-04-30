@@ -34,12 +34,11 @@
 #include <rmm/mr/per_device_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
-// <<<<<<< OLD CODE from bc997a17 (45586bd0) - COMMENTED OUT
-// #include <rmm/cuda_runtime_api.h>
-// =======
+// NOTE(HIP/AMD): keep AMD shim `<rmm/cuda_runtime_api.h>` which redirects to
+// `<hip/hip_runtime_api.h>` (defines CUDART_VERSION=0 and CUDA→HIP type/sym
+// translations). This replaces the upstream system `<cuda_runtime_api.h>`.
+#include <rmm/cuda_runtime_api.h>
 #include <cuda/memory_resource>
-#include <cuda_runtime_api.h>
-// >>>>>>> END NEW CODE (45586bd0)
 
 #include <cassert>
 #include <cstddef>

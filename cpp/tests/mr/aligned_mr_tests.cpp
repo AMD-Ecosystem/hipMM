@@ -219,6 +219,5 @@ TEST(AlignedTest, SmallAlignmentsBumpedTo256Bytes)
   }
 }
 
-// >>>>>>> END NEW CODE (99f2d777)
 }  // namespace
 }  // namespace rmm::test

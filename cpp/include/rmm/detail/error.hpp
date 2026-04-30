@@ -207,12 +207,8 @@
  * RMM_ASSERT_CUDA_SUCCESS(cudaRuntimeApi(...));
  * ```
  *
-// <<<<<<< OLD CODE from 3b3b081e (948c3790) - COMMENTED OUT
-//  * 
-// =======
  * @note For destructor cleanup that may run during program shutdown, use
  * RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN instead, which also accepts `cudaErrorCudartUnloading`.
-// >>>>>>> END NEW CODE (948c3790)
  */
 #ifdef NDEBUG
 #define RMM_ASSERT_CUDA_SUCCESS(_call) \
