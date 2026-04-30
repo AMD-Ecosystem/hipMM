@@ -114,11 +114,7 @@ dependencies:
     common:
       - output_types: [conda, requirements, pyproject]
         packages:
-# <<<<<<< OLD CODE from ae3e5239 (90a55a37) - COMMENTED OUT
-#           - rapids-build-backend>=0.3.0,<0.4.0.dev0
-# =======
           - rapids-build-backend>=0.4.0,<0.5.0
-# >>>>>>> END NEW CODE (90a55a37)
       - output_types: conda
         packages:
           - scikit-build-core>=0.11.0
@@ -169,15 +165,7 @@ dependencies:
     common:
       - output_types: conda
         packages:
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #           - &librmm_unsuffixed librmm==25.8.*,>=0.0.0a0
-# # =======
-#           - &librmm_unsuffixed librmm==25.12.*,>=0.0.0a0
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
           - &librmm_unsuffixed librmm==26.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (0c305e00)
       - output_types: requirements
         packages:
           # pip recognizes the index as a global option for the requirements.txt file
@@ -191,15 +179,7 @@ dependencies:
               cuda: "12.*"
               cuda_suffixed: "true"
             packages:
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #               - librmm-cu12==25.8.*,>=0.0.0a0
-# # =======
-#               - librmm-cu12==25.12.*,>=0.0.0a0
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
               - librmm-cu12==26.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (0c305e00)
           - matrix:
               cuda: "13.*"
               cuda_suffixed: "true"
@@ -212,41 +192,17 @@ dependencies:
     common:
       - output_types: conda
         packages:
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #           - rmm==25.8.*,>=0.0.0a0
-# # =======
-#           - rmm==25.12.*,>=0.0.0a0
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
           - rmm==26.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (0c305e00)
   depends_on_librmm_tests:
     common:
       - output_types: conda
         packages:
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #           - librmm-tests==25.8.*,>=0.0.0a0
-# # =======
-#           - librmm-tests==25.12.*,>=0.0.0a0
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
           - librmm-tests==26.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (0c305e00)
   depends_on_librmm_example:
     common:
       - output_types: conda
         packages:
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #           - librmm-example==25.8.*,>=0.0.0a0
-# # =======
-#           - librmm-example==25.12.*,>=0.0.0a0
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
           - librmm-example==26.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (0c305e00)
   checks:
     common:
       - output_types: [conda, requirements]
@@ -412,11 +368,7 @@ dependencies:
     common:
       - output_types: [conda, requirements, pyproject]
         packages:
-# <<<<<<< OLD CODE from 8296a23a (96be1638) - COMMENTED OUT
-#           - rapids-logger==0.1.*
-# =======
           - rapids-logger==0.2.*,>=0.0.0a0
-# >>>>>>> END NEW CODE (96be1638)
       - output_types: requirements
         packages:
           # pip recognizes the index as a global option for the requirements.txt file

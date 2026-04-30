@@ -5,15 +5,7 @@
     "args": {
       "CUDA": "12.9",
       "PYTHON_PACKAGE_MANAGER": "pip",
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #       "BASE": "rapidsai/devcontainers:25.08-cpp-cuda12.9-ubuntu22.04"
-# # =======
-#       "BASE": "rapidsai/devcontainers:25.12-cpp-cuda12.9"
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
       "BASE": "rapidsai/devcontainers:26.02-cpp-cuda12.9"
-# >>>>>>> END NEW CODE (0c305e00)
     }
   },
   "runArgs": [
@@ -25,15 +17,7 @@
   ],
   "hostRequirements": {"gpu": "optional"},
   "features": {
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #     "ghcr.io/rapidsai/devcontainers/features/rapids-build-utils:25.8": {}
-# # =======
-#     "ghcr.io/rapidsai/devcontainers/features/rapids-build-utils:25.12": {}
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
     "ghcr.io/rapidsai/devcontainers/features/rapids-build-utils:26.2": {}
-# >>>>>>> END NEW CODE (0c305e00)
   },
   "overrideFeatureInstallOrder": [
     "ghcr.io/rapidsai/devcontainers/features/rapids-build-utils"

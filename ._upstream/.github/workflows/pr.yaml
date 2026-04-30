@@ -122,15 +122,7 @@ jobs:
       build_type: pull-request
       node_type: "gpu-l4-latest-1"
       arch: "amd64"
-# <<<<<<< OLD CODE from 3ac1abce (0c305e00) - COMMENTED OUT
-# # <<<<<<< OLD CODE from c0e86ddd (8b3d2692) - COMMENTED OUT
-# #       container_image: "rapidsai/ci-conda:25.08-latest"
-# # =======
-#       container_image: "rapidsai/ci-conda:25.12-latest"
-# # >>>>>>> END NEW CODE (8b3d2692)
-# =======
       container_image: "rapidsai/ci-conda:26.02-latest"
-# >>>>>>> END NEW CODE (0c305e00)
       script: "ci/build_docs.sh"
   wheel-build-cpp:
     needs: checks
