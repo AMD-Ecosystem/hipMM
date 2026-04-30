@@ -1,32 +1,29 @@
 #!/bin/bash
 
-# <<<<<<< OLD CODE from f2057e0e (20a02602) - COMMENTED OUT
-# # Copyright (c) 2019-2025, NVIDIA CORPORATION.
-# # MIT License
-# #
-# # Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
-# #
-# # Permission is hereby granted, free of charge, to any person obtaining a copy
-# # of this software and associated documentation files (the "Software"), to deal
-# # in the Software without restriction, including without limitation the rights
-# # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# # copies of the Software, and to permit persons to whom the Software is
-# # furnished to do so, subject to the following conditions:
-# #
-# # The above copyright notice and this permission notice shall be included in all
-# # copies or substantial portions of the Software.
-# #
-# # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# # SOFTWARE.
-# =======
 # SPDX-FileCopyrightText: Copyright (c) 2019-2025, NVIDIA CORPORATION.
 # SPDX-License-Identifier: Apache-2.0
-# >>>>>>> END NEW CODE (20a02602)
+#
+# MIT License
+#
+# Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 # rmm build script
 
@@ -125,16 +122,9 @@ function ensureCMakeRan {
         echo "Executing cmake for librmm..."
         cmake -S "${REPODIR}"/cpp -B "${LIBRMM_BUILD_DIR}" \
               -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
-# <<<<<<< OLD CODE from 138ed2f9 (f7a701c8) - COMMENTED OUT
-# # <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
-# #               -DCMAKE_CXX_COMPILER="${CXX}" \
-# #               -DCMAKE_C_COMPILER="${CC}" \
-# #               -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
-# # =======
-# # >>>>>>> END NEW CODE (4d996426)
-# =======
+              -DCMAKE_CXX_COMPILER="${CXX}" \
+              -DCMAKE_C_COMPILER="${CC}" \
               -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
-# >>>>>>> END NEW CODE (f7a701c8)
               -DPER_THREAD_DEFAULT_STREAM="${PER_THREAD_DEFAULT_STREAM}" \
               -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
               -DBUILD_TESTS=${BUILD_TESTS} \

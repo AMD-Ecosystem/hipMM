@@ -1,35 +1,34 @@
-# <<<<<<< OLD CODE from f2057e0e (20a02602) - COMMENTED OUT
-# # MIT License
-# #
-# # Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
-# #
-# # Permission is hereby granted, free of charge, to any person obtaining a copy
-# # of this software and associated documentation files (the "Software"), to deal
-# # in the Software without restriction, including without limitation the rights
-# # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# # copies of the Software, and to permit persons to whom the Software is
-# # furnished to do so, subject to the following conditions:
-# #
-# # The above copyright notice and this permission notice shall be included in all
-# # copies or substantial portions of the Software.
-# #
-# # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# # SOFTWARE.
-# =======
 # SPDX-FileCopyrightText: Copyright (c) 2020-2025, NVIDIA CORPORATION.
 # SPDX-License-Identifier: Apache-2.0
-# >>>>>>> END NEW CODE (20a02602)
+#
+# MIT License
+#
+# Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
 import re
 
 from rocm_docs import ROCmDocs
@@ -55,30 +54,9 @@ html_context = {
 }
 
 extensions = [
-# <<<<<<< OLD CODE from a2a025b1 (670d42d3) - COMMENTED OUT
-#     "rocm_docs",
-#     "breathe",
-#     "sphinx.ext.intersphinx",
-#     "sphinx.ext.autodoc",
-#     "sphinx.ext.autosummary",
-#     # "numpydoc",
-#     # "sphinx_markdown_tables",
-#     # "sphinx.ext.doctest",
-#     # "sphinx.ext.linkcode",
-#     # "IPython.sphinxext.ipython_console_highlighting",
-#     # "IPython.sphinxext.ipython_directive",
-#     # "nbsphinx",
-#     # "recommonmark",
-#     # "sphinx_copybutton",
-# ]
-#
-# external_toc_path = "./sphinx/_toc.yml"
-# doxygen_root = "doxygen"
-# doxysphinx_enabled = False
-# doxygen_project = {
-#     "name": "doxygen",
-#     "path": "doxygen/xml",
-# =======
+    # NOTE(HIP/AMD): keep the ROCm docs extension; it pulls the rocm_docs_theme
+    # (set above) and provides AMD-specific Sphinx machinery used by ROCm-DS.
+    "rocm_docs",
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
     "breathe",
@@ -92,6 +70,17 @@ extensions = [
     "sphinx_markdown_tables",
     "sphinxcontrib.jquery",
 ]
+
+# NOTE(HIP/AMD): AMD-specific ROCm docs configuration for the rocm_docs
+# extension. These settings drive ROCm-DS's docs build (toc, doxygen
+# integration, doxysphinx).
+external_toc_path = "./sphinx/_toc.yml"
+doxygen_root = "doxygen"
+doxysphinx_enabled = False
+doxygen_project = {
+    "name": "doxygen",
+    "path": "doxygen/xml",
+}
 
 # Breathe Configuration
 breathe_projects = {"librmm": "../cpp/doxygen/xml"}
@@ -146,33 +135,10 @@ todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-
-html_theme = "pydata_sphinx_theme"
-html_logo = "_static/RAPIDS-logo-purple.png"
-
-html_theme_options = {
-    "external_links": [],
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/rapidsai/rmm",
-            "icon": "fa-brands fa-github",
-            "type": "fontawesome",
-        },
-        {
-            "name": "X",
-            "url": "https://x.com/rapidsai",
-            "icon": "fa-brands fa-x-twitter",
-            "type": "fontawesome",
-        },
-    ],
-    "show_toc_level": 1,
-    "navbar_align": "right",
-    "navigation_with_keys": True,
-}
+# NOTE(HIP/AMD): html_theme, html_theme_options and html_context are set
+# above (see "rocm_docs_theme" / "rocm-ds" flavor block). We intentionally
+# do NOT re-set them here to avoid overriding the ROCm-DS theme with the
+# upstream pydata_sphinx_theme + rapidsai links.
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -201,7 +167,6 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
-# >>>>>>> END NEW CODE (670d42d3)
 }
 
 external_projects = [
@@ -210,9 +175,7 @@ external_projects = [
     "python",
     "rocm",
 ]
-# <<<<<<< OLD CODE from a2a025b1 (670d42d3) - COMMENTED OUT
-# external_projects_current_project = "hipmm"
-# =======
+external_projects_current_project = "hipmm"
 
 
 # -- Options for manual page output ---------------------------------------
@@ -358,4 +321,3 @@ def setup(app):
         "https://docs.rapids.ai/assets/js/custom.js", loading_method="defer"
     )
     app.connect("missing-reference", on_missing_reference)
-# >>>>>>> END NEW CODE (670d42d3)

@@ -35,14 +35,9 @@ device memory are allocated. For example, using "pinned" host memory for asynchr
 host <-> device memory transfers, or using a device memory pool sub-allocator to reduce the cost of
 dynamic device memory allocation.
 
-# <<<<<<< OLD CODE from 19aab0bb (84156184) - COMMENTED OUT
-# The goal of the ROCm-DS HIP Memory Manager (hipMM) is to provide:
-# - A common interface that allows customizing [device](#device_memory_resource) and
-#   [host](#host_memory_resource) memory allocation
-# =======
-The goal of the RAPIDS Memory Manager (RMM) is to provide:
-- A common interface that allows customizing memory allocation on device and host
-# >>>>>>> END NEW CODE (84156184)
+The goal of the ROCm-DS HIP Memory Manager (hipMM) is to provide:
+- A common interface that allows customizing [device](#device_memory_resource) and
+  [host](#host_memory_resource) memory allocation
 - A collection of [implementations](#available-resources) of the interface
 - A collection of [data structures](#device-data-structures) that use the interface for memory allocation
 
@@ -53,53 +48,8 @@ For a walkthrough about the design of the RAPIDS Memory Manager, read [Fast, Fle
 
 ## Installation
 
-# <<<<<<< OLD CODE from 1c2536e2 (8f0fe35d) - COMMENTED OUT
-# > [!NOTE]
-# > We support only AMD GPUs. Use the NVIDIA RAPIDS package for NVIDIA GPUs.
-# =======
-### Conda
-
-RMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
-
-Install RMM with:
-
-```bash
-conda install -c rapidsai -c conda-forge rmm cuda-version=13.1
-```
-
-We also provide [nightly conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
-of our latest development branch.
-
-Note: RMM is supported only on Linux, and only tested with Python versions 3.10, 3.11, 3.12, and 3.13.
-
-Note: The RMM package from conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
-
-See the [RAPIDS Installation Guide](https://docs.rapids.ai/install/) for system requirements.
-
-## Building from Source
-
-### Get RMM Dependencies
-
-Compiler requirements:
-
-* `gcc`     version 9.3+
-* `nvcc`    version 12.0+
-* `cmake`   version 3.30.4+
-
-CUDA/GPU requirements:
-
-* CUDA 12.0+. You can obtain CUDA from
-  [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
-
-GPU Support:
-* RMM is tested and supported only on Volta architecture and newer (Compute Capability 7.0+).
-
-Python requirements:
-* `rapids-build-backend` (available from PyPI or the `rapidsai` conda channel)
-* `scikit-build-core`
-* `cuda-python`
-* `cython`
-# >>>>>>> END NEW CODE (8f0fe35d)
+> [!NOTE]
+> We support only AMD GPUs. Use the NVIDIA RAPIDS package for NVIDIA GPUs.
 
 > [!NOTE]
 > Currently, it is not possible to install hipMM via `conda`.
@@ -115,16 +65,7 @@ See [build instructions](docs/install/BUILD.rst).
 <!--
 ### Conda
 
-# <<<<<<< OLD CODE from 2efba4d2 (106a6ccf) - COMMENTED OUT
-# hipMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
-# =======
-```bash
-# create the conda environment (assuming in base `rmm` directory)
-$ conda env create --name rmm_dev --file conda/environments/all_cuda-131_arch-$(uname -m).yaml
-# activate the environment
-$ conda activate rmm_dev
-```
-# >>>>>>> END NEW CODE (106a6ccf)
+hipMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
 
 Install hipMM with:
 
@@ -208,13 +149,9 @@ The first goal of hipMM is to provide a common interface for device and host mem
 This allows both _users_ and _implementers_ of custom allocation logic to program to a single
 interface.
 
-# <<<<<<< OLD CODE from 19aab0bb (84156184) - COMMENTED OUT
-# To this end, hipMM defines two abstract interface classes:
-# - [`rmm::mr::device_memory_resource`](#device_memory_resource) for device memory allocation
-# - [`rmm::mr::host_memory_resource`](#host_memory_resource) for host memory allocation
-# =======
-To this end, RMM defines the abstract interface class [`rmm::mr::device_memory_resource`](#device_memory_resource) for device memory allocation.
-# >>>>>>> END NEW CODE (84156184)
+To this end, hipMM defines two abstract interface classes:
+- [`rmm::mr::device_memory_resource`](#device_memory_resource) for device memory allocation
+- [`rmm::mr::host_memory_resource`](#host_memory_resource) for host memory allocation
 
 RMM is in the process of migrating to a design based on [CCCL's memory
 resource](https://nvidia.github.io/cccl/libcudacxx/extended_api/memory_resource.html).
@@ -565,47 +502,7 @@ kernel<<<...,s.value()>>>(a.data()); // Pass raw pointer to underlying element i
 int32_t v = a.value(s); // Retrieves the value from device to host on stream `s`
 ```
 
-# <<<<<<< OLD CODE from 19aab0bb (84156184) - COMMENTED OUT
-# ## `host_memory_resource`
-#
-# > **⚠️ DEPRECATED in 25.12**: `host_memory_resource`, `pinned_memory_resource`, and `new_delete_resource` are deprecated and will be removed in 26.02. Use `pinned_host_memory_resource` instead for pinned host memory allocations.
-#
-# `rmm::mr::host_memory_resource` is the base class that defines the interface for allocating and
-# freeing host memory.
-#
-# Similar to `device_memory_resource`, it has two key functions for (de)allocation:
-#
-# 1. `void* host_memory_resource::allocate(std::size_t bytes, std::size_t alignment)`
-#    - Returns a pointer to an allocation of at least `bytes` bytes aligned to the specified
-#      `alignment`
-#
-# 2. `void host_memory_resource::deallocate(void* p, std::size_t bytes, std::size_t alignment)`
-#    - Reclaims a previous allocation of size `bytes` pointed to by `p`.
-#
-#
-# Unlike `device_memory_resource`, the `host_memory_resource` interface and behavior is identical to
-# `std::pmr::memory_resource`.
-#
-# ## Available Host Resources
-#
-# ### `new_delete_resource`
-#
-# Uses the global `operator new` and `operator delete` to allocate host memory.
-#
-# ### `pinned_memory_resource`
-#
-# Allocates "pinned" host memory using `cuda(Malloc/Free)Host`.
-#
-# ## Host Data Structures
-#
-# hipMM does not currently provide any data structures that interface with `host_memory_resource`.
-# In the future, hipMM will provide a similar host-side structure like `device_buffer` and an allocator
-# that can be used with STL containers.
-#
-# ## Using hipMM with Thrust
-# =======
-## Using RMM with Thrust
-# >>>>>>> END NEW CODE (84156184)
+## Using hipMM with Thrust
 
 RAPIDS and other libraries make heavy use of Thrust. Thrust uses device memory in two
 situations:

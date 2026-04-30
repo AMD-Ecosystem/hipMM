@@ -3,41 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// <<<<<<< OLD CODE from ee0cf3d6 (1a85fb53) - COMMENTED OUT
-// // MIT License
-// //
-// // Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
-// //
-// // Permission is hereby granted, free of charge, to any person obtaining a copy
-// // of this software and associated documentation files (the "Software"), to deal
-// // in the Software without restriction, including without limitation the rights
-// // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// // copies of the Software, and to permit persons to whom the Software is
-// // furnished to do so, subject to the following conditions:
-// //
-// // The above copyright notice and this permission notice shall be included in all
-// // copies or substantial portions of the Software.
-// //
-// // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// // SOFTWARE.
+// MIT License
 //
-// #include "mr_ref_test.hpp"
+// Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 //
-// #include <rmm/cuda_stream.hpp>
-// #include <rmm/mr/arena_memory_resource.hpp>
-// #include <rmm/mr/cuda_memory_resource.hpp>
-// #include <rmm/mr/device_memory_resource.hpp>
-// #include <rmm/mr/per_device_resource.hpp>
-// #include <rmm/mr/pool_memory_resource.hpp>
-// #include <rmm/resource_ref.hpp>
-// =======
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 #pragma once
-// >>>>>>> END NEW CODE (1a85fb53)
 
 #include "mr_ref_test.hpp"
 
@@ -113,7 +101,10 @@ inline void async_deallocate_loop(rmm::device_async_resource_ref ref,
   for (std::size_t i = 0; i < num_allocations; i++) {
     std::unique_lock lock(mtx);
     allocations_ready.wait(lock, [&allocations] { return !allocations.empty(); });
-    RMM_CUDA_TRY(cudaStreamWaitEvent(stream.value(), event));
+    //: NOTE(HIP/AMD): Different to cudaStreamWaitEvent(...), the third argument of
+    //:                hipStreamWaitEvent(...) does not default to 0 for older
+    //:                ROCm versions. We thus specify the CUDA default value (0) here manually.
+    RMM_CUDA_TRY(cudaStreamWaitEvent(stream.value(), event, 0));
     allocation alloc = allocations.front();
     allocations.pop_front();
     ref.deallocate(stream, alloc.ptr, alloc.size);
@@ -278,98 +269,6 @@ TEST_P(mr_ref_test_mt, MixedRandomAllocationFreeStream)
   spawn(test_mixed_random_async_allocation_free, this->ref, default_max_size, this->stream.view());
 }
 
-// <<<<<<< OLD CODE from ee0cf3d6 (1a85fb53) - COMMENTED OUT
-// void async_allocate_loop(rmm::device_async_resource_ref ref,
-//                          std::size_t num_allocations,
-//                          std::list<allocation>& allocations,
-//                          std::mutex& mtx,
-//                          std::condition_variable& allocations_ready,
-//                          cudaEvent_t& event,
-//                          rmm::cuda_stream_view stream)
-// {
-//   constexpr std::size_t max_size{1_MiB};
-//
-//   std::default_random_engine generator;
-//   std::uniform_int_distribution<std::size_t> size_distribution(1, max_size);
-//
-//   for (std::size_t i = 0; i < num_allocations; ++i) {
-//     std::size_t size = size_distribution(generator);
-//     void* ptr        = ref.allocate(stream, size);
-//     {
-//       std::lock_guard<std::mutex> lock(mtx);
-//       RMM_CUDA_TRY(cudaEventRecord(event, stream.value()));
-//       allocations.emplace_back(ptr, size);
-//     }
-//     allocations_ready.notify_one();
-//   }
-//
-//   // Work around for threads going away before cudaEvent has finished async processing
-//   RMM_CUDA_TRY(cudaEventSynchronize(event));
-// }
-//
-// void async_deallocate_loop(rmm::device_async_resource_ref ref,
-//                            std::size_t num_allocations,
-//                            std::list<allocation>& allocations,
-//                            std::mutex& mtx,
-//                            std::condition_variable& allocations_ready,
-//                            cudaEvent_t& event,
-//                            rmm::cuda_stream_view stream)
-// {
-//   for (std::size_t i = 0; i < num_allocations; i++) {
-//     std::unique_lock lock(mtx);
-//     allocations_ready.wait(lock, [&allocations] { return !allocations.empty(); });
-//     //: NOTE(HIP/AMD): Different to cudaStreamWaitEvent(...), the third argument of
-//     //:                hipStreamWaitEvent(...) does not default to 0 for older
-//     //:                ROCm versions. We thus specify the CUDA default value (0) here manually.
-//     RMM_CUDA_TRY(cudaStreamWaitEvent(stream.value(), event, 0));
-//     allocation alloc = allocations.front();
-//     allocations.pop_front();
-//     ref.deallocate(stream, alloc.ptr, alloc.size);
-//   }
-//
-//   // Work around for threads going away before cudaEvent has finished async processing
-//   RMM_CUDA_TRY(cudaEventSynchronize(event));
-// }
-//
-// void test_async_allocate_free_different_threads(rmm::device_async_resource_ref ref,
-//                                                 rmm::cuda_stream_view streamA,
-//                                                 rmm::cuda_stream_view streamB)
-// {
-//   constexpr std::size_t num_allocations{100};
-//
-//   std::mutex mtx;
-//   std::condition_variable allocations_ready;
-//   std::list<allocation> allocations;
-//   cudaEvent_t event{};
-//
-//   RMM_CUDA_TRY(cudaEventCreate(&event));
-//
-//   std::thread producer(async_allocate_loop,
-//                        ref,
-//                        num_allocations,
-//                        std::ref(allocations),
-//                        std::ref(mtx),
-//                        std::ref(allocations_ready),
-//                        std::ref(event),
-//                        streamA);
-//
-//   std::thread consumer(async_deallocate_loop,
-//                        ref,
-//                        num_allocations,
-//                        std::ref(allocations),
-//                        std::ref(mtx),
-//                        std::ref(allocations_ready),
-//                        std::ref(event),
-//                        streamB);
-//
-//   producer.join();
-//   consumer.join();
-//
-//   RMM_CUDA_TRY(cudaEventDestroy(event));
-// }
-//
-// =======
-// >>>>>>> END NEW CODE (1a85fb53)
 TEST_P(mr_ref_test_mt, AllocFreeDifferentThreadsDefaultStream)
 {
   test_async_allocate_free_different_threads(
