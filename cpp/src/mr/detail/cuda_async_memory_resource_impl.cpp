@@ -9,6 +9,7 @@
 #include <rmm/detail/error.hpp>
 #include <rmm/detail/runtime_capabilities.hpp>
 #include <rmm/mr/detail/cuda_async_memory_resource_impl.hpp>
+#include <rmm/process_is_exiting.hpp>
 
 #include <cuda_runtime_api.h>
 
@@ -66,6 +67,8 @@ cuda_async_memory_resource_impl::cuda_async_memory_resource_impl(
 
 cuda_async_memory_resource_impl::~cuda_async_memory_resource_impl()
 {
+  if (rmm::process_is_exiting()) { return; }
+
   RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(cudaMemPoolDestroy(pool_handle()));
 }
 

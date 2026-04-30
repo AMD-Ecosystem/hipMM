@@ -188,8 +188,13 @@ add_library(
   src/mr/statistics_resource_adaptor.cpp
   src/mr/thread_safe_resource_adaptor.cpp
   src/mr/tracking_resource_adaptor.cpp
-  src/prefetch.cpp)
-# >>>>>>> END NEW CODE (95f54d1c)
+# <<<<<<< OLD CODE from f0a06b72 (86fe6e7c) - COMMENTED OUT
+#   src/prefetch.cpp)
+# # >>>>>>> END NEW CODE (95f54d1c)
+# =======
+  src/prefetch.cpp
+  src/runtime_shutdown.cpp)
+# >>>>>>> END NEW CODE (86fe6e7c)
 add_library(rmm::rmm ALIAS rmm)
 
 target_include_directories(

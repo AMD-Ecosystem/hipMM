@@ -7,6 +7,7 @@
 
 #include <rmm/cuda_device.hpp>
 #include <rmm/detail/export.hpp>
+#include <rmm/detail/runtime_shutdown.hpp>
 #include <rmm/mr/cuda_memory_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
@@ -76,6 +77,8 @@ RMM_EXPORT inline auto& get_ref_map()
 {
   static std::map<cuda_device_id::value_type, cuda::mr::any_resource<cuda::mr::device_accessible>>
     device_id_to_resource;
+  // Register the process-exit hook immediately after constructing the map.
+  rmm::detail::register_process_exit_hook();
   return device_id_to_resource;
 }
 
@@ -136,6 +139,10 @@ inline device_async_resource_ref get_per_device_resource_ref(cuda_device_id devi
  * resource is undefined if used while the active CUDA device is a different device from the one
  * that was active when the memory resource was created.
  *
+ * @note The per-device resource map keeps the provided resource alive until process exit. Its
+ * destructor may therefore run during process termination. If the destructor may call CUDA APIs,
+ * it must consult `rmm::process_is_exiting()` and skip those calls when it returns `true`.
+ *
  * @param device_id The id of the target device
  * @param new_resource New resource to use for `device_id`
  * @return An owning `any_resource` holding the previous resource for `device_id`
@@ -161,9 +168,8 @@ inline cuda::mr::any_resource<cuda::mr::device_accessible> set_per_device_resour
  * `device_id.value()` must be in the range `[0, cudaGetDeviceCount())`, otherwise behavior is
  * undefined.
  *
- * The object referenced by `new_resource_ref` must outlive the last use of the resource, otherwise
- * behavior is undefined. It is the caller's responsibility to maintain the lifetime of the resource
- * object.
+ * The referenced resource is copied into an owning `any_resource` and moved into the per-device
+ * resource map.
  *
  * This function is thread-safe with respect to concurrent calls to `set_per_device_resource`,
  * `set_per_device_resource_ref`, `get_per_device_resource_ref`,
@@ -175,6 +181,10 @@ inline cuda::mr::any_resource<cuda::mr::device_accessible> set_per_device_resour
  * was the current CUDA device (e.g. set using `cudaSetDevice()`). The behavior of a
  * `device_async_resource_ref` is undefined if used while the active CUDA device is a different
  * device from the one that was active when the memory resource was created.
+ *
+ * @note The per-device resource map keeps the underlying resource alive until process exit. Its
+ * destructor may therefore run during process termination. If it may call CUDA APIs, it must
+ * consult `rmm::process_is_exiting()` and skip those calls when it returns `true`.
  *
  * @param device_id The id of the target device
  * @param new_resource_ref new `device_async_resource_ref` to use as new resource for `device_id`
@@ -231,6 +241,10 @@ inline device_async_resource_ref get_current_device_resource_ref()
  * The behavior of a memory resource is undefined if used while the active CUDA device is a
  * different device from the one that was active when the memory resource was created.
  *
+ * @note The per-device resource map keeps the provided resource alive until process exit. Its
+ * destructor may therefore run during process termination. If the destructor may call CUDA APIs,
+ * it must consult `rmm::process_is_exiting()` and skip those calls when it returns `true`.
+ *
  * @param new_resource New resource to use for the current device
  * @return An owning `any_resource` holding the previous resource for the current device
  */
@@ -247,9 +261,8 @@ inline cuda::mr::any_resource<cuda::mr::device_accessible> set_current_device_re
  *
  * The "current device" is the device returned by `cudaGetDevice`.
  *
- * The object referenced by `new_resource_ref` must outlive the last use of the resource, otherwise
- * behavior is undefined. It is the caller's responsibility to maintain the lifetime of the resource
- * object.
+ * The referenced resource is copied into an owning `any_resource` and moved into the per-device
+ * resource map.
  *
  * This function is thread-safe with respect to concurrent calls to `set_per_device_resource`,
  * `set_per_device_resource_ref`, `get_per_device_resource_ref`,
@@ -260,6 +273,10 @@ inline cuda::mr::any_resource<cuda::mr::device_accessible> set_current_device_re
  * @note The resource passed in `new_resource_ref` must have been created for the current CUDA
  * device. The behavior of a `device_async_resource_ref` is undefined if used while the active CUDA
  * device is a different device from the one that was active when the memory resource was created.
+ *
+ * @note The per-device resource map keeps the underlying resource alive until process exit. Its
+ * destructor may therefore run during process termination. If it may call CUDA APIs, it must
+ * consult `rmm::process_is_exiting()` and skip those calls when it returns `true`.
  *
  * @param new_resource_ref New `device_async_resource_ref` to use for the current device
  * @return An owning `any_resource` holding the previous resource for the current device
