@@ -49,7 +49,9 @@ rapids_hip_init_architectures(RMM)
 #     the single source of truth for the project version.
 project(
   RMM
-  VERSION "${RAPIDS_VERSION}"
+  # TODO(HIP/AMD): Use RAPIDS_VERSION in CI scripts
+  # VERSION "${RAPIDS_VERSION}"
+  VERSION 5.0.0
   LANGUAGES C CXX HIP)
 
 # Write the version header
@@ -106,19 +108,11 @@ message(VERBOSE "RMM: Build with NVTX support: ${RMM_NVTX}")
 # build type for cmake-gui.
 message(STATUS "RMM: RMM_LOGGING_LEVEL = '${RMM_LOGGING_LEVEL}'")
 
-# <<<<<<< OLD CODE from 138ed2f9 (f7a701c8) - COMMENTED OUT
-# # <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
-# # # cudart can be linked statically or dynamically
-# # option(CUDA_STATIC_RUNTIME "Statically link the CUDA runtime" OFF)
-# # handle_unsupported_cmake_option("CUDA_STATIC_RUNTIME" FALSE)
-# #
-# # =======
-# # >>>>>>> END NEW CODE (4d996426)
-# =======
 # cudart can be linked statically or dynamically
 option(CUDA_STATIC_RUNTIME "Statically link the CUDA runtime" OFF)
-
-# >>>>>>> END NEW CODE (f7a701c8)
+# NOTE(HIP/AMD): CUDA static runtime has no HIP equivalent on AMD; force the
+# option to FALSE and warn via handle_unsupported_cmake_option if user enabled it.
+handle_unsupported_cmake_option("CUDA_STATIC_RUNTIME" FALSE)
 # ##################################################################################################
 # * compiler options -------------------------------------------------------------------------------
 add_compile_options(-Wno-unused-result) # required for HIP build
@@ -159,25 +153,17 @@ target_include_directories(
          "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>"
   INTERFACE "$<INSTALL_INTERFACE:include>")
 
-# <<<<<<< OLD CODE from 138ed2f9 (f7a701c8) - COMMENTED OUT
-# # <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
-# # if(CUDA_STATIC_RUNTIME)
-# #   message(STATUS "RMM: Enabling static linking of cudart")
-# #   target_link_libraries(rmm PUBLIC CUDA::cudart_static)
-# # else()
-# #   target_link_libraries(rmm PUBLIC hip::host)
-# # endif()
-# # =======
-# target_link_libraries(rmm PUBLIC CUDA::cudart_static)
-# # >>>>>>> END NEW CODE (4d996426)
-# =======
+# NOTE(HIP/AMD): On AMD/HIP there is no `CUDA::cudart` target. The static
+# branch is effectively dead code (CUDA_STATIC_RUNTIME is forced FALSE above
+# via handle_unsupported_cmake_option) and is kept only to mirror upstream
+# control flow. The `else()` branch links against `hip::host`, which is the
+# AMD HIP runtime equivalent.
 if(CUDA_STATIC_RUNTIME)
   message(STATUS "RMM: Enabling static linking of cudart")
   target_link_libraries(rmm PUBLIC CUDA::cudart_static)
 else()
-  target_link_libraries(rmm PUBLIC CUDA::cudart)
+  target_link_libraries(rmm PUBLIC hip::host)
 endif()
-# >>>>>>> END NEW CODE (f7a701c8)
 
 # TODO(HIP/AMD): no support for nvtx3  nvtx3::nvtx3-cpp
 target_link_libraries(rmm PUBLIC CCCL::CCCL ${CMAKE_DL_LIBS}

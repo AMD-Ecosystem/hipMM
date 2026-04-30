@@ -57,33 +57,14 @@ function(ConfigureTestInternal TEST_NAME)
                INSTALL_RPATH "\$ORIGIN/../../../lib"
                CXX_STANDARD 20
                CXX_STANDARD_REQUIRED ON
-# <<<<<<< OLD CODE from f2a95916 (bece3d02) - COMMENTED OUT
-#                HIP_STANDARD 17
-#                HIP_STANDARD_REQUIRED ON
-#                CUDA_STANDARD 17
-# =======
+               HIP_STANDARD 17
+               HIP_STANDARD_REQUIRED ON
                CUDA_STANDARD 20
-# >>>>>>> END NEW CODE (bece3d02)
                CUDA_STANDARD_REQUIRED ON)
-# <<<<<<< OLD CODE from 62684da6 (7e329a19) - COMMENTED OUT
-#   target_compile_definitions(${TEST_NAME}
-#                              PUBLIC "RMM_LOG_ACTIVE_LEVEL=RMM_LOG_LEVEL_${RMM_LOGGING_LEVEL}")
-#   target_compile_options(${TEST_NAME} PUBLIC $<$<COMPILE_LANG_AND_ID:CXX,GNU,Clang>:-Wall -Werror>)
-# =======
   target_compile_definitions(
     ${TEST_NAME} PUBLIC "RMM_LOG_ACTIVE_LEVEL=RAPIDS_LOGGER_LOG_LEVEL_${RMM_LOGGING_LEVEL}")
-# <<<<<<< OLD CODE from f2a95916 (bece3d02) - COMMENTED OUT
-#   target_compile_options(
-#     ${TEST_NAME}
-#     PRIVATE
-#       "$<$<COMPILE_LANGUAGE:CXX>:-Wall;-Werror;-Wno-unknown-pragmas;-Wno-error=deprecated-declarations>"
-#       "$<$<COMPILE_LANGUAGE:CUDA>:-Werror=all-warnings;-Xcompiler=-Wall,-Werror,-Wno-error=deprecated-declarations>"
-#   )
-# # >>>>>>> END NEW CODE (7e329a19)
-# =======
   target_compile_options(${TEST_NAME} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${RMM_TESTS_CXX_FLAGS}>"
                                               "$<$<COMPILE_LANGUAGE:CUDA>:${RMM_TESTS_CUDA_FLAGS}>")
-# >>>>>>> END NEW CODE (bece3d02)
 
   if(DISABLE_DEPRECATION_WARNING)
     # target_compile_options(
@@ -140,27 +121,18 @@ function(ConfigureTest TEST_NAME)
     set(_RMM_TEST_PERCENT 100)
   endif()
 
-# <<<<<<< OLD CODE from 138ed2f9 (f7a701c8) - COMMENTED OUT
-# # <<<<<<< OLD CODE from ee6330be (4d996426) - COMMENTED OUT
-# #   if(_RMM_TEST_CUDART STREQUAL SHARED)
-# #     set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
-# #   elseif(_RMM_TEST_CUDART STREQUAL STATIC)
-# #     set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
-# #   else()
-# #     set(cudart_link_libs rmm)
-# #   endif()
-# # =======
-#   set(cudart_link_libs $<COMPILE_ONLY:rmm> CUDA::cudart_static)
-# # >>>>>>> END NEW CODE (4d996426)
-# =======
+  # NOTE(HIP/AMD): On AMD/HIP there are no `CUDA::cudart` / `CUDA::cudart_static`
+  # targets. Both SHARED and STATIC branches link against `hip::host` (the AMD
+  # HIP runtime equivalent). Branch structure preserved to mirror upstream
+  # control flow and so the existing call-sites (`_RMM_TEST_CUDART`) keep
+  # working unchanged.
   if(_RMM_TEST_CUDART STREQUAL SHARED)
-    set(cudart_link_libs $<COMPILE_ONLY:rmm> CUDA::cudart)
+    set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
   elseif(_RMM_TEST_CUDART STREQUAL STATIC)
-    set(cudart_link_libs $<COMPILE_ONLY:rmm> CUDA::cudart_static)
+    set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
   else()
     set(cudart_link_libs rmm)
   endif()
-# >>>>>>> END NEW CODE (f7a701c8)
 
   # Test with legacy default stream.
   ConfigureTestInternal(${TEST_NAME} ${_RMM_TEST_UNPARSED_ARGUMENTS})
@@ -221,17 +193,13 @@ ConfigureTest(ADAPTOR_TEST mr/adaptor_tests.cpp)
 # pool mr tests
 ConfigureTest(POOL_MR_TEST mr/pool_mr_tests.cpp GPUS 1 PERCENT 100)
 
-# <<<<<<< OLD CODE from af102fa8 (9f763e64) - COMMENTED OUT
-# # NOTE(HIP/AMD): The hardware-decompression probe uses NVIDIA-only CUDA driver
-# # APIs (cuPointerGetAttribute with CU_POINTER_ATTRIBUTE_IS_HW_DECOMPRESS_CAPABLE).
-# # hwdecompress_tests.cpp guards those calls with
-# #   #if defined(CUDA_VERSION) && CUDA_VERSION >= RMM_MIN_HWDECOMPRESS_CUDA_DRIVER_VERSION
-# # so on HIP (where CUDA_VERSION is undefined) each test body runs GTEST_SKIP().
-# # No LINK_DRIVER equivalent is needed on HIP; a plain ConfigureTest() is enough.
-# ConfigureTest(HWDECOMPRESS_TEST mr/device/hwdecompress_tests.cpp)
-# =======
-ConfigureTest(HWDECOMPRESS_TEST mr/hwdecompress_tests.cpp LINK_DRIVER)
-# >>>>>>> END NEW CODE (9f763e64)
+# NOTE(HIP/AMD): The hardware-decompression probe uses NVIDIA-only CUDA driver
+# APIs (cuPointerGetAttribute with CU_POINTER_ATTRIBUTE_IS_HW_DECOMPRESS_CAPABLE).
+# hwdecompress_tests.cpp guards those calls with
+#   #if defined(CUDA_VERSION) && CUDA_VERSION >= RMM_MIN_HWDECOMPRESS_CUDA_DRIVER_VERSION
+# so on HIP (where CUDA_VERSION is undefined) each test body runs GTEST_SKIP().
+# No LINK_DRIVER equivalent is needed on HIP; a plain ConfigureTest() is enough.
+ConfigureTest(HWDECOMPRESS_TEST mr/hwdecompress_tests.cpp)
 
 # cuda_async mr tests
 ConfigureTest(CUDA_ASYNC_MR_STATIC_CUDART_TEST mr/cuda_async_mr_tests.cpp GPUS 1 PERCENT 60 CUDART
