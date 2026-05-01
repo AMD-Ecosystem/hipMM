@@ -171,5 +171,11 @@ repos:
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
+  - repo: https://github.com/zizmorcore/zizmor-pre-commit
+    rev: v1.24.1
+    hooks:
+      - id: zizmor
+
+# >>>>>>> END NEW CODE (74131da8)
 default_language_version:
       python: python3

@@ -6,6 +6,7 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+permissions: {}
 jobs:
   pr-builder:
     needs:
@@ -25,14 +26,30 @@ jobs:
       - wheel-tests-integration-optional
       - devcontainer
       - telemetry-setup
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: always()
     with:
       needs: ${{ toJSON(needs) }}
   telemetry-setup:
     runs-on: ubuntu-latest
     continue-on-error: true
+    permissions:
+      contents: read
     env:
       OTEL_SERVICE_NAME: "pr-rmm"
     steps:
@@ -55,7 +72,7 @@ jobs:
           egress-policy: audit
       - name: Get PR Info
         id: get-pr-info
-        uses: nv-gha-runners/get-pr-info@main
+        uses: nv-gha-runners/get-pr-info@090577647b8ddc4e06e809e264f7881650ecdccf # main
       - name: Check if nightly CI is passing
         uses: rapidsai/shared-actions/check_nightly_success/dispatch@main
         with:
@@ -64,8 +81,22 @@ jobs:
   changed-files:
     needs:
       - telemetry-setup
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     with:
       files_yaml: |
         build_docs:
@@ -180,7 +211,13 @@ jobs:
           - '!docs/**'
           - '!img/**'
   checks:
-    secrets: inherit
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
     needs:
       - telemetry-setup
     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.04
@@ -189,24 +226,66 @@ jobs:
       ignored_pr_jobs: "telemetry-summarize conda-python-tests-integration-optional wheel-tests-integration-optional"
   conda-cpp-build:
     needs: checks
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     with:
       build_type: pull-request
       node_type: cpu8
       script: ci/build_cpp.sh
   conda-cpp-tests:
     needs: [conda-cpp-build, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
       script: ci/test_cpp.sh
   conda-cpp-debug-tests:
     needs: [checks, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
@@ -216,8 +295,22 @@ jobs:
       script: "ci/test_cpp_debug.sh"
   conda-python-build:
     needs: conda-cpp-build
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     with:
       build_type: pull-request
       script: ci/build_python.sh
@@ -225,24 +318,66 @@ jobs:
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
   conda-python-tests:
     needs: [conda-python-build, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
     with:
       build_type: pull-request
       script: ci/test_python.sh
   conda-python-tests-integration-optional:
     needs: [conda-python-build, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
     with:
       build_type: pull-request
       script: ci/test_python_integrations.sh
   docs-build:
     needs: [conda-python-build, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).build_docs
     with:
       build_type: pull-request
@@ -252,8 +387,22 @@ jobs:
       script: "ci/build_docs.sh"
   wheel-build-cpp:
     needs: checks
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     with:
       matrix_filter: group_by([.ARCH, (.CUDA_VER|split(".")|map(tonumber)|.[0])]) | map(max_by(.PY_VER|split(".")|map(tonumber)))
       build_type: pull-request
@@ -263,8 +412,22 @@ jobs:
       package-type: cpp
   wheel-build-python:
     needs: wheel-build-cpp
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     with:
       # Build a wheel for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -275,22 +438,56 @@ jobs:
       package-type: python
   wheel-tests:
     needs: [wheel-build-python, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
     with:
       build_type: pull-request
       script: ci/test_wheel.sh
   wheel-tests-integration-optional:
     needs: [wheel-build-python, changed-files]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
+# # =======
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+# >>>>>>> END NEW CODE (74131da8)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+# >>>>>>> END NEW CODE (933eb9f8)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
     with:
       build_type: pull-request
       script: ci/test_wheel_integrations.sh
   devcontainer:
-    secrets: inherit
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
     needs:
       - telemetry-setup
     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.04
@@ -309,6 +506,8 @@ jobs:
   telemetry-summarize:
     # This job must use a self-hosted runner to record telemetry traces.
     runs-on: linux-amd64-cpu4
+    permissions:
+      actions: read
     needs: pr-builder
     if: ${{ vars.TELEMETRY_ENABLED == 'true' && !cancelled() && github.run_attempt == '1' }}
     continue-on-error: true

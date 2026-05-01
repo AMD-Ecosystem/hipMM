@@ -32,10 +32,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   telemetry-setup:
     runs-on: ubuntu-latest
     continue-on-error: true
+    permissions:
+      contents: read
     env:
       OTEL_SERVICE_NAME: "build-rmm"
     steps:
@@ -46,8 +50,19 @@ jobs:
         uses: rapidsai/shared-actions/telemetry-dispatch-stash-base-env-vars@main
   cpp-build:
     needs: [telemetry-setup]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -57,8 +72,19 @@ jobs:
       sha: ${{ inputs.sha }}
   python-build:
     needs: [telemetry-setup, cpp-build]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       # Build a conda package for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -69,8 +95,19 @@ jobs:
       sha: ${{ inputs.sha }}
   upload-conda:
     needs: [cpp-build, python-build]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -79,8 +116,19 @@ jobs:
   docs-build:
     if: github.ref_type == 'branch'
     needs: [python-build]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -92,8 +140,19 @@ jobs:
       script: ci/build_docs.sh
   wheel-build-cpp:
     needs: [telemetry-setup]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       matrix_filter: group_by([.ARCH, (.CUDA_VER|split(".")|map(tonumber)|.[0])]) | map(max_by(.PY_VER|split(".")|map(tonumber)))
       build_type: ${{ inputs.build_type || 'branch' }}
@@ -106,8 +165,19 @@ jobs:
       package-type: cpp
   wheel-build-python:
     needs: [telemetry-setup, wheel-build-cpp]
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       # Build a wheel for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -121,8 +191,19 @@ jobs:
       package-type: python
   wheel-publish-cpp:
     needs: wheel-build-cpp
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -132,8 +213,19 @@ jobs:
       package-type: cpp
   wheel-publish-python:
     needs: wheel-build-python
-    secrets: inherit
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@release/26.04
+# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
+#     secrets: inherit
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@release/26.04
+# =======
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: read
+    secrets: inherit # zizmor: ignore[secrets-inherit]
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
+# >>>>>>> END NEW CODE (74131da8)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -145,6 +237,8 @@ jobs:
   telemetry-summarize:
     # This job must use a self-hosted runner to record telemetry traces.
     runs-on: linux-amd64-cpu4
+    permissions:
+      actions: read
     needs: [wheel-publish-cpp, wheel-publish-python, upload-conda, docs-build]
     if: ${{ vars.TELEMETRY_ENABLED == 'true' && !cancelled() }}
     continue-on-error: true

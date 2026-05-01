@@ -11,6 +11,8 @@ jobs:
   assign_one_project:
     runs-on: ubuntu-latest
     name: Assign to New Issues to Triage Project
+    permissions:
+      repository-projects: write
     steps:
     - name: Process bug issues
       uses: docker://takanabe/github-actions-automate-projects:v0.0.1
