@@ -57,7 +57,7 @@ function(ConfigureTestInternal TEST_NAME)
                INSTALL_RPATH "\$ORIGIN/../../../lib"
                CXX_STANDARD 20
                CXX_STANDARD_REQUIRED ON
-               HIP_STANDARD 17
+               HIP_STANDARD 20
                HIP_STANDARD_REQUIRED ON
                CUDA_STANDARD 20
                CUDA_STANDARD_REQUIRED ON)
