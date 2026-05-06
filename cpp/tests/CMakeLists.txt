@@ -121,15 +121,22 @@ function(ConfigureTest TEST_NAME)
     set(_RMM_TEST_PERCENT 100)
   endif()
 
-  # NOTE(HIP/AMD): On AMD/HIP there are no `CUDA::cudart` / `CUDA::cudart_static`
-  # targets. Both SHARED and STATIC branches link against `hip::host` (the AMD
-  # HIP runtime equivalent). Branch structure preserved to mirror upstream
-  # control flow and so the existing call-sites (`_RMM_TEST_CUDART`) keep
-  # working unchanged.
-  if(_RMM_TEST_CUDART STREQUAL SHARED)
-    set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
-  elseif(_RMM_TEST_CUDART STREQUAL STATIC)
-    set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
+# <<<<<<< OLD CODE from f51260e6 (b32e2f37) - COMMENTED OUT
+#   # NOTE(HIP/AMD): On AMD/HIP there are no `CUDA::cudart` / `CUDA::cudart_static`
+#   # targets. Both SHARED and STATIC branches link against `hip::host` (the AMD
+#   # HIP runtime equivalent). Branch structure preserved to mirror upstream
+#   # control flow and so the existing call-sites (`_RMM_TEST_CUDART`) keep
+#   # working unchanged.
+#   if(_RMM_TEST_CUDART STREQUAL SHARED)
+#     set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
+#   elseif(_RMM_TEST_CUDART STREQUAL STATIC)
+#     set(cudart_link_libs $<COMPILE_ONLY:rmm> hip::host)
+# =======
+  if(_RMM_TEST_CUDART STREQUAL "SHARED")
+    set(cudart_link_libs $<COMPILE_ONLY:rmm> CUDA::cudart)
+  elseif(_RMM_TEST_CUDART STREQUAL "STATIC")
+    set(cudart_link_libs $<COMPILE_ONLY:rmm> CUDA::cudart_static)
+# >>>>>>> END NEW CODE (b32e2f37)
   else()
     set(cudart_link_libs rmm)
   endif()

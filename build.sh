@@ -41,8 +41,8 @@ ARGS=$*
 # script, and that this script resides in the repo dir!
 REPODIR=$(cd "$(dirname "$0")"; pwd)
 
-VALIDARGS="clean librmm rmm -v -g -n -s --ptds -h tests benchmarks"
-HELP="$0 [clean] [librmm] [rmm] [-v] [-g] [-n] [-s] [--ptds] [--cmake-args=\"<args>\"] [-h]
+VALIDARGS="clean librmm rmm -v -g -n --ptds -h tests benchmarks"
+HELP="$0 [clean] [librmm] [rmm] [-v] [-g] [-n] [--ptds] [--cmake-args=\"<args>\"] [-h]
    clean                       - remove all existing build artifacts and configuration (start over)
    librmm                      - build and install the librmm C++ code
    rmm                         - build and install the rmm Python package
@@ -51,7 +51,6 @@ HELP="$0 [clean] [librmm] [rmm] [-v] [-g] [-n] [-s] [--ptds] [--cmake-args=\"<ar
    -v                          - verbose build mode
    -g                          - build for debug
    -n                          - no install step (does not affect Python)
-   -s                          - statically link against cudart
    --ptds                      - enable per-thread default stream
    --cmake-args=\\\"<args>\\\" - pass arbitrary list of CMake configuration options (escape all quotes in argument)
    -h                          - print this text
@@ -76,7 +75,6 @@ BUILD_TYPE=Release
 INSTALL_TARGET=install
 BUILD_BENCHMARKS=OFF
 BUILD_TESTS=OFF
-CUDA_STATIC_RUNTIME=OFF
 PER_THREAD_DEFAULT_STREAM=OFF
 RAN_CMAKE=0
 
@@ -129,9 +127,12 @@ function ensureCMakeRan {
         echo "Executing cmake for librmm..."
         cmake -S "${REPODIR}"/cpp -B "${LIBRMM_BUILD_DIR}" \
               -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
-              -DCMAKE_CXX_COMPILER="${CXX}" \
-              -DCMAKE_C_COMPILER="${CC}" \
-              -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
+# <<<<<<< OLD CODE from f51260e6 (b32e2f37) - COMMENTED OUT
+#               -DCMAKE_CXX_COMPILER="${CXX}" \
+#               -DCMAKE_C_COMPILER="${CC}" \
+#               -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
+# =======
+# >>>>>>> END NEW CODE (b32e2f37)
               -DPER_THREAD_DEFAULT_STREAM="${PER_THREAD_DEFAULT_STREAM}" \
               -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
               -DBUILD_TESTS=${BUILD_TESTS} \
@@ -174,9 +175,6 @@ if hasArg benchmarks; then
 fi
 if hasArg tests; then
     BUILD_TESTS=ON
-fi
-if hasArg -s; then
-    CUDA_STATIC_RUNTIME=ON
 fi
 if hasArg --ptds; then
     PER_THREAD_DEFAULT_STREAM=ON

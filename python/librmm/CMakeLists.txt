@@ -1,6 +1,6 @@
 # =============================================================================
 # cmake-format: off
-# SPDX-FileCopyrightText: Copyright (c) 2024-2025, NVIDIA CORPORATION.
+# SPDX-FileCopyrightText: Copyright (c) 2024-2026, NVIDIA CORPORATION.
 # SPDX-License-Identifier: Apache-2.0
 # cmake-format: on
 # =============================================================================
@@ -45,11 +45,14 @@ unset(rmm_FOUND)
 
 set(BUILD_TESTS OFF)
 set(BUILD_BENCHMARKS OFF)
-# NOTE(HIP/AMD): The CUDA_STATIC_RUNTIME option is not supported by ../../cpp/CMakeLists.txt
-# (handle_unsupported_cmake_option forces it FALSE for AMD/HIP); the upstream
-# `set(CUDA_STATIC_RUNTIME ON)` is therefore a no-op on AMD and is intentionally
-# left commented out to avoid a cmake warning.
-# set(CUDA_STATIC_RUNTIME ON)
+# <<<<<<< OLD CODE from f51260e6 (b32e2f37) - COMMENTED OUT
+# # NOTE(HIP/AMD): The CUDA_STATIC_RUNTIME option is not supported by ../../cpp/CMakeLists.txt
+# # (handle_unsupported_cmake_option forces it FALSE for AMD/HIP); the upstream
+# # `set(CUDA_STATIC_RUNTIME ON)` is therefore a no-op on AMD and is intentionally
+# # left commented out to avoid a cmake warning.
+# # set(CUDA_STATIC_RUNTIME ON)
+# =======
+# >>>>>>> END NEW CODE (b32e2f37)
 
 add_subdirectory(../../cpp rmm-cpp)
 
