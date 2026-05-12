@@ -61,8 +61,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -83,8 +87,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       # Build a conda package for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -106,8 +114,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/conda-upload-packages.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -127,8 +139,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -151,8 +167,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       matrix_filter: group_by([.ARCH, (.CUDA_VER|split(".")|map(tonumber)|.[0])]) | map(max_by(.PY_VER|split(".")|map(tonumber)))
       build_type: ${{ inputs.build_type || 'branch' }}
@@ -176,8 +196,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       # Build a wheel for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -202,8 +226,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}
@@ -224,8 +252,12 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@main
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-publish.yaml@cuda-13.2.0
+# >>>>>>> END NEW CODE (0a214192)
     with:
       build_type: ${{ inputs.build_type || 'branch' }}
       branch: ${{ inputs.branch }}

@@ -48,8 +48,53 @@ For a walkthrough about the design of the RAPIDS Memory Manager, read [Fast, Fle
 
 ## Installation
 
-> [!NOTE]
-> We support only AMD GPUs. Use the NVIDIA RAPIDS package for NVIDIA GPUs.
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# > [!NOTE]
+# > We support only AMD GPUs. Use the NVIDIA RAPIDS package for NVIDIA GPUs.
+# =======
+### Conda
+
+RMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
+
+Install RMM with:
+
+```bash
+conda install -c rapidsai -c conda-forge rmm cuda-version=13.2
+```
+
+We also provide [nightly conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
+of our latest development branch.
+
+Note: The RMM package from conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
+
+See the [RAPIDS Installation Guide](https://docs.rapids.ai/install/) for system requirements.
+
+## Building from Source
+
+### Get RMM Dependencies
+
+Compiler requirements:
+
+* `gcc`     version 9.3+
+* `nvcc`    version 12.0+
+* `cmake`   version 3.30.4+
+
+CUDA/GPU requirements:
+
+* CUDA 12.0+. You can obtain CUDA from
+  [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
+
+GPU Support:
+* RMM is tested and supported only on Volta architecture and newer (Compute Capability 7.0+).
+
+Python requirements:
+* `rapids-build-backend` (available from PyPI or the `rapidsai` conda channel)
+* `scikit-build-core`
+* `cuda-python`
+* `cython`
+
+For more details, see [pyproject.toml](python/rmm/pyproject.toml)
+# >>>>>>> END NEW CODE (0a214192)
 
 > [!NOTE]
 > Currently, it is not possible to install hipMM via `conda`.
@@ -62,8 +107,22 @@ See [install instructions](docs/install/INSTALL.rst).
 
 See [build instructions](docs/install/BUILD.rst).
 
-<!--
-### Conda
+# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# <!--
+# ### Conda
+# =======
+- Create the conda development environment `rmm_dev`:
+
+```bash
+# create the conda environment (assuming in base `rmm` directory)
+$ conda env create --name rmm_dev --file conda/environments/all_cuda-132_arch-$(uname -m).yaml
+# activate the environment
+$ conda activate rmm_dev
+```
+
+- Build and install `librmm` using cmake & make. CMake depends on the `nvcc` executable being on
+  your path or defined in `CUDACXX` environment variable.
+# >>>>>>> END NEW CODE (0a214192)
 
 hipMM can be installed with conda. You can get a minimal conda installation with [miniforge](https://github.com/conda-forge/miniforge).
 
