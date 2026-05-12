@@ -5,7 +5,7 @@
 
 // MIT License
 //
-// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+// Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -250,7 +250,7 @@
 #ifdef NDEBUG
 #define RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(_call) \
   do {                                               \
-    (_call);                                         \
+    (static_cast<void>(_call));                      \
   } while (0);
 #else
 #define RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(_call)                            \

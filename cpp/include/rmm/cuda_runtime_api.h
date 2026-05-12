@@ -1,6 +1,6 @@
 // MIT License
 //
-// Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+// Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,13 @@
 #ifndef cudaPointerAttributes
 #  define cudaPointerAttributes hipPointerAttribute_t
 #endif
+#ifndef cudaDevAttrIntegrated
+#  define cudaDevAttrIntegrated hipDeviceAttributeIntegrated
+#endif
+#ifndef cudaErrorCudartUnloading
+#define cudaErrorCudartUnloading hipErrorDeinitialized
+#endif
+
 // macros, enum constant definitions
 // NOTE: C++ `constexpr` might cause redefinition errors while #define only results in a warning in this case.
 //       Such redefinitions might happen when a code includes multiple "reverse hipfication" header files
@@ -306,4 +313,8 @@
 
 #ifndef cudaMemRangeGetAttribute
 #  define cudaMemRangeGetAttribute hipMemRangeGetAttribute
+#endif
+
+#ifndef cudaRuntimeGetVersion
+#  define cudaRuntimeGetVersion hipRuntimeGetVersion
 #endif

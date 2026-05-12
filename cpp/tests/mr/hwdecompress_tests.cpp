@@ -32,7 +32,7 @@
 
 #ifndef __HIP_PLATFORM_AMD__
 #include <cuda.h>
-#include <cuda_runtime_api.h>
+#include <rmm/cuda_runtime_api.h>
 #else
 #include <rmm/cuda_runtime_api.h>
 #endif
