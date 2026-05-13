@@ -41,6 +41,9 @@ from cuda.bindings.cyruntime cimport (
     cudaError_t,
     cudaMemcpyAsync,
     cudaMemcpyKind,
+    cudaMemcpyDeviceToDevice,
+    cudaMemcpyDeviceToHost,
+    cudaMemcpyHostToDevice,
     cudaStream_t,
 )
 
@@ -525,7 +528,7 @@ cpdef void copy_ptr_to_host(uintptr_t db,
 
     with nogil:
         _copy_async(<const void*>(db), <void*>(&hb[0]), len(hb),
-                    cudaMemcpyKind.cudaMemcpyDeviceToHost, stream.view())
+                    cudaMemcpyDeviceToHost, stream.view())
 
     if stream.c_is_default():
         stream.c_synchronize()
@@ -569,7 +572,7 @@ cpdef void copy_host_to_ptr(const unsigned char[::1] hb,
 
     with nogil:
         _copy_async(<const void*>(&hb[0]), <void*>(db), len(hb),
-                    cudaMemcpyKind.cudaMemcpyHostToDevice, stream.view())
+                    cudaMemcpyHostToDevice, stream.view())
 
     if stream.c_is_default():
         stream.c_synchronize()
@@ -603,4 +606,4 @@ cpdef void copy_device_to_ptr(uintptr_t d_src,
 
     with nogil:
         _copy_async(<const void*>(d_src), <void*>(d_dst), count,
-                    cudaMemcpyKind.cudaMemcpyDeviceToDevice, stream.view())
+                    cudaMemcpyDeviceToDevice, stream.view())
