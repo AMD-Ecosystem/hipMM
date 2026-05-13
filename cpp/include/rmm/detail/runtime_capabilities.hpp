@@ -5,7 +5,7 @@
 
 // MIT License
 //
-// Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+// Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -163,6 +163,13 @@ struct runtime_async_managed_alloc {
   static bool is_supported()
   {
     static auto supports_async_managed_pool{[] {
+#ifdef __HIP_PLATFORM_AMD__
+      // TODO(HIP/AMD): As of ROCm 7.2.3 we do not support cudaMemGetDefaultMemPool, which was introduced in CUDA 13.0.
+      // See:
+      //   - https://github.com/rapidsai/rmm/issues/2054
+      //   - https://rocm.docs.amd.com/projects/HIPIFY/en/latest/reference/tables/CUDA_Runtime_API_functions_supported_by_HIP.html#stream-ordered-memory-allocator
+      return false;
+#else
       // Concurrent managed access is required for async managed memory pools
       if (not concurrent_managed_access::is_supported()) { return false; }
       // CUDA 13.0 or higher is required for async managed memory pools
@@ -173,6 +180,7 @@ struct runtime_async_managed_alloc {
       return driver_result == cudaSuccess and runtime_result == cudaSuccess and
              cuda_driver_version >= RMM_MIN_ASYNC_MANAGED_ALLOC_CUDA_VERSION and
              cuda_runtime_version >= RMM_MIN_ASYNC_MANAGED_ALLOC_CUDA_VERSION;
+#endif
     }()};
     return supports_async_managed_pool;
   }
