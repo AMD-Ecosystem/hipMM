@@ -27,7 +27,7 @@
 
 import numpy as np
 from cuda.bindings import runtime
-from numba import cuda
+from numba import hip as cuda
 
 import rmm
 from rmm.allocators.numba import RMMNumbaManager
@@ -82,14 +82,28 @@ def array_tester(dtype, nelem, alloc):
 
 def assert_prefetched(buffer, device_id):
     """Check if a buffer has been prefetched to a specific device."""
-    err, dev = runtime.cudaMemRangeGetAttribute(
-        4,
-        runtime.cudaMemRangeAttribute.cudaMemRangeAttributeLastPrefetchLocation,
-        buffer.ptr,
-        buffer.size,
-    )
-    assert err == runtime.cudaError_t.cudaSuccess
-    assert dev == device_id
+    if getattr(runtime, "HIP_PYTHON", False):
+        import ctypes
+
+        dev = ctypes.c_int(-1)
+        (err,) = runtime.cudaMemRangeGetAttribute(
+            ctypes.addressof(dev),
+            4,
+            runtime.cudaMemRangeAttribute.cudaMemRangeAttributeLastPrefetchLocation,
+            buffer.ptr,
+            buffer.size,
+        )
+        assert err == runtime.cudaError_t.cudaSuccess
+        assert dev.value == device_id
+    else:
+        err, dev = runtime.cudaMemRangeGetAttribute(
+            4,
+            runtime.cudaMemRangeAttribute.cudaMemRangeAttributeLastPrefetchLocation,
+            buffer.ptr,
+            buffer.size,
+        )
+        assert err == runtime.cudaError_t.cudaSuccess
+        assert dev == device_id
 
 
 # Test parameter sets
