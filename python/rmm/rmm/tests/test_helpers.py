@@ -56,7 +56,11 @@ _ASYNC_MANAGED_MEMORY_SUPPORTED = (
 )
 
 _MEMORY_POOL_HANDLE_TYPES_SUPPORTED = rmm._cuda.gpu.getDeviceAttribute(
-    runtime.cudaDeviceAttr.cudaDevAttrMemoryPoolSupportedHandleTypes,
+    getattr(
+        runtime.cudaDeviceAttr,
+        "cudaDevAttrMemoryPoolSupportedHandleTypes",
+        runtime.cudaDeviceAttr.hipDeviceAttributeMemoryPoolSupportedHandleTypes,
+    ),
     rmm._cuda.gpu.getDevice(),
 )
 
