@@ -23,12 +23,16 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@main
-# # >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# #     uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@main
+# # # >>>>>>> END NEW CODE (74131da8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/breaking-change-alert.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       sender_login: ${{ github.event.sender.login }}
       sender_avatar: ${{ github.event.sender.avatar_url }}

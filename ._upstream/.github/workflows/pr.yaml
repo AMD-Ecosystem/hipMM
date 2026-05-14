@@ -39,13 +39,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/pr-builder.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: always()
     with:
       needs: ${{ toJSON(needs) }}
@@ -103,13 +107,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/changed-files.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       files_yaml: |
         build_docs:
@@ -233,15 +241,19 @@ jobs:
     secrets: inherit # zizmor: ignore[secrets-inherit]
     needs:
       - telemetry-setup
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.04
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# # #     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.04
+# # # =======
+# #     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
 # # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+#     uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/checks.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       enable_check_generated_files: false
       ignored_pr_jobs: "telemetry-summarize conda-python-tests-integration-optional wheel-tests-integration-optional"
@@ -260,13 +272,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-build.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: pull-request
       node_type: cpu8
@@ -286,13 +302,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
@@ -312,13 +332,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_cpp
     with:
       build_type: pull-request
@@ -341,13 +365,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-build.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: pull-request
       script: ci/build_python.sh
@@ -368,13 +396,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
     with:
       build_type: pull-request
@@ -394,13 +426,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_conda
     with:
       build_type: pull-request
@@ -420,13 +456,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).build_docs
     with:
       build_type: pull-request
@@ -449,13 +489,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       matrix_filter: group_by([.ARCH, (.CUDA_VER|split(".")|map(tonumber)|.[0])]) | map(max_by(.PY_VER|split(".")|map(tonumber)))
       build_type: pull-request
@@ -478,13 +522,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-build.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       # Build a wheel for each CUDA x ARCH x minimum supported Python version
       matrix_filter: group_by({CUDA_VER, ARCH}) | map(min_by(.PY_VER | split(".") | map(tonumber)))
@@ -508,13 +556,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
     with:
       build_type: pull-request
@@ -534,13 +586,17 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # >>>>>>> END NEW CODE (74131da8)
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # >>>>>>> END NEW CODE (74131da8)
+# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
+# # =======
+#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     if: fromJSON(needs.changed-files.outputs.changed_file_groups).test_python_wheels
     with:
       build_type: pull-request
@@ -555,15 +611,19 @@ jobs:
     secrets: inherit # zizmor: ignore[secrets-inherit]
     needs:
       - telemetry-setup
-# <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.04
+# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
+# # # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# # #     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.04
+# # # =======
+# #     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@main
+# # # >>>>>>> END NEW CODE (933eb9f8)
 # # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@main
-# # >>>>>>> END NEW CODE (933eb9f8)
+#     uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@cuda-13.2.0
+# # >>>>>>> END NEW CODE (0a214192)
 # =======
-    uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@cuda-13.2.0
-# >>>>>>> END NEW CODE (0a214192)
+    uses: rapidsai/shared-workflows/.github/workflows/build-in-devcontainer.yaml@release/26.06
+# >>>>>>> END NEW CODE (bc799922)
     with:
       arch: '["amd64", "arm64"]'
       cuda: '["13.2"]'
