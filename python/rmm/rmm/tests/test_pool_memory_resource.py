@@ -26,11 +26,7 @@
 """Tests for PoolMemoryResource."""
 
 import pytest
-# <<<<<<< OLD CODE from 7fa26c92 (4c26fac7) - COMMENTED OUT
-# from numba import hip as cuda
-# from test_helpers import _allocs, _dtypes, _nelems, array_tester
-# =======
-from numba import cuda
+from numba import hip as cuda
 from test_helpers import (
     _TEST_POOL_SIZE,
     _allocs,
@@ -38,7 +34,6 @@ from test_helpers import (
     _nelems,
     array_tester,
 )
-# >>>>>>> END NEW CODE (4c26fac7)
 
 import rmm
 from rmm.pylibrmm.stream import Stream

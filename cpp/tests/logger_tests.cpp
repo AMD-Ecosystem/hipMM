@@ -10,7 +10,6 @@
 
 #include <cuda/iterator>
 
-// >>>>>>> END NEW CODE (ccf3bc48)
 #include <benchmarks/utilities/log_parser.hpp>
 #include <gtest/gtest.h>
 
@@ -97,22 +96,6 @@ void expect_log_events(std::string const& filename,
 {
   auto actual_events = rmm::detail::parse_csv(filename);
 
-// <<<<<<< OLD CODE from fc931991 (ccf3bc48) - COMMENTED OUT
-//   std::equal(expected_events.begin(),
-//              expected_events.end(),
-//              actual_events.begin(),
-//              [](auto expected, auto actual) {
-//                // We don't test the logged thread id since it may be different from what we record.
-//                // The actual value doesn't matter so long as events from different threads have
-//                // different ids
-//                // EXPECT_EQ(expected.thread_id, actual.thread_id);
-//                // EXPECT_EQ(expected.stream, actual.stream);
-//                EXPECT_EQ(expected.act, actual.act);
-//                EXPECT_EQ(expected.size, actual.size);
-//                EXPECT_EQ(expected.pointer, actual.pointer);
-//                return true;
-//              });
-// =======
   auto begin =
     cuda::make_zip_iterator(cuda::std::make_tuple(expected_events.begin(), actual_events.begin()));
   auto end =
@@ -128,7 +111,6 @@ void expect_log_events(std::string const& filename,
     EXPECT_EQ(expected.size, actual.size);
     EXPECT_EQ(expected.pointer, actual.pointer);
   });
-// >>>>>>> END NEW CODE (ccf3bc48)
 }
 
 TEST(Adaptor, FilenameConstructor)

@@ -36,14 +36,8 @@
 #include <rmm/mr/detail/stream_ordered_memory_resource.hpp>
 #include <rmm/resource_ref.hpp>
 
-// <<<<<<< OLD CODE from fc931991 (ccf3bc48) - COMMENTED OUT
-// #include <rmm/cuda_runtime_api.h>
-// #include <thrust/iterator/counting_iterator.h>
-// #include <thrust/iterator/transform_iterator.h>
-// =======
 #include <cuda/iterator>
-#include <cuda_runtime_api.h>
-// >>>>>>> END NEW CODE (ccf3bc48)
+#include <rmm/cuda_runtime_api.h>
 
 #include <algorithm>
 #include <cstddef>

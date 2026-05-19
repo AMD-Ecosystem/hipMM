@@ -25,11 +25,7 @@ on:
 jobs:
   cpp-tests:
     secrets: inherit
-# <<<<<<< OLD CODE from 688cf14c (f25e46eb) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.02
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.04
-# >>>>>>> END NEW CODE (f25e46eb)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
@@ -50,11 +46,7 @@ jobs:
       script: "ci/test_cpp_debug.sh"
   python-tests:
     secrets: inherit
-# <<<<<<< OLD CODE from 688cf14c (f25e46eb) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.02
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
-# >>>>>>> END NEW CODE (f25e46eb)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
@@ -63,11 +55,7 @@ jobs:
       sha: ${{ inputs.sha }}
   wheel-tests:
     secrets: inherit
-# <<<<<<< OLD CODE from 688cf14c (f25e46eb) - COMMENTED OUT
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.02
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
-# >>>>>>> END NEW CODE (f25e46eb)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
