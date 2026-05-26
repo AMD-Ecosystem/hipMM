@@ -72,6 +72,8 @@ test = [
     # numba-cuda. This matches the import substitution in
     # `python/rmm/rmm/allocators/numba.py` (`from numba import hip as cuda`).
     "numba-hip>=0.1.6",
+    "hip-python-interop>=7.2.3",
+    "rocm-bindings-hip>=7.2.3",
     "numba>=0.60.0,<0.65.0",
     "packaging",
     "pytest",
@@ -139,12 +141,10 @@ commit-files = [
 matrix-entry = "cuda_suffixed=true"
 requires = [
     "cmake>=3.30.4",
-    # NOTE(HIP/AMD): substitute upstream `cuda-python` and `librmm` with their
-    # AMD equivalents (`hip-python` + `hip-python-as-cuda`, `amd-libhipmm`),
-    # bumped to AMD semantic version 5.x. Adopt new cython upper bound from
-    # upstream.
-    "hip-python-as-cuda>=7.0.0",
-    "hip-python>=7.0.0",
+    # NOTE(HIP/AMD): Cython cimports from cuda.bindings.cyruntime require .pxd
+    # files shipped by hip-python-as-cuda (legacy ROCm) or hip-python-interop
+    # (TheRock-based ROCm). These are intentionally omitted here; the build
+    # environment must provide the appropriate variant via --no-build-isolation.
     "amd-libhipmm==5.*,>=5.0.0a0",
     "cython>=3.2.2",
     "ninja",
