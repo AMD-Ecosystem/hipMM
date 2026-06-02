@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+# Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -107,9 +107,10 @@ def _descend(
 # project-specific
 import rmm as _mirrored
 import rmm.allocators as _mod # just import it to put it in the sys.modules dict
-# manually add some Cuda named types
-import rmm.pylibrmm.cuda_stream as _mod
-setattr(_mod, "HipStream", _mod.CudaStream)
+# manually add some stream types
+import rmm.pylibrmm.stream as _mod
+setattr(_mod, "HipStream", _mod._OwningStream)
+setattr(_mod, "CudaStream", _mod._OwningStream)
 
 __version__ = getattr(_mirrored, "__version__")
 

@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+# Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,18 +35,14 @@ def test_import_hipmm():
     from hipmm.librmm import _logger
     from hipmm import mr
     from hipmm import pylibhipmm
-    from hipmm.pylibhipmm import cuda_stream
     from hipmm.pylibhipmm import device_buffer
     from hipmm.pylibhipmm import helper
-    from hipmm.pylibhipmm import hip_stream
     from hipmm.pylibhipmm import logger
     from hipmm.pylibhipmm import memory_resource
     from hipmm.pylibhipmm import stream
     from hipmm import pylibrmm
-    from hipmm.pylibrmm import cuda_stream
     from hipmm.pylibrmm import device_buffer
     from hipmm.pylibrmm import helper
-    from hipmm.pylibrmm import hip_stream
     from hipmm.pylibrmm import logger
     from hipmm.pylibrmm import memory_resource
     from hipmm.pylibrmm import stream
@@ -67,30 +63,24 @@ def test_import_hipmm():
     import hipmm.librmm._logger
     import hipmm.mr
     import hipmm.pylibhipmm
-    import hipmm.pylibhipmm.cuda_stream
     import hipmm.pylibhipmm.device_buffer
     import hipmm.pylibhipmm.helper
-    import hipmm.pylibhipmm.hip_stream
     import hipmm.pylibhipmm.logger
     import hipmm.pylibhipmm.memory_resource
     import hipmm.pylibhipmm.stream
     import hipmm.pylibrmm
-    import hipmm.pylibrmm.cuda_stream
     import hipmm.pylibrmm.device_buffer
     import hipmm.pylibrmm.helper
-    import hipmm.pylibrmm.hip_stream
     import hipmm.pylibrmm.logger
     import hipmm.pylibrmm.memory_resource
     import hipmm.pylibrmm.stream
     import hipmm.rmm
     import hipmm.statistics
 
-    from hipmm.pylibhipmm.hip_stream import HipStream
-    from hipmm.pylibhipmm.hip_stream import CudaStream
-    from hipmm.pylibhipmm.cuda_stream import CudaStream
-    from hipmm.pylibrmm.cuda_stream import CudaStream
-    from hipmm.pylibhipmm.cuda_stream import HipStream
-    from hipmm.pylibrmm.cuda_stream import HipStream
+    from hipmm.pylibhipmm.stream import Stream
+    from hipmm.pylibrmm.stream import Stream
+    from hipmm.pylibhipmm.stream import CudaStreamFlags
+    from hipmm.pylibrmm.stream import CudaStreamFlags
 
 def test_hipmm_attributes():
     import hipmm
