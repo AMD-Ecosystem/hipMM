@@ -2,6 +2,29 @@
  * SPDX-FileCopyrightText: Copyright (c) 2024-2026, NVIDIA CORPORATION.
  * SPDX-License-Identifier: Apache-2.0
  */
+
+// MIT License
+//
+// Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 #pragma once
 
 #include <rmm/cuda_device.hpp>
@@ -90,6 +113,22 @@ class system_memory_resource final : public device_memory_resource {
    */
   void* do_allocate(std::size_t bytes, [[maybe_unused]] cuda_stream_view stream) override
   {
+#ifdef __HIP_PLATFORM_AMD__
+    // WAR for ROCm 7.13+ (TheRock): the HIP runtime's ihipMemcpy now validates
+    // that pointers passed with an explicit copy direction (e.g. hipMemcpyHostToDevice
+    // via hipMemcpyHtoD) are tracked in its internal memory object map.  Plain
+    // malloc'd pointers are not tracked, so hipMemcpyHtoD returns
+    // hipErrorInvalidValue even though the memory is device-accessible under XNACK.
+    //
+    // Using hipMallocManaged registers the allocation with the HIP runtime so
+    // it passes the getMemoryObject() lookup, while still providing memory that
+    // is accessible from both host and device — preserving the SAM semantics
+    // this resource is designed for.
+    if (bytes == 0) { return nullptr; }
+    void* ptr{nullptr};
+    RMM_CUDA_TRY_ALLOC(cudaMallocManaged(&ptr, bytes), bytes);
+    return ptr;
+#else
     try {
       return rmm::detail::aligned_host_allocate(
         bytes, CUDA_ALLOCATION_ALIGNMENT, [](std::size_t size) { return ::operator new(size); });
@@ -98,6 +137,7 @@ class system_memory_resource final : public device_memory_resource {
                        std::string("of memory: ") + e.what();
       RMM_FAIL(msg.c_str(), rmm::out_of_memory);
     }
+#endif
   }
 
   /**
@@ -114,6 +154,13 @@ class system_memory_resource final : public device_memory_resource {
                      [[maybe_unused]] std::size_t bytes,
                      cuda_stream_view stream) noexcept override
   {
+#ifdef __HIP_PLATFORM_AMD__
+    // Matches the hipMallocManaged allocation in do_allocate above.  Unlike
+    // plain free(), hipFree (cudaFree) tracks in-flight operations on the
+    // memory and handles synchronization internally, so we do not need the
+    // explicit stream.synchronize() that the NVIDIA/malloc path requires.
+    RMM_ASSERT_CUDA_SUCCESS_SAFE_SHUTDOWN(cudaFree(ptr));
+#else
     // With `cudaFree`, the CUDA runtime keeps track of dependent operations and does implicit
     // synchronization. However, with SAM, since `free` is immediate, we need to wait for in-flight
     // CUDA operations to finish before freeing the memory, to avoid potential use-after-free errors
@@ -122,6 +169,7 @@ class system_memory_resource final : public device_memory_resource {
 
     rmm::detail::aligned_host_deallocate(
       ptr, bytes, CUDA_ALLOCATION_ALIGNMENT, [](void* ptr) { ::operator delete(ptr); });
+#endif
   }
 
   /**
