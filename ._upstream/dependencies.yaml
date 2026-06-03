@@ -190,7 +190,15 @@ dependencies:
     common:
       - output_types: conda
         packages:
-          - &librmm_unsuffixed librmm==26.4.*
+# <<<<<<< OLD CODE from cd2f6a31 (52f5e120) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #           - &librmm_unsuffixed librmm==26.4.*
+# # =======
+#           - &librmm_unsuffixed librmm==26.6.*,>=0.0.0a0
+# # >>>>>>> END NEW CODE (933eb9f8)
+# =======
+          - &librmm_unsuffixed librmm==26.6.*
+# >>>>>>> END NEW CODE (52f5e120)
       - output_types: requirements
         packages:
           # pip recognizes the index as a global option for the requirements.txt file
@@ -202,12 +210,28 @@ dependencies:
               cuda: "12.*"
               cuda_suffixed: "true"
             packages:
-              - librmm-cu12==26.4.*
+# <<<<<<< OLD CODE from cd2f6a31 (52f5e120) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #               - librmm-cu12==26.4.*
+# # =======
+#               - librmm-cu12==26.6.*,>=0.0.0a0
+# # >>>>>>> END NEW CODE (933eb9f8)
+# =======
+              - librmm-cu12==26.6.*
+# >>>>>>> END NEW CODE (52f5e120)
           - matrix:
               cuda: "13.*"
               cuda_suffixed: "true"
             packages:
-              - librmm-cu13==26.4.*
+# <<<<<<< OLD CODE from cd2f6a31 (52f5e120) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #               - librmm-cu13==26.4.*
+# # =======
+#               - librmm-cu13==26.6.*,>=0.0.0a0
+# # >>>>>>> END NEW CODE (933eb9f8)
+# =======
+              - librmm-cu13==26.6.*
+# >>>>>>> END NEW CODE (52f5e120)
           - matrix:
             packages:
               - *librmm_unsuffixed
@@ -215,7 +239,15 @@ dependencies:
     common:
       - output_types: conda
         packages:
-          - rmm==26.4.*
+# <<<<<<< OLD CODE from cd2f6a31 (52f5e120) - COMMENTED OUT
+# # <<<<<<< OLD CODE from 1a64d459 (933eb9f8) - COMMENTED OUT
+# #           - rmm==26.4.*
+# # =======
+#           - rmm==26.6.*,>=0.0.0a0
+# # >>>>>>> END NEW CODE (933eb9f8)
+# =======
+          - rmm==26.6.*
+# >>>>>>> END NEW CODE (52f5e120)
   depends_on_librmm_tests:
     common:
       - output_types: conda

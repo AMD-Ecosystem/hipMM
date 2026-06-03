@@ -175,7 +175,10 @@ repos:
     rev: v1.24.1
     hooks:
       - id: zizmor
-
-# >>>>>>> END NEW CODE (74131da8)
+# <<<<<<< OLD CODE from cd2f6a31 (52f5e120) - COMMENTED OUT
+#
+# # >>>>>>> END NEW CODE (74131da8)
+# =======
+# >>>>>>> END NEW CODE (52f5e120)
 default_language_version:
       python: python3
