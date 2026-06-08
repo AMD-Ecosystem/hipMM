@@ -127,12 +127,6 @@ function ensureCMakeRan {
         echo "Executing cmake for librmm..."
         cmake -S "${REPODIR}"/cpp -B "${LIBRMM_BUILD_DIR}" \
               -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
-# <<<<<<< OLD CODE from f51260e6 (b32e2f37) - COMMENTED OUT
-#               -DCMAKE_CXX_COMPILER="${CXX}" \
-#               -DCMAKE_C_COMPILER="${CC}" \
-#               -DCUDA_STATIC_RUNTIME="${CUDA_STATIC_RUNTIME}" \
-# =======
-# >>>>>>> END NEW CODE (b32e2f37)
               -DPER_THREAD_DEFAULT_STREAM="${PER_THREAD_DEFAULT_STREAM}" \
               -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
               -DBUILD_TESTS=${BUILD_TESTS} \
