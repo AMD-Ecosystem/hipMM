@@ -52,14 +52,9 @@ void BM_UvectorSizeConstruction(benchmark::State& state)
     rmm::mr::cuda_memory_resource{}, rmm::percent_of_free_device_memory(50)});
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
-// <<<<<<< OLD CODE from 267e53e9 (d4aa765b) - COMMENTED OUT
-//     rmm::device_uvector<std::int32_t> vec(state.range(0), rmm::cuda_stream_view{});
-//     (void)cudaDeviceSynchronize();
-// =======
     rmm::device_uvector<std::int32_t> vec(static_cast<std::size_t>(state.range(0)),
                                           rmm::cuda_stream_view{});
     cudaDeviceSynchronize();
-// >>>>>>> END NEW CODE (d4aa765b)
   }
 
   state.SetItemsProcessed(static_cast<std::int64_t>(state.iterations()));
@@ -78,13 +73,8 @@ void BM_ThrustVectorSizeConstruction(benchmark::State& state)
     rmm::mr::cuda_memory_resource{}, rmm::percent_of_free_device_memory(50)});
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
-// <<<<<<< OLD CODE from 267e53e9 (d4aa765b) - COMMENTED OUT
-//     rmm::device_vector<std::int32_t> vec(state.range(0));
-//     (void)cudaDeviceSynchronize();
-// =======
     rmm::device_vector<std::int32_t> vec(static_cast<std::size_t>(state.range(0)));
     cudaDeviceSynchronize();
-// >>>>>>> END NEW CODE (d4aa765b)
   }
 
   state.SetItemsProcessed(static_cast<std::int64_t>(state.iterations()));

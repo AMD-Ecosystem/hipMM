@@ -32,28 +32,6 @@ constexpr auto num_allocations{10};
 constexpr auto num_more_allocations{5};
 constexpr auto ten_MiB{10_MiB};
 
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-// // struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
-// //
-// // INSTANTIATE_TEST_SUITE_P(StatisticsTest, allocation_size, ::testing::Values(0, 256));
-// //
-// // TEST_P(allocation_size, MultiThreaded)
-// // {
-// //   const std::size_t allocation_size = GetParam();
-// //   auto upstream                     = rmm::mr::cuda_memory_resource{};
-// //   auto delayed = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
-// //   auto mr      = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
-// //   auto stream  = rmm::cuda_stream{};
-// // =======
-// TEST(StatisticsTest, MultiThreaded)
-// {
-//   auto upstream = rmm::mr::cuda_memory_resource{};
-//   auto delayed  = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
-//   auto mr       = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
-//   auto stream   = rmm::cuda_stream{};
-// // >>>>>>> END NEW CODE (596580d3)
-// =======
 struct allocation_size : public ::testing::TestWithParam<std::size_t> {};
 
 INSTANTIATE_TEST_SUITE_P(StatisticsTest, allocation_size, ::testing::Values(0, 256));
@@ -63,14 +41,8 @@ TEST_P(allocation_size, MultiThreaded)
   const std::size_t allocation_size = GetParam();
   auto upstream                     = rmm::mr::cuda_memory_resource{};
   auto delayed = delayed_memory_resource(upstream, std::chrono::milliseconds{300});
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-//   auto mr      = rmm::mr::statistics_resource_adaptor<delayed_memory_resource>(delayed);
-//   auto stream  = rmm::cuda_stream{};
-// // >>>>>>> END NEW CODE (7ef8b69d)
-// =======
   statistics_adaptor mr{rmm::device_async_resource_ref{delayed}};
   auto stream = rmm::cuda_stream{};
-// >>>>>>> END NEW CODE (95f54d1c)
   // Provoke interleaving to test that statistics counters are updated with correct ordering
   // relative to upstream deallocate. The delayed memory resource frees the pointer upstream
   // immediately then sleeps, simulating the window where the address is available for reuse
@@ -78,67 +50,26 @@ TEST_P(allocation_size, MultiThreaded)
   //
   // Thread-0             Thread-1
   // alloc
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-// //   //                      alloc
-// //   //                      dealloc-start
-// //   // dealloc-start
-// //   //                      dealloc-end
-// //   // dealloc-end
-// // =======
-//   // dealloc-start
-// =======
-// >>>>>>> END NEW CODE (7ef8b69d)
   //                      alloc
   //                      dealloc-start
   // dealloc-start
   //                      dealloc-end
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // >>>>>>> END NEW CODE (596580d3)
-// =======
   // dealloc-end
-// >>>>>>> END NEW CODE (7ef8b69d)
   //
   // After both threads complete, the counters must reflect zero outstanding allocations.
   std::vector<std::thread> threads;
   for (int i = 0; i < 2; i++) {
     threads.emplace_back([&, i = i]() {
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-// //       void* ptr{nullptr};
-// //       if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-// //       EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size));
-// //       if (allocation_size != 0) {
-// //         EXPECT_NE(ptr, nullptr);
-// //       } else {
-// //         EXPECT_EQ(ptr, nullptr);
-// //       }
-// //       if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-// //       mr.deallocate(stream, ptr, allocation_size);
-// // =======
-//       if (i == 0) {
-//         void* ptr = mr.allocate(stream, 256);
-//         mr.deallocate(stream, ptr, 256);
-// =======
       void* ptr{nullptr};
       if (i != 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
       EXPECT_NO_THROW(ptr = mr.allocate(stream, allocation_size, rmm::CUDA_ALLOCATION_ALIGNMENT));
       if (allocation_size != 0) {
         EXPECT_NE(ptr, nullptr);
-// >>>>>>> END NEW CODE (7ef8b69d)
       } else {
         EXPECT_EQ(ptr, nullptr);
       }
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // >>>>>>> END NEW CODE (596580d3)
-// =======
       if (i == 0) { std::this_thread::sleep_for(std::chrono::milliseconds{100}); }
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-//       mr.deallocate(stream, ptr, allocation_size);
-// // >>>>>>> END NEW CODE (7ef8b69d)
-// =======
       mr.deallocate(stream, ptr, allocation_size, rmm::CUDA_ALLOCATION_ALIGNMENT);
-// >>>>>>> END NEW CODE (95f54d1c)
     });
   }
   for (auto& t : threads) {
@@ -147,15 +78,7 @@ TEST_P(allocation_size, MultiThreaded)
   EXPECT_EQ(mr.get_bytes_counter().value, 0);
   EXPECT_EQ(mr.get_allocations_counter().value, 0);
   EXPECT_EQ(mr.get_allocations_counter().total, 2);
-// <<<<<<< OLD CODE from 10b57c28 (7ef8b69d) - COMMENTED OUT
-// // <<<<<<< OLD CODE from ff473ab7 (596580d3) - COMMENTED OUT
-// //   EXPECT_EQ(mr.get_bytes_counter().total, 2 * allocation_size);
-// // =======
-//   EXPECT_EQ(mr.get_bytes_counter().total, 512);
-// // >>>>>>> END NEW CODE (596580d3)
-// =======
   EXPECT_EQ(mr.get_bytes_counter().total, 2 * allocation_size);
-// >>>>>>> END NEW CODE (7ef8b69d)
 }
 
 TEST(StatisticsTest, Empty)

@@ -97,17 +97,8 @@ static void BM_MultiStreamAllocations(benchmark::State& state, MRFactoryFunc con
   if (do_prewarm) { run_prewarm(stream_pool, mr); }
 
   for (auto _ : state) {  // NOLINT(clang-analyzer-deadcode.DeadStores)
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-// // <<<<<<< OLD CODE from 267e53e9 (d4aa765b) - COMMENTED OUT
-// //     run_test(num_kernels, stream_pool, mr.get());
-// //     (void)cudaDeviceSynchronize();
-// // =======
-//     run_test(static_cast<std::size_t>(num_kernels), stream_pool, mr.get());
-// =======
     run_test(static_cast<std::size_t>(num_kernels), stream_pool, mr);
-// >>>>>>> END NEW CODE (95f54d1c)
     cudaDeviceSynchronize();
-// >>>>>>> END NEW CODE (d4aa765b)
   }
 
   state.SetItemsProcessed(static_cast<int64_t>(state.iterations() * num_kernels));
