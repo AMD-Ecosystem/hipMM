@@ -30,12 +30,8 @@
 #include <rmm/cuda_stream_view.hpp>
 #include <rmm/detail/export.hpp>
 
-// <<<<<<< OLD CODE from a1ff1bd4 (69306d0b) - COMMENTED OUT
-// #include <rmm/cuda_runtime_api.h>
-// =======
 #include <cuda/stream_ref>
-#include <cuda_runtime_api.h>
-// >>>>>>> END NEW CODE (69306d0b)
+#include <rmm/cuda_runtime_api.h>
 
 #include <functional>
 #include <memory>

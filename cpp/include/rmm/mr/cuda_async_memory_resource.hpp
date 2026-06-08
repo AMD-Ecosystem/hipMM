@@ -31,13 +31,8 @@
 #include <rmm/detail/export.hpp>
 #include <rmm/mr/detail/cuda_async_memory_resource_impl.hpp>
 
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-// #include <cuda/std/type_traits>
-// #include <rmm/cuda_runtime_api.h>
-// =======
 #include <cuda/memory_resource>
-#include <cuda_runtime_api.h>
-// >>>>>>> END NEW CODE (95f54d1c)
+#include <rmm/cuda_runtime_api.h>
 
 #include <cstddef>
 #include <cstdint>

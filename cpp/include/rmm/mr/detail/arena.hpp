@@ -37,12 +37,8 @@
 #include <rmm/logger.hpp>
 #include <rmm/resource_ref.hpp>
 
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-// #include <rmm/cuda_runtime_api.h>
-// =======
 #include <cuda/memory_resource>
-#include <cuda_runtime_api.h>
-// >>>>>>> END NEW CODE (95f54d1c)
+#include <rmm/cuda_runtime_api.h>
 
 #include <algorithm>
 #include <cstddef>
