@@ -67,18 +67,9 @@ class exec_policy : public thrust_exec_policy_t {
    * @param stream The stream on which to allocate temporary memory
    * @param mr The resource to use for allocating temporary memory
    */
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-//   explicit exec_policy(cuda_stream_view stream      = cuda_stream_default,
-//                        device_async_resource_ref mr = mr::get_current_device_resource_ref())
-//     : thrust_exec_policy_t(
-//         thrust::hip::par(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
-//   {
-//   }
-// =======
   explicit exec_policy(
     cuda_stream_view stream                                = cuda_stream_default,
     cuda::mr::any_resource<cuda::mr::device_accessible> mr = mr::get_current_device_resource_ref());
-// >>>>>>> END NEW CODE (95f54d1c)
 };
 
 #if THRUST_VERSION >= 101600
@@ -97,14 +88,6 @@ using thrust_exec_policy_nosync_t =
  */
 class exec_policy_nosync : public thrust_exec_policy_nosync_t {
  public:
-// <<<<<<< OLD CODE from d56c4b15 (95f54d1c) - COMMENTED OUT
-//   explicit exec_policy_nosync(cuda_stream_view stream      = cuda_stream_default,
-//                               device_async_resource_ref mr = mr::get_current_device_resource_ref())
-//     : thrust_exec_policy_nosync_t(
-//         thrust::hip::par_nosync(mr::thrust_allocator<char>(stream, mr)).on(stream.value()))
-//   {
-//   }
-// =======
   /**
    * @brief Construct a new execution policy object
    *
@@ -114,7 +97,6 @@ class exec_policy_nosync : public thrust_exec_policy_nosync_t {
   explicit exec_policy_nosync(
     cuda_stream_view stream                                = cuda_stream_default,
     cuda::mr::any_resource<cuda::mr::device_accessible> mr = mr::get_current_device_resource_ref());
-// >>>>>>> END NEW CODE (95f54d1c)
 };
 
 #else
