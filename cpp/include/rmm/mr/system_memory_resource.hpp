@@ -159,9 +159,9 @@ class system_memory_resource final {
    *              that was passed to the `allocate` call that returned `ptr`.
    * @param alignment The alignment that was passed to the `allocate` call that returned `ptr`
    */
-  void deallocate(cuda::stream_ref stream,
+  void deallocate([[maybe_unused]] cuda::stream_ref stream,
                   void* ptr,
-                  std::size_t bytes,
+                  [[maybe_unused]] std::size_t bytes,
                   [[maybe_unused]] std::size_t alignment = rmm::CUDA_ALLOCATION_ALIGNMENT) noexcept
   {
 #ifdef __HIP_PLATFORM_AMD__
