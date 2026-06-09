@@ -30,7 +30,7 @@
 
 #include <rmm/cuda_runtime_api.h>
 
-namespace rmm {
+namespace RMM_NAMESPACE {
 
 void prefetch(void const* ptr,
               std::size_t size,
@@ -53,4 +53,4 @@ void prefetch(void const* ptr,
   if (result != cudaErrorInvalidValue && result != cudaSuccess) { RMM_CUDA_TRY(result); }
 }
 
-}  // namespace rmm
+}  // namespace RMM_NAMESPACE
