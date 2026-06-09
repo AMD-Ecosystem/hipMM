@@ -26,10 +26,6 @@ permissions: {}
 
 jobs:
   cpp-tests:
-# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
-#     secrets: inherit
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.04
-# =======
     permissions:
       actions: read
       contents: read
@@ -37,16 +33,7 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@main
-# # # >>>>>>> END NEW CODE (74131da8)
-# # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@cuda-13.2.0
-# # >>>>>>> END NEW CODE (0a214192)
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/conda-cpp-tests.yaml@release/26.06
-# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
@@ -54,10 +41,6 @@ jobs:
       script: ci/test_cpp.sh
       sha: ${{ inputs.sha }}
   cpp-debug-tests:
-# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
-#     secrets: inherit
-#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.04
-# =======
     permissions:
       actions: read
       contents: read
@@ -65,16 +48,7 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@main
-# # # >>>>>>> END NEW CODE (74131da8)
-# # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@cuda-13.2.0
-# # >>>>>>> END NEW CODE (0a214192)
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/custom-job.yaml@release/26.06
-# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
@@ -85,10 +59,6 @@ jobs:
       container_image: "rapidsai/ci-conda:26.04-latest"
       script: "ci/test_cpp_debug.sh"
   python-tests:
-# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
-#     secrets: inherit
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.04
-# =======
     permissions:
       actions: read
       contents: read
@@ -96,16 +66,7 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@main
-# # # >>>>>>> END NEW CODE (74131da8)
-# # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@cuda-13.2.0
-# # >>>>>>> END NEW CODE (0a214192)
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/conda-python-tests.yaml@release/26.06
-# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
@@ -113,10 +74,6 @@ jobs:
       script: ci/test_python.sh
       sha: ${{ inputs.sha }}
   wheel-tests:
-# <<<<<<< OLD CODE from 43952ef3 (74131da8) - COMMENTED OUT
-#     secrets: inherit
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.04
-# =======
     permissions:
       actions: read
       contents: read
@@ -124,16 +81,7 @@ jobs:
       packages: read
       pull-requests: read
     secrets: inherit # zizmor: ignore[secrets-inherit]
-# <<<<<<< OLD CODE from 0d6a6a8d (bc799922) - COMMENTED OUT
-# # <<<<<<< OLD CODE from 3063bd7e (0a214192) - COMMENTED OUT
-# #     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@main
-# # # >>>>>>> END NEW CODE (74131da8)
-# # =======
-#     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@cuda-13.2.0
-# # >>>>>>> END NEW CODE (0a214192)
-# =======
     uses: rapidsai/shared-workflows/.github/workflows/wheels-test.yaml@release/26.06
-# >>>>>>> END NEW CODE (bc799922)
     with:
       build_type: ${{ inputs.build_type }}
       branch: ${{ inputs.branch }}
