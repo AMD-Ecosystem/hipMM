@@ -3,6 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// MIT License
+//
+// Modifications Copyright (C) 2026 Advanced Micro Devices, Inc. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 #pragma once
 
 #include <rmm/detail/export.hpp>
@@ -20,42 +42,20 @@ namespace RMM_NAMESPACE {
  *
  * @return sink_ptr The sink to use
  */
-inline rapids_logger::sink_ptr default_sink()
-{
-  auto* filename = std::getenv("RMM_DEBUG_LOG_FILE");
-  if (filename != nullptr) {
-    return std::make_shared<rapids_logger::basic_file_sink_mt>(filename, true);
-  }
-  return std::make_shared<rapids_logger::stderr_sink_mt>();
-}
+rapids_logger::sink_ptr default_sink();
 
 /**
  * @brief Returns the default log pattern for the global logger.
  *
  * @return std::string The default log pattern.
  */
-inline std::string default_pattern() { return "[%6t][%H:%M:%S:%f][%-6l] %v"; }
+std::string default_pattern();
 
 /**
  * @brief Get the default logger.
  *
  * @return logger& The default logger
  */
-inline rapids_logger::logger& default_logger()
-{
-  static rapids_logger::logger logger_ = [] {
-    rapids_logger::logger logger_{"RMM", {default_sink()}};
-    logger_.set_pattern(default_pattern());
-#if RMM_LOG_ACTIVE_LEVEL <= RMM_LOG_LEVEL_DEBUG
-#ifdef CUDA_API_PER_THREAD_DEFAULT_STREAM
-    logger_.debug("----- RMM LOG [PTDS ENABLED] -----");
-#else
-    logger_.debug("----- RMM LOG [PTDS DISABLED] -----");
-#endif
-#endif
-    return logger_;
-  }();
-  return logger_;
-}
+rapids_logger::logger& default_logger();
 
 }  // namespace RMM_NAMESPACE
