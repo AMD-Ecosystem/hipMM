@@ -67,12 +67,14 @@ install hipMM via this package index.
 Create and activate a Conda environment with Python 3.12 and latest ``libstdcxx-ng`` using the
 minimal environment (``conda/environments/install_rocm-latest_arch-x86_64.yaml``) as shown below:
 
+Create and activate a Conda environment with a compatible Python version, such as 3.11 or 3.12 as shown below. For more information on compatible Python versions, see :ref:`hipMM-support`.
+
 .. code:: yaml
 
    channels:
      - conda-forge
    dependencies:
-   - python=3.12
+   - python=3.12 # Specify your Python version
    - libstdcxx-ng
    - pip
    - pip:
