@@ -3,7 +3,7 @@
 
 # MIT License
 #
-# Modifications Copyright (C) 2025 Advanced Micro Devices, Inc. All rights reserved.
+# Modifications Copyright (C) 2025-2026 Advanced Micro Devices, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,11 @@ authors = [
 license = "Apache-2.0 AND MIT"
 requires-python = ">=3.10"
 dependencies = [
+    # NOTE(HIP/AMD): AMD substitutes upstream `cuda-python` with the AMD pair
+    # `rocm-bindings-hip` + `hip-python-interop` (the latter exposes a `cuda.*`
+    # namespace backed by HIP, which is what `numba.py` and the cython
+    # bindings consume). Upstream `librmm` is replaced with `amd-libhipmm`
+    # (AMD's PyPI name for librmm), bumped to AMD semantic version 5.0.*.
     "hip-python-interop>=7.2.3",
     "rocm-bindings-hip>=7.2.3",
     "amd-libhipmm==5.0.*,>=0.0.0a0",
