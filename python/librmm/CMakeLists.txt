@@ -41,10 +41,6 @@ project(
 # # package is also available at build time of the Python rmm package.
 # find_package(rmm "${RAPIDS_VERSION}")
 
-# if(rmm_FOUND)
-#   return()
-# endif()
-
 unset(rmm_FOUND)
 
 set(BUILD_TESTS OFF)
