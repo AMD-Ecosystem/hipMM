@@ -148,10 +148,10 @@ Given the following conda environment
    - sysroot_linux-64==2.28
    - pip
    - pip:
-     - --extra-index-url=https://pypi.amd.com/rocm-7.2.1/simple
-     - rocm-llvm-python~=7.2.1.0
-     - hip-python~=7.2.1.0
-     - hip-python-as-cuda~=7.2.1.0
+     - --extra-index-url=https://pypi.amd.com/rocm-7.2.3/simple
+     - rocm-llvm-python~=7.2.3.0
+     - hip-python~=7.2.3.0
+     - hip-python-as-cuda~=7.2.3.0
      - numba-hip~=0.1.6
      - amd-cupy~=13.5.1
    name: hipmm_dev
