@@ -87,6 +87,17 @@ class SystemMRTest : public ::testing::Test {
       GTEST_SKIP() << "Skipping tests since system memory allocator is either not supported with this "
                       "hardware/software version or XNACK is disabled. Consider setting the environment variable HSA_XNACK (export HSA_XNACK=1).";
     }
+#ifdef __HIP_PLATFORM_AMD__
+    // Warm up the (per-thread) default stream before any device-memory
+    // measurement. On ROCm, the first synchronize of the per-thread default
+    // stream lazily initializes that stream's device-side context, reserving a
+    // fixed one-time chunk of device memory (~146 MiB observed). `allocate_sync`
+    // synchronizes this same stream, so without warming it up here the reservation
+    // would land between the before/after `available_device_memory()` calls in the
+    // FirstTouch tests and be misattributed to the allocation, breaking the strict
+    // equality check in FirstTouchOnCPU.
+    RMM_CUDA_TRY(cudaStreamSynchronize(cudaStream_t{nullptr}));
+#endif
   }
 };
 
