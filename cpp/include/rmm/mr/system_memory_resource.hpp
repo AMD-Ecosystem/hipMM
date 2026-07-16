@@ -114,7 +114,7 @@ class system_memory_resource final : public device_memory_resource {
   void* do_allocate(std::size_t bytes, [[maybe_unused]] cuda_stream_view stream) override
   {
 #ifdef __HIP_PLATFORM_AMD__
-    // WAR for ROCm 7.13+ (TheRock): the HIP runtime's ihipMemcpy now validates
+    // TODO(HIP/AMD): WAR for ROCm 7.13+ (TheRock): the HIP runtime's ihipMemcpy now validates
     // that pointers passed with an explicit copy direction (e.g. hipMemcpyHostToDevice
     // via hipMemcpyHtoD) are tracked in its internal memory object map.  Plain
     // malloc'd pointers are not tracked, so hipMemcpyHtoD returns
