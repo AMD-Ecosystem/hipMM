@@ -318,3 +318,7 @@
 #ifndef cudaRuntimeGetVersion
 #  define cudaRuntimeGetVersion hipRuntimeGetVersion
 #endif
+
+#ifndef cudaStreamGetId
+#  define cudaStreamGetId hipStreamGetId
+#endif
