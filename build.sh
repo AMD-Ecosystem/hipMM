@@ -206,15 +206,23 @@ if [ -n "${RAPIDS_PY_VERSION:-}" ]; then
     PYTHON_ARGS_FOR_INSTALL+=("--config-settings" "skbuild.wheel.py-api=${RAPIDS_PY_API}")
 fi
 
+# NOTE(HIP/AMD): Re-export CMAKE_PREFIX_PATH so that install prefix or build dir is included.
+if [[ -z "${INSTALL_TARGET}" ]]; then
+    export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}${CMAKE_PREFIX_PATH:+:}${LIBRMM_BUILD_DIR}"
+else
+    export CMAKE_PREFIX_PATH="${CMAKE_PREFIX_PATH}${CMAKE_PREFIX_PATH:+:}${INSTALL_PREFIX}"
+fi
+
 # Build and install the rmm Python packages
 if (( NUMARGS == 0 )) || hasArg rmm; then
     echo "building and installing amd-libhipmm..."
-    SKBUILD_CMAKE_ARGS="-DCMAKE_PREFIX_PATH=${INSTALL_PREFIX};$(IFS=';'; echo "${EXTRA_CMAKE_ARGS[*]}")" python -m pip install \
+    SKBUILD_CMAKE_ARGS="$(IFS=';'; echo "${EXTRA_CMAKE_ARGS[*]}")" python -m pip install \
         "${PYTHON_ARGS_FOR_INSTALL[@]}" \
         "${REPODIR}"/python/librmm
 
     echo "building and installing amd-hipmm..."
-    SKBUILD_CMAKE_ARGS="-DCMAKE_PREFIX_PATH=${INSTALL_PREFIX};$(IFS=';'; echo "${EXTRA_CMAKE_ARGS[*]}")" python -m pip install \
+    SKBUILD_CMAKE_ARGS="$(IFS=';'; echo "${EXTRA_CMAKE_ARGS[*]}")" python -m pip install \
         "${PYTHON_ARGS_FOR_INSTALL[@]}" \
         "${REPODIR}"/python/rmm
 fi
+
