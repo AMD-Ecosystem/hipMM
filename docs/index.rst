@@ -23,7 +23,7 @@
 
 .. meta::
   :description: hipMM documentation and API reference library
-  :keywords: hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD Data Science, GPU, GPU API, memory-management, memory-allocation, memory-pools
 
 .. _hipMM-index:
 
@@ -31,13 +31,13 @@
 HIP Memory Manager (hipMM) documentation
 ********************************************************************
 
-The HIP Memory Manager (hipMM) provides advanced GPU memory management utilities used across the ROCm-DS libraries.
+The HIP Memory Manager (hipMM) provides advanced GPU memory management utilities used across the AMD Data Science libraries.
 Based on the RAPIDS® Memory Manager (RMM 25.10), hipMM supports efficient allocation, pooling, and data movement, ensuring
 stable performance in complex, multi-library GPU workflows.
 
 hipMM 4.0.0 improves memory usage efficiency for workloads that leverage hipDF, hipGRAPH, hipRAFT, and hipVS.
 
-The hipMM code is open and hosted at `https://github.com/ROCm-DS/hipMM <https://github.com/ROCm-DS/hipMM>`_.
+The hipMM code is open and hosted at `https://github.com/AMD-Ecosystem/hipMM <https://github.com/AMD-Ecosystem/hipMM>`_.
 
 The hipMM documentation is structured as follows:
 
@@ -54,6 +54,6 @@ The hipMM documentation is structured as follows:
 
     * :ref:`hipMM-python-api`
 
-To contribute to the documentation refer to `Contributing to ROCm-DS  <https://rocm.docs.amd.com/projects/rocm-ds/en/latest/contribute/contributing.html>`__.
+To contribute to the documentation refer to `Contributing to AMD Data Science  <https://rocm.docs.amd.com/projects/rocm-ds/en/latest/contribute/contributing.html>`__.
 
 You can find licensing information on the `Licenses <https://rocm.docs.amd.com/projects/rocm-ds/en/latest/about/license.html>`__ page.
