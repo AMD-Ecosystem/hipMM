@@ -22,7 +22,7 @@
 
 .. meta::
   :description: hipMM documentation and API reference library
-  :keywords: hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD Data Science, GPU, GPU API, memory-management, memory-allocation, memory-pools
 
 .. _hipMM-build:
 
@@ -107,7 +107,7 @@ repository:
    mkdir -p /tmp/hipmm # NOTE: feel free to adapt
 
    cd /tmp/hipmm
-   git clone https://github.com/ROCm-DS/hipMM hipmm -b release/rocmds-25.10
+   git clone https://github.com/AMD-Ecosystem/hipMM hipmm -b release/rocmds-25.10
 
 Step 3: Create and activate the hipMM conda environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
