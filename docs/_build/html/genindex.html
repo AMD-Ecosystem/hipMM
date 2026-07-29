@@ -1,0 +1,1603 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; hipMM 4.0.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=22b90084" />
+    <link rel="stylesheet" type="text/css" href="_static/rocm_header.css?v=037afccf" />
+    <link rel="stylesheet" type="text/css" href="_static/rocm_footer.css?v=7095035a" />
+    <link rel="stylesheet" type="text/css" href="_static/fonts.css?v=fcff5274" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=a1c85040"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script async="async" src="_static/code_word_breaks.js?v=327952c4"></script>
+    <script async="async" src="_static/renameVersionLinks.js?v=929fe5e4"></script>
+    <script async="async" src="_static/rdcMisc.js?v=01f88d96"></script>
+    <script async="async" src="_static/theme_mode_captions.js?v=15f4ec5d"></script>
+    <script defer="defer" src="_static/search.js?v=90a4452c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script async="async" src="https://download.amd.com/js/analytics/analyticsinit.js"></script>
+    <link rel="icon" href="https://www.amd.com/content/dam/code/images/favicon/favicon.ico"/>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="google-site-verification" content="vo35SZt_GASsTHAEmdww7AYKPCvZyzLvOXBl8guBME4" />
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="common-header" >
+        <nav class="navbar navbar-expand-xl">
+            <div class="container-fluid main-nav rocm-header">
+                <div class="header-logo">
+                    <div class="header-logo-title">
+                        
+                            <button class="navbar-toggler collapsed" id="nav-icon" data-tracking-information="mainMenuToggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        
+                        <a class="navbar-brand" href="https://www.amd.com/">
+                            <img src="_static/images/amd-header-logo.svg" alt="AMD Logo" title="AMD Logo" width="90" class="d-inline-block align-text-top hover-opacity"/>
+                        </a>
+                        <div class="vr mx-40 my-25"></div>
+                        
+        
+    
+    <a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.03</a>
+                    </div>
+                    <a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
+                </div>
+                <div class="icon-nav text-center d-flex ms-auto"></div>
+            </div>
+        </nav>
+        
+        <nav class="navbar navbar-expand-xl second-level-nav">
+            <div class="container-fluid main-nav">
+                <div class="navbar-nav-container collapse navbar-collapse" id="navbarSupportedContent">
+                    
+                    <ul class="navbar-nav nav-mega me-auto mb-2 mb-lg-0 col-xl-10">
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM" id="navgithub" role="button" aria-expanded="false" target="_blank" >
+                                        GitHub
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://github.com/ROCm/ROCm/discussions" id="navcommunity" role="button" aria-expanded="false" target="_blank" >
+                                        Community
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/" id="navblogs" role="button" aria-expanded="false" target="_blank" >
+                                        Blogs
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://rocm.docs.amd.com" id="navrocm-docs" role="button" aria-expanded="false" target="_blank" >
+                                        ROCm Docs
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/rocm-hub.html" id="navrocm-developer-hub" role="button" aria-expanded="false" target="_blank" >
+                                        ROCm Developer Hub
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item dropdown">
+                                
+                                    <a class="nav-link top-level header-menu-links dropdown-toggle header-nav-dropdown-toggle" href="#" id="navamd-toolkits" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                        AMD Toolkits
+                                    </a>
+                                    <ul class="dropdown-menu header-nav-dropdown-menu" aria-labelledby="navamd-toolkits">
+                                        
+                                            <li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/index.html" target="_blank">AMD Data Science</a></li>
+                                        
+                                            <li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/rocm-finance/en/latest/index.html" target="_blank">AMD Finance</a></li>
+                                        
+                                            <li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/rocm-ls/en/latest/index.html" target="_blank">AMD Life Science</a></li>
+                                        
+                                            <li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/rocm-llmext/en/latest/index.html" target="_blank">AMD LLM Extension</a></li>
+                                        
+                                            <li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/rocm-simulation/en/latest/index.html" target="_blank">AMD Simulation</a></li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://instinct.docs.amd.com" id="navsystems-and-infra-docs" role="button" aria-expanded="false" target="_blank" >
+                                        Systems and Infra Docs
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/infinity-hub.html" id="navinfinity-hub" role="button" aria-expanded="false" target="_blank" >
+                                        Infinity Hub
+                                    </a>
+                                
+                            </li>
+                        
+                            <li class="nav-item">
+                                
+                                    <a class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM/issues/new/choose" id="navsupport" role="button" aria-expanded="false" target="_blank" >
+                                        Support
+                                    </a>
+                                
+                            </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<a class="navbar-brand logo" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">
+    <p>AMD Data Science</p>
+</a></div>
+          
+        
+      </div>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">hipMM 4.0.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="install/hipMM-support.html">System requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/INSTALL.html">Installing hipMM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/BUILD.html">Building and installing hipMM from source</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reference/hipmm/python_api.html">hipMM API reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-angle-right"></span>
+  </label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.add">add() (rmm.statistics.ProfilerRecords method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.statistics.ProfilerRecords.MemoryRecord.add">(rmm.statistics.ProfilerRecords.MemoryRecord method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.add_bin">add_bin() (hipmm.mr.BinningMemoryResource method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.add_bin">(rmm.mr.BinningMemoryResource method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.allocate">allocate() (hipmm.mr.ArenaMemoryResource method)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.allocate">(hipmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CallbackMemoryResource.allocate">(hipmm.mr.CallbackMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncMemoryResource.allocate">(hipmm.mr.CudaAsyncMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncViewMemoryResource.allocate">(hipmm.mr.CudaAsyncViewMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaMemoryResource.allocate">(hipmm.mr.CudaMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.DeviceMemoryResource.allocate">(hipmm.mr.DeviceMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor.allocate">(hipmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FixedSizeMemoryResource.allocate">(hipmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.allocate">(hipmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.allocate">(hipmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.ManagedMemoryResource.allocate">(hipmm.mr.ManagedMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource.allocate">(hipmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor.allocate">(hipmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.SamHeadroomMemoryResource.allocate">(hipmm.mr.SamHeadroomMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.allocate">(hipmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.SystemMemoryResource.allocate">(hipmm.mr.SystemMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.allocate">(hipmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.UpstreamResourceAdaptor.allocate">(hipmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ArenaMemoryResource.allocate">(rmm.mr.ArenaMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.allocate">(rmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CallbackMemoryResource.allocate">(rmm.mr.CallbackMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncMemoryResource.allocate">(rmm.mr.CudaAsyncMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncViewMemoryResource.allocate">(rmm.mr.CudaAsyncViewMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaMemoryResource.allocate">(rmm.mr.CudaMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.DeviceMemoryResource.allocate">(rmm.mr.DeviceMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FailureCallbackResourceAdaptor.allocate">(rmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FixedSizeMemoryResource.allocate">(rmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.allocate">(rmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.allocate">(rmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ManagedMemoryResource.allocate">(rmm.mr.ManagedMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource.allocate">(rmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PrefetchResourceAdaptor.allocate">(rmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.SamHeadroomMemoryResource.allocate">(rmm.mr.SamHeadroomMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.allocate">(rmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.SystemMemoryResource.allocate">(rmm.mr.SystemMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.allocate">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.UpstreamResourceAdaptor.allocate">(rmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.allocation_counts">allocation_counts (hipmm.mr.StatisticsResourceAdaptor attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.allocation_counts">(rmm.mr.StatisticsResourceAdaptor attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource">ArenaMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.ArenaMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.available_device_memory">available_device_memory() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.available_device_memory">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.bin_mrs">bin_mrs (hipmm.mr.BinningMemoryResource attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.bin_mrs">(rmm.mr.BinningMemoryResource attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource">BinningMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.CallbackMemoryResource">CallbackMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.CallbackMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.capacity">capacity() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.capacity">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.copy">copy() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.copy">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.copy_from_device">copy_from_device() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.copy_from_device">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.copy_from_host">copy_from_host() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.copy_from_host">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.copy_to_host">copy_to_host() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.copy_to_host">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.critical">critical (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.critical">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncMemoryResource">CudaAsyncMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncViewMemoryResource">CudaAsyncViewMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncViewMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaMemoryResource">CudaMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.CudaMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.Statistics.current_bytes">current_bytes (rmm.statistics.Statistics attribute)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.Statistics.current_count">current_count (rmm.statistics.Statistics attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.deallocate">deallocate() (hipmm.mr.ArenaMemoryResource method)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.deallocate">(hipmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CallbackMemoryResource.deallocate">(hipmm.mr.CallbackMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncMemoryResource.deallocate">(hipmm.mr.CudaAsyncMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncViewMemoryResource.deallocate">(hipmm.mr.CudaAsyncViewMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaMemoryResource.deallocate">(hipmm.mr.CudaMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.DeviceMemoryResource.deallocate">(hipmm.mr.DeviceMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor.deallocate">(hipmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FixedSizeMemoryResource.deallocate">(hipmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.deallocate">(hipmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.deallocate">(hipmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.ManagedMemoryResource.deallocate">(hipmm.mr.ManagedMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource.deallocate">(hipmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor.deallocate">(hipmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.SamHeadroomMemoryResource.deallocate">(hipmm.mr.SamHeadroomMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.deallocate">(hipmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.SystemMemoryResource.deallocate">(hipmm.mr.SystemMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.deallocate">(hipmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.UpstreamResourceAdaptor.deallocate">(hipmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ArenaMemoryResource.deallocate">(rmm.mr.ArenaMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.deallocate">(rmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CallbackMemoryResource.deallocate">(rmm.mr.CallbackMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncMemoryResource.deallocate">(rmm.mr.CudaAsyncMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncViewMemoryResource.deallocate">(rmm.mr.CudaAsyncViewMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.CudaMemoryResource.deallocate">(rmm.mr.CudaMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.DeviceMemoryResource.deallocate">(rmm.mr.DeviceMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FailureCallbackResourceAdaptor.deallocate">(rmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FixedSizeMemoryResource.deallocate">(rmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.deallocate">(rmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.deallocate">(rmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ManagedMemoryResource.deallocate">(rmm.mr.ManagedMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource.deallocate">(rmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PrefetchResourceAdaptor.deallocate">(rmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.SamHeadroomMemoryResource.deallocate">(rmm.mr.SamHeadroomMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.deallocate">(rmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.SystemMemoryResource.deallocate">(rmm.mr.SystemMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.deallocate">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.UpstreamResourceAdaptor.deallocate">(rmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.debug">debug (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.debug">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.defer_cleanup">defer_cleanup() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.defer_cleanup">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer">DeviceBuffer (class in hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer">(class in rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.DeviceMemoryResource">DeviceMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.DeviceMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.disable_logging">disable_logging() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.disable_logging">(in module hipmm.mr)</a>
+</li>
+        <li><a href="python_api.html#rmm.disable_logging">(in module rmm)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.disable_logging">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.enable_logging">enable_logging() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.enable_logging">(in module hipmm.mr)</a>
+</li>
+        <li><a href="python_api.html#rmm.enable_logging">(in module rmm)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.enable_logging">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_api.html#rmm.statistics.enable_statistics">enable_statistics() (in module rmm.statistics)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.error">error (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.error">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor">FailureCallbackResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.FailureCallbackResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.FixedSizeMemoryResource">FixedSizeMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.FixedSizeMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.flush">flush() (hipmm.mr.LoggingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.flush">(rmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.flush_logger">flush_logger() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.flush_logger">(in module rmm)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.get_allocated_bytes">get_allocated_bytes() (hipmm.mr.LimitingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.get_allocated_bytes">(hipmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.get_allocated_bytes">(rmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.get_allocated_bytes">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.get_allocation_limit">get_allocation_limit() (hipmm.mr.LimitingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.get_allocation_limit">(rmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_current_device_resource">get_current_device_resource() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.get_current_device_resource">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_current_device_resource_type">get_current_device_resource_type() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.get_current_device_resource_type">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.get_file_name">get_file_name() (hipmm.mr.LoggingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.get_file_name">(rmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.get_flush_level">get_flush_level() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.get_flush_level">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.get_ipc_handle">get_ipc_handle() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.get_ipc_handle">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.get_log_filenames">get_log_filenames() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_log_filenames">(in module hipmm.mr)</a>
+</li>
+        <li><a href="python_api.html#rmm.get_log_filenames">(in module rmm)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.get_log_filenames">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.get_logging_level">get_logging_level() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.get_logging_level">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.get_memory_info">get_memory_info() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.get_memory_info">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.get_outstanding_allocations_str">get_outstanding_allocations_str() (hipmm.mr.TrackingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.get_outstanding_allocations_str">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource">get_per_device_resource() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.get_per_device_resource">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource_type">get_per_device_resource_type() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.get_per_device_resource_type">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.get_statistics">get_statistics() (in module rmm.statistics)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.get_upstream">get_upstream() (hipmm.mr.ArenaMemoryResource method)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.get_upstream">(hipmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor.get_upstream">(hipmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FixedSizeMemoryResource.get_upstream">(hipmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.get_upstream">(hipmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.get_upstream">(hipmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource.get_upstream">(hipmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor.get_upstream">(hipmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.get_upstream">(hipmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.get_upstream">(hipmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.UpstreamResourceAdaptor.get_upstream">(hipmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ArenaMemoryResource.get_upstream">(rmm.mr.ArenaMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.get_upstream">(rmm.mr.BinningMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FailureCallbackResourceAdaptor.get_upstream">(rmm.mr.FailureCallbackResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FixedSizeMemoryResource.get_upstream">(rmm.mr.FixedSizeMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.get_upstream">(rmm.mr.LimitingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.get_upstream">(rmm.mr.LoggingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource.get_upstream">(rmm.mr.PoolMemoryResource method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PrefetchResourceAdaptor.get_upstream">(rmm.mr.PrefetchResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.get_upstream">(rmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.get_upstream">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.UpstreamResourceAdaptor.get_upstream">(rmm.mr.UpstreamResourceAdaptor method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    hipmm
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm">module</a>
+</li>
+      </ul></li>
+      <li>
+    hipmm.allocators.cupy
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.cupy">module</a>
+</li>
+      </ul></li>
+      <li>
+    hipmm.allocators.numba
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.numba">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    hipmm.allocators.torch
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.torch">module</a>
+</li>
+      </ul></li>
+      <li>
+    hipmm.mr
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.mr">module</a>
+</li>
+      </ul></li>
+      <li>
+    hipmm.statistics
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.statistics">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.info">info (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.info">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.initialize">initialize() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.initialize">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.interface_version">interface_version (hipmm.allocators.numba.RMMNumbaManager property)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.interface_version">(rmm.allocators.numba.RMMNumbaManager property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.is_initialized">is_initialized() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.is_initialized">(in module hipmm.mr)</a>
+</li>
+        <li><a href="python_api.html#rmm.is_initialized">(in module rmm)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.is_initialized">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum">level_enum (class in hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum">(class in rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor">LimitingResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.log_outstanding_allocations">log_outstanding_allocations() (hipmm.mr.TrackingResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.log_outstanding_allocations">(rmm.mr.TrackingResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor">LoggingResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ManagedMemoryResource">ManagedMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.ManagedMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.memalloc">memalloc() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.memalloc">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.memallocmanaged">memallocmanaged() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.memallocmanaged">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.memhostalloc">memhostalloc() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.memhostalloc">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_peak">memory_peak (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_total">memory_total (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.mempin">mempin() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.mempin">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm">hipmm</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.cupy">hipmm.allocators.cupy</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.numba">hipmm.allocators.numba</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.torch">hipmm.allocators.torch</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.mr">hipmm.mr</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#module-hipmm.statistics">hipmm.statistics</a>
+</li>
+        <li><a href="python_api.html#module-rmm">rmm</a>
+</li>
+        <li><a href="python_api.html#module-rmm.allocators.cupy">rmm.allocators.cupy</a>
+</li>
+        <li><a href="python_api.html#module-rmm.allocators.numba">rmm.allocators.numba</a>
+</li>
+        <li><a href="python_api.html#module-rmm.allocators.torch">rmm.allocators.torch</a>
+</li>
+        <li><a href="python_api.html#module-rmm.mr">rmm.mr</a>
+</li>
+        <li><a href="python_api.html#module-rmm.statistics">rmm.statistics</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.n_levels">n_levels (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.n_levels">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.nbytes">nbytes (hipmm.DeviceBuffer attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.nbytes">(rmm.DeviceBuffer attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.MemoryRecord.num_calls">num_calls (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.off">off (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.off">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_api.html#rmm.statistics.Statistics.peak_bytes">peak_bytes (rmm.statistics.Statistics attribute)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.Statistics.peak_count">peak_count (rmm.statistics.Statistics attribute)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncViewMemoryResource.pool_handle">pool_handle() (hipmm.mr.CudaAsyncViewMemoryResource method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.CudaAsyncViewMemoryResource.pool_handle">(rmm.mr.CudaAsyncViewMemoryResource method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource.pool_size">pool_size() (hipmm.mr.PoolMemoryResource method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource.pool_size">(rmm.mr.PoolMemoryResource method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource">PoolMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.pop_counters">pop_counters() (hipmm.mr.StatisticsResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.pop_counters">(rmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.pop_statistics">pop_statistics() (in module rmm.statistics)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.prefetch">prefetch() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.prefetch">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor">PrefetchResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.PrefetchResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.profiler">profiler() (in module rmm.statistics)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords">ProfilerRecords (class in rmm.statistics)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.MemoryRecord">ProfilerRecords.MemoryRecord (class in rmm.statistics)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.ptr">ptr (hipmm.DeviceBuffer attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.ptr">(rmm.DeviceBuffer attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.push_counters">push_counters() (hipmm.mr.StatisticsResourceAdaptor method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.push_counters">(rmm.mr.StatisticsResourceAdaptor method)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.push_statistics">push_statistics() (in module rmm.statistics)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.records">records (rmm.statistics.ProfilerRecords property)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.register_reinitialize_hook">register_reinitialize_hook() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.register_reinitialize_hook">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.reinitialize">reinitialize() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.reinitialize">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.ProfilerRecords.report">report() (rmm.statistics.ProfilerRecords method)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.reserve">reserve() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.reserve">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.reset">reset() (hipmm.allocators.numba.RMMNumbaManager method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager.reset">(rmm.allocators.numba.RMMNumbaManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.resize">resize() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.resize">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li>
+    rmm
+
+      <ul>
+        <li><a href="python_api.html#module-rmm">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    rmm.allocators.cupy
+
+      <ul>
+        <li><a href="python_api.html#module-rmm.allocators.cupy">module</a>
+</li>
+      </ul></li>
+      <li>
+    rmm.allocators.numba
+
+      <ul>
+        <li><a href="python_api.html#module-rmm.allocators.numba">module</a>
+</li>
+      </ul></li>
+      <li>
+    rmm.allocators.torch
+
+      <ul>
+        <li><a href="python_api.html#module-rmm.allocators.torch">module</a>
+</li>
+      </ul></li>
+      <li>
+    rmm.mr
+
+      <ul>
+        <li><a href="python_api.html#module-rmm.mr">module</a>
+</li>
+      </ul></li>
+      <li>
+    rmm.statistics
+
+      <ul>
+        <li><a href="python_api.html#module-rmm.statistics">module</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.cupy.rmm_cupy_allocator">rmm_cupy_allocator() (in module hipmm.allocators.cupy)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.cupy.rmm_cupy_allocator">(in module rmm.allocators.cupy)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.RMMError">RMMError</a>, <a href="reference/hipmm/python_api.html#hipmm.RMMError">[1]</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager">RMMNumbaManager (class in hipmm.allocators.numba)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.allocators.numba.RMMNumbaManager">(class in rmm.allocators.numba)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.SamHeadroomMemoryResource">SamHeadroomMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.SamHeadroomMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.set_current_device_resource">set_current_device_resource() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.set_current_device_resource">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.set_flush_level">set_flush_level() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.set_flush_level">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.set_logging_level">set_logging_level() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.set_logging_level">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.set_per_device_resource">set_per_device_resource() (in module hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.set_per_device_resource">(in module rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.should_log">should_log() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.should_log">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.size">size (hipmm.DeviceBuffer attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.size">(rmm.DeviceBuffer attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.Statistics">Statistics (class in rmm.statistics)</a>
+</li>
+      <li><a href="python_api.html#rmm.statistics.statistics">statistics() (in module rmm.statistics)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor">StatisticsResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.SystemMemoryResource">SystemMemoryResource (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.SystemMemoryResource">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.to_device">to_device() (hipmm.DeviceBuffer static method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.to_device">(rmm.DeviceBuffer static method)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.tobytes">tobytes() (hipmm.DeviceBuffer method)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.DeviceBuffer.tobytes">(rmm.DeviceBuffer method)</a>
+</li>
+      </ul></li>
+      <li><a href="python_api.html#rmm.statistics.Statistics.total_bytes">total_bytes (rmm.statistics.Statistics attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_api.html#rmm.statistics.Statistics.total_count">total_count (rmm.statistics.Statistics attribute)</a>
+</li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.trace">trace (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.trace">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor">TrackingResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.unregister_reinitialize_hook">unregister_reinitialize_hook() (in module hipmm)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.unregister_reinitialize_hook">(in module rmm)</a>
+</li>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.upstream_mr">upstream_mr (hipmm.mr.ArenaMemoryResource attribute)</a>
+
+      <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.BinningMemoryResource.upstream_mr">(hipmm.mr.BinningMemoryResource attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor.upstream_mr">(hipmm.mr.FailureCallbackResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.FixedSizeMemoryResource.upstream_mr">(hipmm.mr.FixedSizeMemoryResource attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LimitingResourceAdaptor.upstream_mr">(hipmm.mr.LimitingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.LoggingResourceAdaptor.upstream_mr">(hipmm.mr.LoggingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PoolMemoryResource.upstream_mr">(hipmm.mr.PoolMemoryResource attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor.upstream_mr">(hipmm.mr.PrefetchResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.upstream_mr">(hipmm.mr.StatisticsResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.upstream_mr">(hipmm.mr.TrackingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="reference/hipmm/python_api.html#hipmm.mr.UpstreamResourceAdaptor.upstream_mr">(hipmm.mr.UpstreamResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.ArenaMemoryResource.upstream_mr">(rmm.mr.ArenaMemoryResource attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.BinningMemoryResource.upstream_mr">(rmm.mr.BinningMemoryResource attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FailureCallbackResourceAdaptor.upstream_mr">(rmm.mr.FailureCallbackResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.FixedSizeMemoryResource.upstream_mr">(rmm.mr.FixedSizeMemoryResource attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LimitingResourceAdaptor.upstream_mr">(rmm.mr.LimitingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.LoggingResourceAdaptor.upstream_mr">(rmm.mr.LoggingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PoolMemoryResource.upstream_mr">(rmm.mr.PoolMemoryResource attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.PrefetchResourceAdaptor.upstream_mr">(rmm.mr.PrefetchResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.StatisticsResourceAdaptor.upstream_mr">(rmm.mr.StatisticsResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.TrackingResourceAdaptor.upstream_mr">(rmm.mr.TrackingResourceAdaptor attribute)</a>
+</li>
+        <li><a href="python_api.html#rmm.mr.UpstreamResourceAdaptor.upstream_mr">(rmm.mr.UpstreamResourceAdaptor attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.mr.UpstreamResourceAdaptor">UpstreamResourceAdaptor (class in hipmm.mr)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.mr.UpstreamResourceAdaptor">(class in rmm.mr)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.warn">warn (hipmm.level_enum attribute)</a>
+
+      <ul>
+        <li><a href="python_api.html#rmm.level_enum.warn">(rmm.level_enum attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+    
+        
+              
+            
+    
+
+          </div>
+          <footer class="bd-footer-content">
+            <p>
+  </p>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    
+<footer class="rocm-footer">
+    <div class="container-lg">
+        <section class="bottom-menu menu py-45">
+            <div class="row d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <ul>
+                        <li><a href="https://www.amd.com/en/corporate/copyright" target="_blank">Terms and Conditions</a></li>
+                        
+                        <li><a href="https://www.amd.com/en/corporate/privacy" target="_blank">Privacy</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/trademarks" target="_blank">Trademarks</a></li>
+                        <li><a href="https://www.amd.com/content/dam/amd/en/documents/corporate/cr/supply-chain-transparency.pdf" target="_blank">Supply Chain Transparency</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/competition" target="_blank">Fair and Open Competition</a></li>
+                        <li><a href="https://www.amd.com/system/files/documents/amd-uk-tax-strategy.pdf" target="_blank">UK Tax Strategy</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/cookies" target="_blank">Cookie Policy</a></li>
+                        <!-- OneTrust Cookies Settings button start -->
+                        <li><a href="#cookie-settings" id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</a></li>
+                        <!-- OneTrust Cookies Settings button end -->
+                    </ul>
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <div>
+                        <span class="copyright">© 2026 Advanced Micro Devices, Inc</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
+
+<!-- <div id="rdc-watermark-container">
+    <img id="rdc-watermark" src="_static/images/alpha-watermark.svg" alt="DRAFT watermark"/>
+</div> -->
+    
+  </body>
+</html>
