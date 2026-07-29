@@ -23,7 +23,7 @@
 
 .. meta::
   :description: hipMM documentation and API reference library
-  :keywords: hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD Data Science, GPU, GPU API, memory-management, memory-allocation, memory-pools
 
 .. _hipMM-support:
 
