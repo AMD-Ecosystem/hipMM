@@ -1,8 +1,8 @@
 ---
 myst:
   html_meta:
-    "description": "ROCm Data Science (ROCm-DS) library for Data Frames."
-    "keywords": "hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools"
+    "description": "AMD Data Science library for Data Frames."
+    "keywords": "hipMM, RMM, data science, RAPIDS, AMD Data Science, GPU, GPU API, memory-management, memory-allocation, memory-pools"
 ---
 
 # Building and installing hipMM
@@ -58,7 +58,7 @@ steps below:
 1. Clone the repository and submodules
 
    ```sh
-   git clone --recurse-submodules https://github.com/ROCM-DS/hipMM.git hipMM
+   git clone --recurse-submodules https://github.com/AMD-Ecosystem/hipMM.git hipMM
    cd hipMM
    ```
 
