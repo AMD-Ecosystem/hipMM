@@ -175,7 +175,12 @@ set_target_properties(
              CXX_STANDARD_REQUIRED ON
              CXX_VISIBILITY_PRESET hidden
              POSITION_INDEPENDENT_CODE ON
-             INTERFACE_POSITION_INDEPENDENT_CODE ON)
+             INTERFACE_POSITION_INDEPENDENT_CODE ON
+             # RMM_EXPORT is an ELF visibility attribute under __GNUC__ and empty
+             # otherwise, so a Windows build of this shared library exports nothing
+             # and every consumer fails to link. Let CMake generate the export
+             # table there; the property is ignored on other platforms.
+             WINDOWS_EXPORT_ALL_SYMBOLS ON)
 target_compile_definitions(rmm PUBLIC LIBCUDACXX_ENABLE_EXPERIMENTAL_MEMORY_RESOURCE)
 
 # Enable NVTX if necessary

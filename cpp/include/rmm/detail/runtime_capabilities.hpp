@@ -44,7 +44,6 @@
 
 #include <rmm/cuda_runtime_api.h>
 
-#include <dlfcn.h>
 
 namespace RMM_NAMESPACE {
 namespace detail {
