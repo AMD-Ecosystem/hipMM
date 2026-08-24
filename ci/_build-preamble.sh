@@ -24,7 +24,8 @@
 # Meant to be sourced, not executed directly.
 #
 # Makes available locally:
-#   cmake_args -- extra cmake args for hipMM build
+#   cmake_args     -- extra cmake args for hipMM build
+#   install_prefix -- the resolved install prefix
 #
 # Exports:
 #   PARALLEL_LEVEL
@@ -32,11 +33,13 @@
 #   CMAKE_PREFIX_PATH -- appends ROCM_PATH cmake path
 #
 # Required environment variables:
-#   INSTALL_DIR, SRC_DIR, BUILD_ARTIFACTS_DIR, ROCM_PATH, CMAKE_INSTALL_PREFIX
+#   INSTALL_DIR, SRC_DIR, BUILD_ARTIFACTS_DIR, ROCM_PATH
 #
 # Optional environment variables:
 #   HIPMM_CONDA_ENV, CONDA_DIR, CMAKE_VERSION, HIPMM_USE_VERSIONS_JSON,
 #   SCCACHE_ENABLE, AMDGPU_TARGETS, MAX_JOBS
+#   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix;
+#                           '<conda-prefix>' selects the active conda env
 
 set -euo pipefail
 
@@ -52,14 +55,20 @@ fi
 
 [[ "${HIPMM_USE_VERSIONS_JSON:-"false"}" == "false" ]] && no_use_versions_json=1
 
-[[ "${CMAKE_INSTALL_PREFIX:-}" == "<conda-prefix>" ]] && install_to_conda_prefix="1"
 [[ "${SCCACHE_ENABLE:-false}" == "true" ]] && use_sccache=1
+
+# The job's install root is the prefix unless the caller overrides it, so a
+# build that only gets the mounts still installs where the job expects.
+if [[ "${CMAKE_INSTALL_PREFIX:-}" == "<conda-prefix>" ]]; then
+  install_prefix="${CONDA_PREFIX}"
+else
+  install_prefix="${CMAKE_INSTALL_PREFIX:-${INSTALL_DIR}}"
+fi
 
 cmake_args=(
   "-DCMAKE_VERBOSE_MAKEFILE=ON"
   "-D CPACK_OUTPUT_FILE_PREFIX=${BUILD_ARTIFACTS_DIR}"
-  ${install_to_conda_prefix:+"-D CMAKE_INSTALL_PREFIX=${CONDA_PREFIX}"}
-  ${install_to_conda_prefix:-${CMAKE_INSTALL_PREFIX:+" -D CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}"}}
+  "-D CMAKE_INSTALL_PREFIX=${install_prefix}"
   ${AMDGPU_TARGETS:+"-D CMAKE_HIP_ARCHITECTURES='${AMDGPU_TARGETS}'"}
   ${no_use_versions_json:+"-D CPM_libhipcxx_SOURCE=${SRC_DIR}/libhipcxx"}
   ${no_use_versions_json:+"-D CPM_rapids_logger_SOURCE=${SRC_DIR}/rocmds_logger"}
@@ -79,6 +88,6 @@ fi
 
 export PARALLEL_LEVEL=${MAX_JOBS:-1}
 export CXX=hipcc
-export CMAKE_PREFIX_PATH+="${CMAKE_INSTALL_PREFIX}:${ROCM_PATH}"
+export CMAKE_PREFIX_PATH+="${install_prefix}:${ROCM_PATH}"
 export CPM_USE_LOCAL_PACKAGES=OFF
 export CPM_DOWNLOAD_ALL=OFF

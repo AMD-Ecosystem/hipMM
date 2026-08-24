@@ -28,7 +28,8 @@
 #
 # Optional environment variables:
 #   HIPMM_CONDA_ENV, CONDA_DIR   -- for conda-based environments
-#   CMAKE_INSTALL_PREFIX          -- for LD_LIBRARY_PATH in venv mode
+#   CMAKE_INSTALL_PREFIX         -- overrides INSTALL_DIR as the prefix the
+#                                   venv-mode LD_LIBRARY_PATH points at
 
 set -euxo pipefail
 
@@ -43,9 +44,10 @@ source "${SCRIPT_DIR}/_test-helpers.sh"
 # note: test phase might be used without the rest of the phases
 if ! activate_hipmm_conda_env; then
   . ${INSTALL_DIR}/venv/hipmm_dev/bin/activate
+  install_prefix="${CMAKE_INSTALL_PREFIX:-${INSTALL_DIR}}"
   export LD_LIBRARY_PATH="\
-${CMAKE_INSTALL_PREFIX}/lib:\
-${CMAKE_INSTALL_PREFIX}/lib64:\
+${install_prefix}/lib:\
+${install_prefix}/lib64:\
 ${LD_LIBRARY_PATH:-}"
 fi
 

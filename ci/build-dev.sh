@@ -24,18 +24,19 @@
 # Build hipMM C++ library (and optionally Python bindings, docs).
 #
 # Required environment variables:
-#   PROJECT_ID, SRC_DIR, BUILD_DIR, BUILD_ARTIFACTS_DIR
+#   PROJECT_ID, SRC_DIR, BUILD_DIR, INSTALL_DIR, BUILD_ARTIFACTS_DIR
 #   HIPMM_BUILD_TYPE -- controls what gets built
 #
 # Optional environment variables:
 #   HIPMM_USE_PER_THREAD_DEFAULT_STREAM -- enable PTDS build
 #   HIPMM_BUILD_DOCS -- build Sphinx documentation
+#   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix
 
 set -euxo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_require-envs.sh"
-require_envs PROJECT_ID SRC_DIR BUILD_DIR BUILD_ARTIFACTS_DIR AMDGPU_TARGETS ROCM_PATH CMAKE_INSTALL_PREFIX
+require_envs PROJECT_ID SRC_DIR BUILD_DIR INSTALL_DIR BUILD_ARTIFACTS_DIR AMDGPU_TARGETS ROCM_PATH
 
 [[ "${HIPMM_BUILD_TYPE:-}" != "install"* ]] && no_install=1 # does not affect Python component
 [[ "${HIPMM_BUILD_TYPE:-}" == "all" ]] && build_python=1

@@ -24,17 +24,18 @@
 # Build hipMM Python wheels (amd-libhipmm and amd-hipmm).
 #
 # Required environment variables:
-#   PROJECT_ID, SRC_DIR, BUILD_DIR, BUILD_ARTIFACTS_DIR
+#   PROJECT_ID, SRC_DIR, BUILD_DIR, INSTALL_DIR, BUILD_ARTIFACTS_DIR
 #   AMDGPU_TARGETS -- GPU architectures to target
 #
 # Optional environment variables:
 #   HIPMM_BUILD_TYPE, CMAKE_VERSION
+#   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix
 
 set -euxo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/_require-envs.sh"
-require_envs PROJECT_ID SRC_DIR BUILD_DIR BUILD_ARTIFACTS_DIR AMDGPU_TARGETS ROCM_PATH CMAKE_INSTALL_PREFIX
+require_envs PROJECT_ID SRC_DIR BUILD_DIR INSTALL_DIR BUILD_ARTIFACTS_DIR AMDGPU_TARGETS ROCM_PATH
 
 src_dir=${SRC_DIR}/${PROJECT_ID}
 wheels_build_dir=${BUILD_DIR}/_WHEELS_/
