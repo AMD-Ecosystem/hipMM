@@ -26,9 +26,8 @@
 # Required environment variables:
 #   BUILD_ARTIFACTS_DIR -- directory containing pre-built dependency wheels
 #   HIPMM_BUILD_TYPE    -- controls which dependencies to install
-#
-# Optional environment variables:
-#   CMAKE_VERSION -- pin cmake to this version
+#   CMAKE_VERSION       -- the version of the cmake package to install, the only
+#                          source of that pin, as in ci/_build-preamble.sh
 
 set -euo pipefail
 
@@ -47,7 +46,7 @@ esac
 
 pip install wheel auditwheel Cython scikit-build-core \
             patchelf
-pip install --force-reinstall cmake${CMAKE_VERSION:+==${CMAKE_VERSION}}
+pip install --force-reinstall "cmake==${CMAKE_VERSION}"
 pip install ninja
 
 pip install rapids-build-backend

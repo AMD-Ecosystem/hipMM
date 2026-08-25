@@ -34,9 +34,11 @@
 #
 # Required environment variables:
 #   INSTALL_DIR, SRC_DIR, BUILD_ARTIFACTS_DIR, ROCM_PATH
+#   CMAKE_VERSION  -- the version of the cmake package to install, unless a
+#                     conda environment supplies cmake
 #
 # Optional environment variables:
-#   HIPMM_CONDA_ENV, CONDA_DIR, CMAKE_VERSION, HIPMM_USE_VERSIONS_JSON,
+#   HIPMM_CONDA_ENV, CONDA_DIR, HIPMM_USE_VERSIONS_JSON,
 #   SCCACHE_ENABLE, AMDGPU_TARGETS, MAX_JOBS
 #   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix;
 #                           '<conda-prefix>' selects the active conda env
@@ -47,11 +49,14 @@ _PREAMBLE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${_PREAMBLE_DIR}/_activate-env.sh"
 
 if ! activate_hipmm_conda_env; then
+    # cmake, cpack and ctest come from this venv, which the tests tarball ships.
+    python3 --version
     python3 -m venv --clear ${INSTALL_DIR}/venv/hipmm_dev
     . ${INSTALL_DIR}/venv/hipmm_dev/bin/activate
     pip install --upgrade pip
-    pip install cmake==${CMAKE_VERSION}
+    pip install "cmake==${CMAKE_VERSION}"
 fi
+cmake --version && cpack --version && ctest --version
 
 [[ "${HIPMM_USE_VERSIONS_JSON:-"false"}" == "false" ]] && no_use_versions_json=1
 
