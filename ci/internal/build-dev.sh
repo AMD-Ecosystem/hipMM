@@ -31,12 +31,19 @@
 #   HIPMM_USE_PER_THREAD_DEFAULT_STREAM -- enable PTDS build
 #   HIPMM_BUILD_DOCS -- build Sphinx documentation
 #   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix
+#   CI_INTERNAL_CREATE_TESTS_TARBALL -- '1' packs the tests tarball the tester
+#                                       images consume (default: 0).
 
 set -euxo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/_require-envs.sh"
-require_envs PROJECT_ID SRC_DIR BUILD_DIR INSTALL_DIR BUILD_ARTIFACTS_DIR AMDGPU_TARGETS ROCM_PATH
+: "${PROJECT_ID:?PROJECT_ID must be set}"
+: "${SRC_DIR:?SRC_DIR must be set}"
+: "${BUILD_DIR:?BUILD_DIR must be set}"
+: "${INSTALL_DIR:?INSTALL_DIR must be set}"
+: "${BUILD_ARTIFACTS_DIR:?BUILD_ARTIFACTS_DIR must be set}"
+: "${AMDGPU_TARGETS:?AMDGPU_TARGETS must be set}"
+: "${ROCM_PATH:?ROCM_PATH must be set}"
 
 [[ "${HIPMM_BUILD_TYPE:-}" != "install"* ]] && no_install=1 # does not affect Python component
 [[ "${HIPMM_BUILD_TYPE:-}" == "all" ]] && build_python=1
@@ -56,9 +63,13 @@ build_sh_args=(
 )
 
 build_dir=${BUILD_DIR}/${PROJECT_ID}
-build_build_dir=${BUILD_DIR}/${PROJECT_ID}/cpp/build
 src_dir=${SRC_DIR}/${PROJECT_ID}
 tests_tarball_name="${PROJECT_ID}-tests.tar.gz"
+
+case "${CI_INTERNAL_CREATE_TESTS_TARBALL:-0}" in
+  1 | true | yes | on) create_tests_tarball="1" ;;
+  *) create_tests_tarball="" ;;
+esac
 
 rm -rf ${build_dir} # clean build files (in case of rebuild)
 cp -va ${src_dir} ${build_dir}
@@ -66,6 +77,9 @@ cp -va ${src_dir} ${build_dir}
 cd ${build_dir}
     . "${SCRIPT_DIR}/_build-preamble.sh"
     . "${SCRIPT_DIR}/_install-build-deps.sh"
+
+    [[ "${HIPMM_USE_VERSIONS_JSON:-"false"}" == "false" ]] \
+      && cmake_args+=("-D CPM_rapids_logger_SOURCE=${SRC_DIR}/rocmds_logger")
 
     # note: Temporarily disable 'set -u' before exporting SHELLOPTS to prevent
     # git's internal shell scripts from failing on unbound variables.
@@ -95,6 +109,22 @@ cd ${build_dir}
         deactivate
     fi
 
-# archive build folder and source folder for testing purposes
-tar -czvf ${BUILD_ARTIFACTS_DIR}/${tests_tarball_name} ${build_build_dir} ${src_dir}
-du -sh ${BUILD_ARTIFACTS_DIR}/${tests_tarball_name}
+#### test archive
+
+# The tester images extract this at / and drive ci/internal/test-*.sh out of
+# the build tree it carries, so the archive keeps absolute paths. The whole
+# build directory travels, not just cpp/build: the tester runs ctest against
+# the prebuilt gtest binaries, pytest against python/rmm, and reads the
+# ci/internal/ scripts from the same copy. The cmake/ctest venv comes along because the build tree
+# records that interpreter's absolute cmake path in its ctest configuration,
+# unless a conda env stood in for the venv, in which case the tester brings its
+# own cmake. Packing here is also why this script runs before build-wheels.sh,
+# which recreates the venv with --clear.
+if [ -n "${create_tests_tarball:-}" ]; then
+  dev_venv="${INSTALL_DIR:-}/venv/hipmm_dev"
+  [ -d "${dev_venv}" ] || dev_venv=""
+
+  tar --exclude=.git -czf ${BUILD_ARTIFACTS_DIR}/${tests_tarball_name} \
+    ${build_dir} ${dev_venv}
+  du -sh ${BUILD_ARTIFACTS_DIR}/${tests_tarball_name}
+fi

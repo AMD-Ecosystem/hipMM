@@ -34,8 +34,11 @@
 set -euxo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/_require-envs.sh"
-require_envs PROJECT_ID BUILD_DIR INSTALL_DIR ARTIFACTS_DIR BUILD_ARTIFACTS_DIR
+: "${PROJECT_ID:?PROJECT_ID must be set}"
+: "${BUILD_DIR:?BUILD_DIR must be set}"
+: "${INSTALL_DIR:?INSTALL_DIR must be set}"
+: "${ARTIFACTS_DIR:?ARTIFACTS_DIR must be set}"
+: "${BUILD_ARTIFACTS_DIR:?BUILD_ARTIFACTS_DIR must be set}"
 
 source "${SCRIPT_DIR}/_activate-env.sh"
 source "${SCRIPT_DIR}/_test-helpers.sh"

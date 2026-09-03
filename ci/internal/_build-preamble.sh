@@ -70,13 +70,15 @@ else
   install_prefix="${CMAKE_INSTALL_PREFIX:-${INSTALL_DIR}}"
 fi
 
+if [ -n "${AMDGPU_TARGETS:-}" ]; then
+  export RAPIDS_CMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}"
+fi
+
 cmake_args=(
   "-DCMAKE_VERBOSE_MAKEFILE=ON"
   "-D CPACK_OUTPUT_FILE_PREFIX=${BUILD_ARTIFACTS_DIR}"
   "-D CMAKE_INSTALL_PREFIX=${install_prefix}"
-  ${AMDGPU_TARGETS:+"-D CMAKE_HIP_ARCHITECTURES='${AMDGPU_TARGETS}'"}
   ${no_use_versions_json:+"-D CPM_libhipcxx_SOURCE=${SRC_DIR}/libhipcxx"}
-  ${no_use_versions_json:+"-D CPM_rapids_logger_SOURCE=${SRC_DIR}/rocmds_logger"}
   ${use_sccache:+"-D CMAKE_HIP_COMPILER_LAUNCHER=sccache"}
   ${use_sccache:+"-D CMAKE_CXX_COMPILER_LAUNCHER=sccache"}
   ${use_sccache:+"-D CMAKE_C_COMPILER_LAUNCHER=sccache"}

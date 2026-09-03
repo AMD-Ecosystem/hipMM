@@ -20,23 +20,49 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Install test dependencies for hipMM.
+# Install build dependencies for hipMM.
 # Meant to be sourced, not executed directly.
 #
 # Required environment variables:
 #   BUILD_ARTIFACTS_DIR -- directory containing pre-built dependency wheels
+#   HIPMM_BUILD_TYPE    -- controls which dependencies to install
+#   CMAKE_VERSION       -- the version of the cmake package to install, the only
+#                          source of that pin, as in _build-preamble.sh
 
 set -euo pipefail
 
 pip install --upgrade pip
-pip install numpy
-pip install numpy fastrlock "numba>=0.58,<0.62"
-pip install pytest pytest-csv pytest-timeout
 
-pip install --no-deps \
-            ${BUILD_ARTIFACTS_DIR}/hip_python*.whl \
-            ${BUILD_ARTIFACTS_DIR}/rocm_bindings*.whl \
-            ${BUILD_ARTIFACTS_DIR}/*rocmds_logger*.whl \
-            ${BUILD_ARTIFACTS_DIR}/numba_hip*.whl \
-            ${BUILD_ARTIFACTS_DIR}/*cupy*.whl \
-            ${BUILD_ARTIFACTS_DIR}/*hipmm*.whl
+case "${HIPMM_BUILD_TYPE:-}" in
+  all|cpp_py|cpp_wheels|wheels|install_all|install_cpp_py|install_cpp_wheels)
+    specs=(
+      amd-rocmds-logger
+    )
+
+    # python/rmm Cython extensions cimport cuda.bindings.cyruntime from the
+    # hip-python wheel set; match build-wheels.sh HIPMM_BUILD_HIPMM defaulting.
+    need_hip_python_deps=0
+    [[ "${HIPMM_BUILD_TYPE:-}" == *py* ]] && need_hip_python_deps=1
+    hipmm_build=${HIPMM_BUILD_HIPMM-1}
+    [[ -n "${hipmm_build}" ]] && need_hip_python_deps=1
+
+    if [ "${need_hip_python_deps}" -eq 1 ]; then
+      specs+=(
+        rocm-bindings-core
+        rocm-bindings-hip
+        hip-python-interop
+      )
+    fi
+
+    pip install --no-deps \
+        --find-links "${BUILD_ARTIFACTS_DIR}" \
+        "${specs[@]}"
+    ;;
+esac
+
+pip install wheel auditwheel Cython scikit-build-core \
+            patchelf
+pip install --force-reinstall "cmake==${CMAKE_VERSION}"
+pip install ninja
+
+pip install rapids-build-backend

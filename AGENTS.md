@@ -149,7 +149,7 @@ python/rmm/             # Python package
 ├── rmm/                # Main module
 │   ├── pylibrmm/       # Cython bindings
 │   └── tests/          # pytest tests
-ci/                     # CI scripts
+ci/internal/            # CI scripts
 ```
 
 ## PR Requirements
@@ -226,7 +226,7 @@ buf = rmm.DeviceBuffer(size=size)
 | Python bindings | `python/rmm/rmm/` |
 | C++ tests | `cpp/tests/` |
 | Python tests | `python/rmm/rmm/tests/` |
-| CI configuration | `ci/` |
+| CI configuration | `ci/internal/` |
 
 ## Resources
 

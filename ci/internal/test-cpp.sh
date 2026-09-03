@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # MIT License
 #
 # Copyright (c) 2026 Advanced Micro Devices, Inc.
@@ -20,24 +21,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Shared helper: validates that required environment variables are set.
-# Meant to be sourced, not executed directly.
+# Run hipMM C++ tests via ctest with HSA_XNACK=0 and HSA_XNACK=1.
 #
-# Provides:
-#   require_envs() - fails with a clear error if any named variable is unset or empty
+# Required environment variables:
+#   PROJECT_ID, BUILD_DIR, INSTALL_DIR
+#
+# Optional environment variables:
+#   HIPMM_CONDA_ENV, CONDA_DIR -- for conda-based environments
 
-set -euo pipefail
+set -euxo pipefail
 
-require_envs() {
-    local missing=0
-    for var in "$@"; do
-        if [ -z "${!var:-}" ]; then
-            echo "ERROR: required environment variable ${var} is not set." >&2
-            missing=1
-        fi
-    done
-    if [ "$missing" -ne 0 ]; then
-        echo "ERROR: missing required environment variables (see above). Aborting." >&2
-        exit 1
-    fi
-}
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+: "${PROJECT_ID:?PROJECT_ID must be set}"
+: "${BUILD_DIR:?BUILD_DIR must be set}"
+: "${INSTALL_DIR:?INSTALL_DIR must be set}"
+
+source "${SCRIPT_DIR}/_activate-env.sh"
+
+# activate conda env if specified
+# note: test phase might be used without the rest of the phases
+if ! activate_hipmm_conda_env; then
+  . ${INSTALL_DIR}/venv/hipmm_dev/bin/activate
+fi
+
+cd ${BUILD_DIR}/${PROJECT_ID}/cpp/build
+  HSA_XNACK=0 ctest -V .
+  HSA_XNACK=1 ctest -V .

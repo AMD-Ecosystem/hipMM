@@ -20,33 +20,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Install build dependencies for hipMM.
+# Install test dependencies for hipMM.
 # Meant to be sourced, not executed directly.
 #
 # Required environment variables:
 #   BUILD_ARTIFACTS_DIR -- directory containing pre-built dependency wheels
-#   HIPMM_BUILD_TYPE    -- controls which dependencies to install
-#   CMAKE_VERSION       -- the version of the cmake package to install, the only
-#                          source of that pin, as in ci/_build-preamble.sh
 
 set -euo pipefail
 
 pip install --upgrade pip
+pip install numpy
+pip install numpy fastrlock "numba>=0.58,<0.62"
+pip install pytest pytest-csv pytest-timeout
 
-case "${HIPMM_BUILD_TYPE:-}" in
-  all|cpp_py|cpp_wheels|wheels|install_all|install_cpp_py|install_cpp_wheels)
-    pip install --no-deps \
-            ${BUILD_ARTIFACTS_DIR}/hip_python*.whl \
-            ${BUILD_ARTIFACTS_DIR}/rocm_bindings*.whl \
-            ${BUILD_ARTIFACTS_DIR}/*rocmds_logger*.whl \
-            ${BUILD_ARTIFACTS_DIR}/numba_hip*.whl \
-            ${BUILD_ARTIFACTS_DIR}/*cupy*.whl
-    ;;
-esac
-
-pip install wheel auditwheel Cython scikit-build-core \
-            patchelf
-pip install --force-reinstall "cmake==${CMAKE_VERSION}"
-pip install ninja
-
-pip install rapids-build-backend
+# hipMM wheels are installed separately by test-wheels.sh.
+pip install --no-deps \
+    --find-links "${BUILD_ARTIFACTS_DIR}" \
+    amd-rocmds-logger \
+    amd-cupy \
+    rocm-bindings-core \
+    rocm-bindings-hip \
+    rocm-bindings-compiler \
+    hip-python-interop \
+    numba-hip
