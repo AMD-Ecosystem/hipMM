@@ -28,6 +28,11 @@
 #   HIPMM_BUILD_TYPE    -- controls which dependencies to install
 #   CMAKE_VERSION       -- the version of the cmake package to install, the only
 #                          source of that pin, as in _build-preamble.sh
+#
+# Optional environment variables:
+#   ROCMDS_LOGGER_VERSION -- pins amd-rocmds-logger; CI sets it from the
+#                            builder-tester _envs/rocmds/<branch> env file, and a
+#                            bare checkout without it installs unpinned
 
 set -euo pipefail
 
@@ -36,7 +41,7 @@ pip install --upgrade pip
 case "${HIPMM_BUILD_TYPE:-}" in
   all|cpp_py|cpp_wheels|wheels|install_all|install_cpp_py|install_cpp_wheels)
     specs=(
-      amd-rocmds-logger
+      "amd-rocmds-logger${ROCMDS_LOGGER_VERSION:+==${ROCMDS_LOGGER_VERSION}}"
     )
 
     # python/rmm Cython extensions cimport cuda.bindings.cyruntime from the
@@ -46,6 +51,7 @@ case "${HIPMM_BUILD_TYPE:-}" in
     hipmm_build=${HIPMM_BUILD_HIPMM-1}
     [[ -n "${hipmm_build}" ]] && need_hip_python_deps=1
 
+    # Deliberately unpinned: their version leads with the ROCm version
     if [ "${need_hip_python_deps}" -eq 1 ]; then
       specs+=(
         rocm-bindings-core

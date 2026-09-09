@@ -25,6 +25,13 @@
 #
 # Required environment variables:
 #   BUILD_ARTIFACTS_DIR -- directory containing pre-built dependency wheels
+#
+# Optional environment variables:
+#   ROCMDS_LOGGER_VERSION -- pins amd-rocmds-logger
+#   NUMBA_HIP_VERSION     -- pins numba-hip
+#                            CI sets both from the builder-tester
+#                            _envs/rocmds/<branch> env file, and a bare checkout
+#                            without them installs unpinned
 
 set -euo pipefail
 
@@ -34,12 +41,17 @@ pip install numpy fastrlock "numba>=0.58,<0.62"
 pip install pytest pytest-csv pytest-timeout
 
 # hipMM wheels are installed separately by test-wheels.sh.
+# The rocm-bindings-* / hip-python-interop set stays unpinned: their version
+# leads with the ROCm version of the base image, which no env key names. amd-cupy
+# stays unpinned for a different reason -- the only key for it is
+# HIPDF_AMDCUPY_VERSION, and the env-file convention is that a prefixed key
+# belongs to the project in the prefix.
 pip install --no-deps \
     --find-links "${BUILD_ARTIFACTS_DIR}" \
-    amd-rocmds-logger \
+    "amd-rocmds-logger${ROCMDS_LOGGER_VERSION:+==${ROCMDS_LOGGER_VERSION}}" \
     amd-cupy \
     rocm-bindings-core \
     rocm-bindings-hip \
     rocm-bindings-compiler \
     hip-python-interop \
-    numba-hip
+    "numba-hip${NUMBA_HIP_VERSION:+==${NUMBA_HIP_VERSION}}"
