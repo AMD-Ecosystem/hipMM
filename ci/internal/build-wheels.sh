@@ -29,6 +29,7 @@
 #
 # Optional environment variables:
 #   HIPMM_BUILD_TYPE, CMAKE_VERSION
+#   HIPMM_VERSION -- pins the wheels this build installs from BUILD_ARTIFACTS_DIR
 #   CMAKE_INSTALL_PREFIX -- overrides INSTALL_DIR as the install prefix
 #   USE_SABI -- "no", or the CPython version to use as the stable-ABI (abi3)
 #               floor for amd-hipmm, e.g. "3.12". A floor tags the wheel
@@ -103,7 +104,8 @@ cd ${build_dir}
         # 2) build amd-hipmm against the libhipmm wheel, either the one built
         # above or the one an earlier libhipmm-only pass left behind.
         if [ -n "${build_hipmm}" ]; then
-          pip install ${BUILD_ARTIFACTS_DIR}/amd_libhipmm*whl
+          install_built_wheel --no-deps --no-index -- \
+            "amd_libhipmm${HIPMM_VERSION:+==${HIPMM_VERSION}}"
 
           build_rapids_wheel "python/rmm" "" "${hipmm_wheel_config[@]}"
         fi

@@ -32,6 +32,7 @@
 #               interpreter, since the passes share this checkout and this
 #               artifacts dir; unset, the names are the ones test-python.sh
 #               also writes.
+#   HIPMM_VERSION -- pins the hipMM wheels installed from BUILD_ARTIFACTS_DIR
 
 set -euxo pipefail
 
@@ -42,6 +43,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${ARTIFACTS_DIR:?ARTIFACTS_DIR must be set}"
 
 source "${SCRIPT_DIR}/_test-helpers.sh"
+source "${SCRIPT_DIR}/_wheel-helpers.sh"
 
 wheels_test_env=$(mktemp -d)
 python3 -m venv ${wheels_test_env}
@@ -50,28 +52,11 @@ python3 -m venv ${wheels_test_env}
   pip install --upgrade pip
   . "${SCRIPT_DIR}/_install-test-deps.sh"
 
-  # By distribution rather than by file, so this interpreter takes the wheel
-  # tagged for it out of a pool that covers several, instead of pip rejecting a
-  # file it was handed. The index stays available: unlike the build, the test
-  # install resolves amd_hipmm's own dependencies.
-  shopt -s nullglob
-  specs=()
-  for wheel in "${BUILD_ARTIFACTS_DIR}"/*hipmm*.whl; do
-    # {name}-{version}-{optional build tag}-{python}-{abi}-{platform}.whl
-    IFS=- read -r dist version _ <<<"$(basename "${wheel}")"
-    specs+=("${dist}==${version}")
-  done
-  shopt -u nullglob
-
-  if [ ${#specs[@]} -eq 0 ]; then
-    echo "ERROR: no hipMM wheels in ${BUILD_ARTIFACTS_DIR}; nothing to test." >&2
-    exit 1
-  fi
-
-  # amd_hipmm and amd_libhipmm, each named once however many tags the pool has.
-  mapfile -t specs < <(printf '%s\n' "${specs[@]}" | sort -u)
-
-  pip install --find-links "${BUILD_ARTIFACTS_DIR}" "${specs[@]}"
+  # No --no-index here, unlike the build: this install resolves the wheels'
+  # own runtime dependencies for real.
+  install_built_wheel -- \
+    "amd_libhipmm${HIPMM_VERSION:+==${HIPMM_VERSION}}" \
+    "amd_hipmm${HIPMM_VERSION:+==${HIPMM_VERSION}}"
 
   test_failures=0
   cd ${BUILD_DIR}/${PROJECT_ID}

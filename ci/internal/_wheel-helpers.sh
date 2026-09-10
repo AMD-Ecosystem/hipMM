@@ -20,15 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# RAPIDS wheel build helpers. Meant to be sourced, not executed directly.
+# RAPIDS wheel helpers. Meant to be sourced, not executed directly.
 #
 # Drop-in for ROCm-DS projects (hipmm, hipdf, ...). Project scripts set
 # WHEEL_BUILD_ROOT to a copied checkout, then call build_rapids_wheel for each
-# python package directory.
+# python package directory. install_built_wheel is sourced by the test scripts
+# too, which build nothing.
 #
 # Required environment variables:
 #   BUILD_ARTIFACTS_DIR -- wheel output, pip logs, auditwheel destination
-#   WHEEL_BUILD_ROOT    -- tree root containing package dirs (e.g. copied checkout)
+#   WHEEL_BUILD_ROOT    -- tree root containing package dirs (e.g. copied
+#                          checkout); needed by the build functions only
 #
 # Optional environment variables:
 #   RAPIDS_PIP_WHEEL_ARGS    -- pip wheel flags (defaults below)
@@ -139,6 +141,48 @@ if missing:
 
 print(f"{pkg}: {len(declared)} declared build requirements satisfied")
 PY
+}
+
+# install_built_wheel [pip-arg...] -- <spec>...
+#
+# Install wheels this pipeline produced, naming distributions rather than
+# files. One BUILD_ARTIFACTS_DIR is filled by several interpreters, so a
+# ${dist}*.whl glob also matches the wheels built for the other Python
+# versions and pip rejects a file it was handed with a tag it cannot use;
+# naming the distribution lets it take the wheel tagged for this interpreter.
+#
+# Specs carry their own version pin, so this stays usable from any project.
+# The build passes --no-deps --no-index; the test passes nothing and resolves
+# for real. Every spec goes in one pip call, so the resolver sees them together.
+install_built_wheel() {
+    local pip_args=() spec dist
+
+    while [ $# -gt 0 ] && [ "$1" != "--" ]; do
+        pip_args+=("$1")
+        shift
+    done
+    if [ "${1:-}" != "--" ]; then
+        echo "ERROR: install_built_wheel needs -- before the specs" >&2
+        exit 1
+    fi
+    shift
+
+    for spec in "$@"; do
+        dist=${spec%%"["*}          # drop extras
+        dist=${dist%%[=<>!~]*}      # drop the version specifier
+        shopt -s nullglob
+        # Deliberately unquoted, so the ? substituted for the separator globs:
+        # pip canonicalizes the name and the file on disk may use the other one.
+        # shellcheck disable=SC2206
+        local found=( "${BUILD_ARTIFACTS_DIR}/"${dist//[-_]/?}-*.whl )
+        shopt -u nullglob
+        if [ ${#found[@]} -eq 0 ]; then
+            echo "ERROR: no ${dist} wheel in ${BUILD_ARTIFACTS_DIR}" >&2
+            exit 1
+        fi
+    done
+
+    pip install "${pip_args[@]}" --find-links "${BUILD_ARTIFACTS_DIR}" "$@"
 }
 
 # build_rapids_wheel <pkg-relpath> [extra-cmake-args] [extra-pip-args...]
