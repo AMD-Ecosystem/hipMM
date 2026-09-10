@@ -68,7 +68,11 @@ python3 -m venv ${wheels_test_env}
 
       run_tests python/rmm ${CSV_OUTPUT_DIR} ${TIMEOUT_PER_TEST_SEC} "" "_xnack0" "[xnack=0]"
       export HSA_XNACK=1
-      run_tests python/rmm ${CSV_OUTPUT_DIR} ${TIMEOUT_PER_TEST_SEC} "" "_xnack1" "[xnack=1]"
+      if xnack_enabled_or_warn; then
+        run_tests python/rmm ${CSV_OUTPUT_DIR} ${TIMEOUT_PER_TEST_SEC} "" "_xnack1" "[xnack=1]"
+      else
+        echo "WARNING: skipping the [xnack=1] test pass on this agent." >&2
+      fi
 
       result=$(merge_test_results ${CSV_OUTPUT_DIR}) || test_failures=1
       echo $result > ${ARTIFACTS_DIR}/${PROJECT_ID}-test-results-py${results_suffix}.csv

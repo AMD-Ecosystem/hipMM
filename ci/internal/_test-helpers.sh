@@ -26,10 +26,40 @@
 # Provides:
 #   run_tests()          -- runs pytest per test file with CSV output and timeout
 #   merge_test_results() -- merges per-file CSV results into a single file
+#   xnack_enabled_or_warn() -- reports whether HSA_XNACK=1 took effect
 #
 # Prerequisites: pytest, pytest-csv, pytest-timeout must be installed.
 
 set -euo pipefail
+
+# Reports whether HSA_XNACK=1 took effect. An agent whose GPU or driver lacks
+# XNACK support ignores the variable silently, and the system memory tests would
+# then skip rather than run. Warns and returns non-zero in that case, so callers
+# can drop the XNACK pass instead of reporting it as covered.
+#
+# Prefers the device attribute the tests themselves gate on, and falls back to
+# rocminfo where rmm is not installed, as in the C++ test phase.
+function xnack_enabled_or_warn() {
+    if python -c 'import rmm' >/dev/null 2>&1; then
+        python -c '
+import sys
+from cuda.bindings import runtime
+from rmm._cuda.gpu import getDevice, getDeviceAttribute
+sys.exit(0 if getDeviceAttribute(
+    runtime.cudaDeviceAttr.cudaDevAttrPageableMemoryAccess, getDevice()) else 1)
+' && return 0
+    else
+        # Matched against a captured string rather than a pipeline, because
+        # grep -q closes the pipe early and pipefail would report the SIGPIPE.
+        local rocm_info
+        rocm_info=$(rocminfo 2>/dev/null) || true
+        grep -q "XNACK enabled:[[:space:]]*YES" <<<"${rocm_info}" && return 0
+    fi
+    echo "WARNING: HSA_XNACK=1 did not take effect: this agent reports no pageable" >&2
+    echo "         memory access. Its GPU or driver does not support XNACK, so the" >&2
+    echo "         system memory tests cannot run here." >&2
+    return 1
+}
 
 # Runs all tests individually given the input folder (1st arg),
 # the output folder (2nd arg), and a timeout value (3rd arg)

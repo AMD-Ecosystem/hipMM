@@ -37,6 +37,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${INSTALL_DIR:?INSTALL_DIR must be set}"
 
 source "${SCRIPT_DIR}/_activate-env.sh"
+source "${SCRIPT_DIR}/_test-helpers.sh"
 
 # activate conda env if specified
 # note: test phase might be used without the rest of the phases
@@ -46,4 +47,9 @@ fi
 
 cd ${BUILD_DIR}/${PROJECT_ID}/cpp/build
   HSA_XNACK=0 ctest -V .
-  HSA_XNACK=1 ctest -V .
+  export HSA_XNACK=1
+  if xnack_enabled_or_warn; then
+    ctest -V .
+  else
+    echo "WARNING: skipping the XNACK=1 ctest run on this agent." >&2
+  fi
