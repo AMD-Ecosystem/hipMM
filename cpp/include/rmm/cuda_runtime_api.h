@@ -33,6 +33,9 @@
 #ifndef cudaEvent_t
 #  define cudaEvent_t hipEvent_t
 #endif
+#ifndef cudaMemLocation
+#  define cudaMemLocation hipMemLocation
+#endif
 #ifndef cudaMemPool_t
 #  define cudaMemPool_t hipMemPool_t
 #endif
@@ -112,6 +115,9 @@
 #endif
 #ifndef cudaSuccess
 #  define cudaSuccess hipSuccess
+#endif
+#ifndef cudaMemAllocationTypeManaged
+#  define cudaMemAllocationTypeManaged hipMemAllocationTypeManaged
 #endif
 #ifndef cudaMemAllocationTypePinned
 #  define cudaMemAllocationTypePinned hipMemAllocationTypePinned
@@ -215,6 +221,9 @@
 #endif
 #ifndef cudaMallocFromPoolAsync
 #  define cudaMallocFromPoolAsync hipMallocFromPoolAsync
+#endif
+#ifndef cudaMemGetDefaultMemPool
+#  define cudaMemGetDefaultMemPool hipMemGetDefaultMemPool
 #endif
 #ifndef cudaMallocHost
 #  define cudaMallocHost hipHostMalloc

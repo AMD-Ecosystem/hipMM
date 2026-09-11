@@ -51,11 +51,20 @@ _CONCURRENT_MANAGED_ACCESS_SUPPORTED = rmm._cuda.gpu.getDeviceAttribute(
     rmm._cuda.gpu.getDevice(),
 )
 
-_ASYNC_MANAGED_MEMORY_SUPPORTED = (
-    not getattr(runtime, "HIP_PYTHON", False)
-    and _CONCURRENT_MANAGED_ACCESS_SUPPORTED
-    and rmm._cuda.gpu.runtimeGetVersion() >= 13000
-)
+
+def _async_managed_memory_supported() -> bool:
+    # Construct the resource to let librmm decide, rather than restating here
+    # the conditions it checks.
+    if not _CONCURRENT_MANAGED_ACCESS_SUPPORTED:
+        return False
+    try:
+        rmm.mr.experimental.CudaAsyncManagedMemoryResource()
+    except (AttributeError, RuntimeError):
+        return False
+    return True
+
+
+_ASYNC_MANAGED_MEMORY_SUPPORTED = _async_managed_memory_supported()
 
 _MEMORY_POOL_HANDLE_TYPES_SUPPORTED = rmm._cuda.gpu.getDeviceAttribute(
     getattr(

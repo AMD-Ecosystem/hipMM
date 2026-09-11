@@ -164,11 +164,42 @@ struct runtime_async_managed_alloc {
   {
     static auto supports_async_managed_pool{[] {
 #ifdef __HIP_PLATFORM_AMD__
-      // TODO(HIP/AMD): As of ROCm 7.2.3 we do not support cudaMemGetDefaultMemPool, which was introduced in CUDA 13.0.
-      // See:
-      //   - https://github.com/rapidsai/rmm/issues/2054
-      //   - https://rocm.docs.amd.com/projects/HIPIFY/en/latest/reference/tables/CUDA_Runtime_API_functions_supported_by_HIP.html#stream-ordered-memory-allocator
-      return false;
+      // TODO(HIP/AMD): the runtime reports support and returns a managed pool,
+      // but as of ROCm 10.0 allocates ordinary device memory from it, so
+      // querying an attribute would be a false positive. Check what the pool
+      // really returns until this is fixed, after which the check below starts
+      // reporting true on its own and this can go away.
+      // See AIRUNTIME-2759 and https://github.com/rapidsai/rmm/issues/2054.
+      if (not concurrent_managed_access::is_supported()) { return false; }
+
+      cudaMemPool_t pool{};
+      cudaMemLocation location{.type = cudaMemLocationTypeDevice,
+                               .id   = rmm::get_current_cuda_device().value()};
+      if (cudaMemGetDefaultMemPool(&pool, &location, cudaMemAllocationTypeManaged) !=
+          cudaSuccess) {
+        static_cast<void>(cudaGetLastError());
+        return false;
+      }
+
+      cudaStream_t stream{};
+      if (cudaStreamCreate(&stream) != cudaSuccess) {
+        static_cast<void>(cudaGetLastError());
+        return false;
+      }
+
+      auto is_managed = false;
+      void* ptr{};
+      if (cudaMallocFromPoolAsync(&ptr, sizeof(int), pool, stream) == cudaSuccess and
+          cudaStreamSynchronize(stream) == cudaSuccess) {
+        cudaPointerAttributes attributes{};
+        is_managed = cudaPointerGetAttributes(&attributes, ptr) == cudaSuccess and
+                     attributes.type == cudaMemoryTypeManaged;
+        static_cast<void>(cudaFreeAsync(ptr, stream));
+        static_cast<void>(cudaStreamSynchronize(stream));
+      }
+      static_cast<void>(cudaStreamDestroy(stream));
+      static_cast<void>(cudaGetLastError());
+      return is_managed;
 #else
       // Concurrent managed access is required for async managed memory pools
       if (not concurrent_managed_access::is_supported()) { return false; }

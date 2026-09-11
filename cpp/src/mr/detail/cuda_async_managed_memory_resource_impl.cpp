@@ -46,7 +46,8 @@ cuda_async_managed_memory_resource_impl::cuda_async_managed_memory_resource_impl
   RMM_EXPECTS(rmm::detail::runtime_async_managed_alloc::is_supported(),
               "cuda_async_managed_memory_resource requires CUDA 13.0 or higher");
 
-#if defined(CUDA_VERSION) && CUDA_VERSION >= RMM_MIN_ASYNC_MANAGED_ALLOC_CUDA_VERSION
+#if (defined(CUDA_VERSION) && CUDA_VERSION >= RMM_MIN_ASYNC_MANAGED_ALLOC_CUDA_VERSION) || \
+  defined(__HIP_PLATFORM_AMD__)
   cudaMemPool_t managed_pool_handle{};
   cudaMemLocation location{.type = cudaMemLocationTypeDevice,
                            .id   = rmm::get_current_cuda_device().value()};
