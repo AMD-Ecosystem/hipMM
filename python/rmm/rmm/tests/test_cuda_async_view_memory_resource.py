@@ -71,5 +71,19 @@ def test_cuda_async_view_memory_resource_custom_pool(dtype, nelem, alloc):
     # After the pool is destroyed, new allocations should raise
     (err,) = runtime.cudaMemPoolDestroy(pool)
     assert err == runtime.cudaError_t.cudaSuccess
+    if getattr(runtime, "HIP_PYTHON", False):
+        # TODO(HIP/AMD): HIP does not validate the pool handle before
+        # dereferencing it, so the allocation below segfaults where CUDA
+        # returns an error, taking the whole pytest session with it rather
+        # than failing this one test. It is not that destruction is
+        # mishandled: a handle that was never a pool faults identically, so
+        # nothing is reported and there is nothing here to catch. See
+        # AIRUNTIME-2760; delete this branch once the runtime reports an
+        # error and the assertion below can run on HIP.
+        #
+        # Restore a usable resource first, or later tests inherit the destroyed
+        # pool as their current device resource.
+        rmm.mr.set_current_device_resource(rmm.mr.CudaMemoryResource())
+        return
     with pytest.raises(MemoryError):
         array_tester(dtype, nelem, alloc)
