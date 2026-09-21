@@ -22,7 +22,7 @@
 
 .. meta::
   :description: hipMM documentation and API reference library
-  :keywords: hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
 
 .. _hipMM-install:
 
@@ -61,7 +61,7 @@ Install hipMM via AMD PyPI
    third‑party or unofficial indexes.
 
 Packaged versions of hipMM and its dependencies are distributed via `AMD
-PyPI <https://pypi.amd.com/rocm-7.2.3/simple>`__. This section discusses how to
+PyPI <https://pypi.amd.com/rocm-10.0.0/simple>`__. This section discusses how to
 install hipMM via this package index.
 
 Create and activate a Conda environment with Python 3.12 and latest ``libstdcxx-ng`` using the
@@ -78,13 +78,13 @@ Create and activate a Conda environment with a compatible Python version, such a
    - libstdcxx-ng
    - pip
    - pip:
-      - --extra-index-url=https://pypi.amd.com/rocm-7.2.3/simple
-      - rocm-llvm-python~=7.2.3.0
-      - hip-python~=7.2.3.0
-      - hip-python-as-cuda~=7.2.3.0
+      - --extra-index-url=https://pypi.amd.com/rocm-10.0.0/simple
+      - rocm-llvm-python~=10.0.0.0
+      - hip-python~=10.0.0.0
+      - hip-python-as-cuda~=10.0.0.0
       - numba-hip~=0.1.6
       - amd-cupy~=13.5.1
-      - amd-hipmm==4.0.0
+      - amd-hipmm==5.0.0
    name: hipmm
 
 You can install both the environment and hipMM in it with a single
@@ -96,6 +96,20 @@ command:
 
 After activating the ``hipmm`` environment, you can use ``import hipmm`` in
 your Python code.
+
+Installing ``amd-hipmm`` pulls in a matching ``amd-libhipmm``, so the recipe
+above is all most users need. This release publishes the following wheels:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Package
+     - Contents
+   * - ``amd-libhipmm``
+     - The hipMM C++ headers and the librmm shared library. Install this on
+       its own for a C++-only deployment.
+   * - ``amd-hipmm``
+     - The Python bindings, and the package most users install.
 
 Verify correct installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,4 +138,4 @@ You should see output that is similar to:
    Type "help", "copyright", "credits" or "license" for more information.
    >>> import hipmm
    >>> print(hipmm.__version__)
-   '4.0.00'
+   '5.0.00'

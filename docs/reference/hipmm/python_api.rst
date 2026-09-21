@@ -22,8 +22,8 @@
     SOFTWARE.
 
 .. meta::
-  :description: hipDF documentation and API reference library
-  :keywords: hipDF, cuDF, Pandas, ROCm-DS, API, documentation
+  :description: hipMM documentation and API reference library
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD-DS, API, documentation
 
 .. _hipMM-python-api:
 

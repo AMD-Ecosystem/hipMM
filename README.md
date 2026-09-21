@@ -25,7 +25,7 @@
 # HIP Memory Manager for AMD GPUs (hipMM)
 
 > [!NOTE]
-> This ROCm&trade; port is derived from the NVIDIA RAPIDS&reg; RMM project (**version 25.10**). It aims to
+> This ROCm&trade; port is derived from the NVIDIA RAPIDS&reg; RMM project (**version 26.06**). It aims to
 follow the latter's directory structure, file naming and API naming as closely as possible to minimize porting friction for users that are interested in using both projects.
 
 ## Overview
@@ -35,7 +35,7 @@ device memory are allocated. For example, using "pinned" host memory for asynchr
 host <-> device memory transfers, or using a device memory pool sub-allocator to reduce the cost of
 dynamic device memory allocation.
 
-The goal of the ROCm-DS HIP Memory Manager (hipMM) is to provide:
+The goal of the AMD Data Science HIP Memory Manager (hipMM) is to provide:
 - A common interface that allows customizing [device](#device_memory_resource) and
   [host](#host_memory_resource) memory allocation
 - A collection of [implementations](#available-resources) of the interface
@@ -75,7 +75,7 @@ Install hipMM with:
 We also provide [nightly conda packages](https://anaconda.org/rapidsai-nightly) built from the HEAD
 of our latest development branch.
 
-Note: hipMM is supported only on Linux, and only tested with Python versions 3.10, 3.11, 3.12, and 3.13.
+Note: hipMM is supported only on Linux, and only tested with Python versions 3.11, 3.12, and 3.13.
 
 Note: The hipMM package from Conda requires building with GCC 9 or later. Otherwise, your application may fail to build.
 

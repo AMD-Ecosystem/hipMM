@@ -33,7 +33,7 @@ import re
 
 from rocm_docs import ROCmDocs
 
-version_number = "4.0.0"
+version_number = "5.0.0"
 left_nav_title = f"hipMM {version_number} documentation"
 
 # for PDF output on Read the Docs
@@ -50,7 +50,7 @@ all_article_info_author = ""
 html_theme = "rocm_docs_theme"
 html_theme_options = {"flavor": "rocm-ds"}
 html_context = {
-    "docs_header_version": "26.03"
+    "docs_header_version": "26.09"
 }
 
 extensions = [
@@ -60,7 +60,9 @@ extensions = [
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
     "breathe",
-    "myst_parser",
+    # NOTE(HIP/AMD): rocm_docs loads myst_nb, which claims the .md suffix.
+    # Listing myst_parser here as well makes Sphinx fail with
+    # "source_suffix '.md' is already registered".
     "nbsphinx",
     "numpydoc",
     "sphinx.ext.autodoc",
@@ -97,7 +99,9 @@ templates_path = ["_templates"]
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = {".rst": "restructuredtext", ".md": "markdown"}
+# NOTE(HIP/AMD): .md is parsed by myst_nb (pulled in by rocm_docs), so the
+# parser name is "myst-nb" rather than myst_parser's "markdown".
+source_suffix = {".rst": "restructuredtext", ".md": "myst-nb"}
 
 # The master toctree document.
 master_doc = "index"

@@ -1,6 +1,7 @@
-# RMM: RAPIDS Memory Manager
+# HIP Memory Manager for AMD GPUs (hipMM)
 
-RMM (RAPIDS Memory Manager) is a library for allocating and managing GPU memory in C++ and Python.
+hipMM is a library for allocating and managing GPU memory in C++ and Python. It is the ROCm&trade;
+port of the NVIDIA RAPIDS&reg; RMM project.
 
 ```{toctree}
 :maxdepth: 2

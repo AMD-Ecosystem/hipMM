@@ -22,7 +22,7 @@
 
 .. meta::
   :description: hipMM documentation and API reference library
-  :keywords: hipMM, RMM, data science, RAPIDS, ROCm-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
+  :keywords: hipMM, RMM, data science, RAPIDS, AMD-DS, GPU, GPU API, memory-management, memory-allocation, memory-pools
 
 .. _hipMM-build:
 
@@ -109,7 +109,7 @@ repository:
    mkdir -p /tmp/hipmm # NOTE: feel free to adapt
 
    cd /tmp/hipmm
-   git clone https://github.com/ROCm-DS/hipMM hipmm -b release/rocmds-26.03
+   git clone https://github.com/AMD-Ecosystem/hipMM hipmm -b release/26.09
 
 Step 3: Create and activate the hipMM conda environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,10 +148,10 @@ Given the following conda environment
    - sysroot_linux-64==2.28
    - pip
    - pip:
-     - --extra-index-url=https://pypi.amd.com/rocm-7.2.3/simple
-     - rocm-llvm-python~=7.2.3.0
-     - hip-python~=7.2.3.0
-     - hip-python-as-cuda~=7.2.3.0
+     - --extra-index-url=https://pypi.amd.com/rocm-10.0.0/simple
+     - rocm-llvm-python~=10.0.0.0
+     - hip-python~=10.0.0.0
+     - hip-python-as-cuda~=10.0.0.0
      - numba-hip~=0.1.6
      - amd-cupy~=13.5.1
    name: hipmm_dev
@@ -212,4 +212,4 @@ You should see output similar to:
    Type "help", "copyright", "credits" or "license" for more information.
    >>> import hipmm
    >>> print(hipmm.__version__)
-   '4.0.00'
+   '5.0.00'
