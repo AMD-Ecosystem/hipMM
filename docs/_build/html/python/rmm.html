@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html>
+
+<html data-content_root="../" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>rmm (top-level) — hipMM 5.0.0 documentation</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+<!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+<noscript>
+<style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+</noscript>
+<!-- Loaded before other Sphinx assets -->
+<link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="https://docs.rapids.ai/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/custom.css?v=24396f60" rel="stylesheet" type="text/css"/>
+<link href="../_static/rocm_header.css?v=e999025a" rel="stylesheet" type="text/css"/>
+<link href="../_static/rocm_footer.css?v=7095035a" rel="stylesheet" type="text/css"/>
+<link href="../_static/fonts.css?v=fcff5274" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
+<!-- So that users can add custom icons -->
+<script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<link as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<script src="../_static/jquery.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options.js?v=05b0d459"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../_static/copybutton.js?v=4ea706d9"></script>
+<script defer="defer" src="https://docs.rapids.ai/assets/js/custom.js"></script>
+<script async="async" src="../_static/code_word_breaks.js?v=327952c4"></script>
+<script async="async" src="../_static/renameVersionLinks.js?v=929fe5e4"></script>
+<script async="async" src="../_static/rdcMisc.js?v=01f88d96"></script>
+<script async="async" src="../_static/theme_mode_captions.js?v=15f4ec5d"></script>
+<script defer="defer" src="../_static/search.js?v=90a4452c"></script>
+<script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+<script src="../_static/design-tabs.js?v=f930bc37"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'python/rmm';</script>
+<script async="async" src="https://download.amd.com/js/analytics/analyticsinit.js"></script>
+<link href="https://www.amd.com/content/dam/code/images/favicon/favicon.ico" rel="icon"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="mr.html" rel="next" title="rmm.mr (Memory Resources)"/>
+<link href="index.html" rel="prev" title="Python API"/>
+<meta content="vo35SZt_GASsTHAEmdww7AYKPCvZyzLvOXBl8guBME4" name="google-site-verification"/>
+</head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main-content">Skip to main content</a></div>
+<div id="pst-scroll-pixel-helper"></div>
+<button class="btn rounded-pill" id="pst-back-to-top" type="button">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<dialog id="pst-search-dialog">
+<form action="../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</dialog>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
+</div>
+<header class="common-header">
+<nav class="navbar navbar-expand-xl">
+<div class="container-fluid main-nav rocm-header">
+<div class="header-logo">
+<div class="header-logo-title">
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler collapsed" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" data-tracking-information="mainMenuToggle" id="nav-icon" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<a class="navbar-brand" href="https://www.amd.com/">
+<img alt="AMD Logo" class="d-inline-block align-text-top hover-opacity" src="../_static/images/amd-header-logo.svg" title="AMD Logo" width="90"/>
+</a>
+<div class="vr mx-40 my-25"></div>
+<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.09</a>
+</div>
+<a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
+</div>
+<div class="icon-nav text-center d-flex ms-auto"></div>
+</div>
+</nav>
+<nav class="navbar navbar-expand-xl second-level-nav">
+<div class="container-fluid main-nav">
+<div class="navbar-nav-container collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav nav-mega me-auto mb-2 mb-lg-0 col-xl-10">
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM" id="navgithub" role="button" target="_blank">
+                                        GitHub
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/ROCm/ROCm/discussions" id="navcommunity" role="button" target="_blank">
+                                        Community
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/" id="navblogs" role="button" target="_blank">
+                                        Blogs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://rocm.docs.amd.com" id="navrocm-docs" role="button" target="_blank">
+                                        ROCm Docs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/rocm-hub.html" id="navrocm-developer-hub" role="button" target="_blank">
+                                        ROCm Developer Hub
+                                    </a>
+</li>
+<li class="nav-item dropdown">
+<a aria-expanded="false" class="nav-link top-level header-menu-links dropdown-toggle header-nav-dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navamd-toolkits" role="button">
+                                        AMD Toolkits
+                                    </a>
+<ul aria-labelledby="navamd-toolkits" class="dropdown-menu header-nav-dropdown-menu">
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/datascience/en/latest/index.html" target="_blank">AMD Data Science</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/finance/en/latest/index.html" target="_blank">AMD Finance</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/lifescience/en/latest/index.html" target="_blank">AMD Life Science</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/llmextension/en/latest/index.html" target="_blank">AMD LLM Extension</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/simulation/en/latest/index.html" target="_blank">AMD Simulation</a></li>
+</ul>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://instinct.docs.amd.com" id="navsystems-and-infra-docs" role="button" target="_blank">
+                                        Systems and Infra Docs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/infinity-hub.html" id="navinfinity-hub" role="button" target="_blank">
+                                        Infinity Hub
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM/issues/new/choose" id="navsupport" role="button" target="_blank">
+                                        Support
+                                    </a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<dialog id="pst-primary-sidebar-modal"></dialog>
+<div class="bd-sidebar-primary bd-sidebar" id="pst-primary-sidebar">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-item">
+<a class="navbar-brand logo" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">
+<p>AMD Data Science</p>
+</a></div>
+</div>
+</div>
+<div class="sidebar-primary-items__start sidebar-primary__section">
+<div class="sidebar-primary-item">
+<a class="navbar-brand logo" href="../index.html">
+<p class="title logo__title">hipMM 5.0.0 documentation</p>
+</a></div>
+<div class="sidebar-primary-item">
+<button aria-label="Search" class="btn search-button-field search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass"></i>
+<span class="search-button__default-text">Search</span>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+<div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links bd-docs-nav">
+<div class="bd-toc-item navbar-nav active">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/guide.html">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cpp/index.html">C++ API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cpp/memory_resources/index.html">Memory Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resources.html">Memory Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resource_adaptors.html">Memory Resource Adaptors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/data_containers.html">Data Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/thrust_integrations.html">Thrust Integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_device_management.html">CUDA Device Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_streams.html">CUDA Streams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/errors.html">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/utilities.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/rmm_namespace.html">Namespaces</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Python API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">rmm (top-level)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mr.html">rmm.mr (Memory Resources)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="allocators.html">rmm.allocators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">rmm.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pylibrmm.html">rmm.pylibrmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="librmm.html">rmm.librmm</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install/hipMM-support.html">System requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/INSTALL.html">Installing hipMM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/BUILD.html">Building and installing hipMM from source</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/hipmm/python_api.html">hipMM API reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+</div>
+</nav></div>
+</div>
+<div class="sidebar-primary-items__end sidebar-primary__section">
+<div class="sidebar-primary-item">
+<div class="flat" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" id="ethical-ad-placement">
+</div></div>
+</div>
+</div>
+<main class="bd-main" id="main-content" role="main">
+<div class="sbt-scroll-pixel-helper"></div>
+<div class="bd-content">
+<div class="bd-article-container">
+<div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+<div class="header-article-items__start">
+<div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__primary" title="Toggle primary sidebar">
+<span class="fa-solid fa-angle-right"></span>
+</label></div>
+<div class="header-article-item">
+<nav aria-label="Breadcrumb" class="d-print-none">
+<ul class="bd-breadcrumbs">
+<li class="breadcrumb-item breadcrumb-home">
+<a aria-label="Home" class="nav-link" href="../index.html">
+<i class="fa-solid fa-home"></i>
+</a>
+</li>
+<li class="breadcrumb-item"><a class="nav-link" href="index.html">Python API</a></li>
+<li aria-current="page" class="breadcrumb-item active"><span class="ellipsis">rmm (top-level)</span></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="header-article-items__end">
+<div class="header-article-item">
+<div class="article-header-buttons">
+<button aria-label="Color mode" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" data-bs-placement="bottom" data-bs-title="Color mode" data-bs-toggle="tooltip">
+<i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+<i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+<i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+</button>
+<button aria-label="Search" class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Toggle secondary sidebar">
+<span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+</div>
+</div>
+</div>
+<div class="onlyprint" id="jb-print-docs-body">
+<h1>rmm (top-level)</h1>
+<!-- Table of contents -->
+<div id="print-main-content">
+<div id="jb-print-toc">
+<div>
+<h2> Contents </h2>
+</div>
+<nav aria-label="Page">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.capacity"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_from_device"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_from_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_from_host"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_from_host()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_to_host"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_to_host()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.nbytes"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.nbytes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.prefetch"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.prefetch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.ptr"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.ptr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.reserve"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.reserve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.resize"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.resize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.size"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.to_device"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.to_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.tobytes"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.tobytes()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.RMMError"><code class="docutils literal notranslate"><span class="pre">RMMError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.disable_logging"><code class="docutils literal notranslate"><span class="pre">disable_logging()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.enable_logging"><code class="docutils literal notranslate"><span class="pre">enable_logging()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.flush_logger"><code class="docutils literal notranslate"><span class="pre">flush_logger()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_flush_level"><code class="docutils literal notranslate"><span class="pre">get_flush_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_log_filenames"><code class="docutils literal notranslate"><span class="pre">get_log_filenames()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_logging_level"><code class="docutils literal notranslate"><span class="pre">get_logging_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.is_initialized"><code class="docutils literal notranslate"><span class="pre">is_initialized()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum"><code class="docutils literal notranslate"><span class="pre">level_enum</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.critical"><code class="docutils literal notranslate"><span class="pre">level_enum.critical</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.debug"><code class="docutils literal notranslate"><span class="pre">level_enum.debug</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.error"><code class="docutils literal notranslate"><span class="pre">level_enum.error</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.info"><code class="docutils literal notranslate"><span class="pre">level_enum.info</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.n_levels"><code class="docutils literal notranslate"><span class="pre">level_enum.n_levels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.off"><code class="docutils literal notranslate"><span class="pre">level_enum.off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.trace"><code class="docutils literal notranslate"><span class="pre">level_enum.trace</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.warn"><code class="docutils literal notranslate"><span class="pre">level_enum.warn</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.register_reinitialize_hook"><code class="docutils literal notranslate"><span class="pre">register_reinitialize_hook()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.reinitialize"><code class="docutils literal notranslate"><span class="pre">reinitialize()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.set_flush_level"><code class="docutils literal notranslate"><span class="pre">set_flush_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.set_logging_level"><code class="docutils literal notranslate"><span class="pre">set_logging_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.should_log"><code class="docutils literal notranslate"><span class="pre">should_log()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.unregister_reinitialize_hook"><code class="docutils literal notranslate"><span class="pre">unregister_reinitialize_hook()</span></code></a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div id="searchbox"></div>
+<article class="bd-article">
+<section class="tex2jax_ignore mathjax_ignore" id="module-rmm">
+<span id="rmm-top-level"></span><h1>rmm (top-level)<a class="headerlink" href="#module-rmm" title="Link to this heading">#</a></h1><div class="sd-container-fluid sd-sphinx-override sd-p-0 sd-mt-2 sd-mb-4 sd-p-2 sd-rounded-1 docutils" id="rocm-docs-core-article-info">
+<div class="sd-row sd-row-cols-2 sd-gx-2 sd-gy-1 docutils">
+<div class="sd-col sd-d-flex-row sd-align-minor-center docutils">
+<div class="sd-container-fluid sd-sphinx-override docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-gx-3 sd-gy-1 docutils">
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;">
+<span class="sd-pr-2 article-info-date-svg">
+<svg aria-hidden="true" class="sd-octicon sd-octicon-calendar" height="16.0px" version="1.1" viewbox="0 0 16 16" width="16.0px">
+<path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z" fill-rule="evenodd"></path>
+</svg>
+</span>
+                            2026-07-15
+                        </p>
+</div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;">
+<span class="sd-pr-2 article-info-read-time-svg">
+<svg aria-hidden="true" class="sd-octicon sd-octicon-clock" height="16.0px" version="1.1" viewbox="0 0 16 16" width="16.0px">
+<path d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z" fill-rule="evenodd"></path>
+</svg>
+</span>
+                            10 min read time
+                        </p>
+</div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils" style="color:gray;">
+                        Applies to Linux
+                    </div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">DeviceBuffer</span></span><a class="headerlink" href="#rmm.DeviceBuffer" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#rmm.DeviceBuffer.nbytes" title="rmm.DeviceBuffer.nbytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbytes</span></code></a></dt><dd><p>Gets the size of the buffer in bytes.</p>
+</dd>
+<dt><a class="reference internal" href="#rmm.DeviceBuffer.ptr" title="rmm.DeviceBuffer.ptr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ptr</span></code></a></dt><dd><p>Gets a pointer to the underlying data.</p>
+</dd>
+<dt><a class="reference internal" href="#rmm.DeviceBuffer.size" title="rmm.DeviceBuffer.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></dt><dd><p>Gets the size of the buffer in bytes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.capacity" title="rmm.DeviceBuffer.capacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacity</span></code></a>(self)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.copy" title="rmm.DeviceBuffer.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>(self)</p></td>
+<td><p>Returns a copy of this <a class="reference internal" href="#rmm.DeviceBuffer" title="rmm.DeviceBuffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.copy_from_device" title="rmm.DeviceBuffer.copy_from_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_from_device</span></code></a>(self, cuda_ary, ...)</p></td>
+<td><p>Copy from a buffer on host to <code class="docutils literal notranslate"><span class="pre">self</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.copy_from_host" title="rmm.DeviceBuffer.copy_from_host"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_from_host</span></code></a>(self, ary, ...)</p></td>
+<td><p>Copy from a buffer on host to <code class="docutils literal notranslate"><span class="pre">self</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.copy_to_host" title="rmm.DeviceBuffer.copy_to_host"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_to_host</span></code></a>(self[, ary])</p></td>
+<td><p>Copy from a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> to a buffer on host.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.prefetch" title="rmm.DeviceBuffer.prefetch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefetch</span></code></a>(self[, device, stream])</p></td>
+<td><p>Prefetch buffer data to the specified device on the specified stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.reserve" title="rmm.DeviceBuffer.reserve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reserve</span></code></a>(self, size_t new_capacity, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.resize" title="rmm.DeviceBuffer.resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resize</span></code></a>(self, size_t new_size, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.to_device" title="rmm.DeviceBuffer.to_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_device</span></code></a>(const unsigned char[, ...)</p></td>
+<td><p>Calls <code class="docutils literal notranslate"><span class="pre">to_device</span></code> function on arguments provided.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rmm.DeviceBuffer.tobytes" title="rmm.DeviceBuffer.tobytes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tobytes</span></code></a>(self, Stream stream=DEFAULT_STREAM)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.capacity">
+<span class="sig-name descname"><span class="pre">capacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">size_t</span></span></span><a class="headerlink" href="#rmm.DeviceBuffer.capacity" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.copy" title="Link to this definition">#</a></dt>
+<dd><p>Returns a copy of this <a class="reference internal" href="#rmm.DeviceBuffer" title="rmm.DeviceBuffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>DeviceBuffer</dt><dd><p>A deep copy of this <a class="reference internal" href="#rmm.DeviceBuffer" title="rmm.DeviceBuffer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="sa">b</span><span class="s2">"abc"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db_copy</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">()</span>
+<span class="go">array([97, 98, 99], dtype=uint8)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db_copy</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">()</span>
+<span class="go">array([97, 98, 99], dtype=uint8)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">db_copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">db</span><span class="o">.</span><span class="n">ptr</span> <span class="o">!=</span> <span class="n">db_copy</span><span class="o">.</span><span class="n">ptr</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.copy_from_device">
+<span class="sig-name descname"><span class="pre">copy_from_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuda_ary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.copy_from_device" title="Link to this definition">#</a></dt>
+<dd><p>Copy from a buffer on host to <code class="docutils literal notranslate"><span class="pre">self</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>cuda_ary</strong></dt><dd><p>Object to copy from that has <code class="docutils literal notranslate"><span class="pre">__cuda_array_interface__</span></code></p>
+</dd>
+<dt><strong>stream</strong><span class="classifier">optional</span></dt><dd><p>CUDA stream to use for copying, defaults to the default stream</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db2</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="sa">b</span><span class="s2">"abc"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">copy_from_device</span><span class="p">(</span><span class="n">db2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hb</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="go">array([97, 98, 99,  0,  0], dtype=uint8)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.copy_from_host">
+<span class="sig-name descname"><span class="pre">copy_from_host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.copy_from_host" title="Link to this definition">#</a></dt>
+<dd><p>Copy from a buffer on host to <code class="docutils literal notranslate"><span class="pre">self</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ary</strong></dt><dd><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>-like buffer to copy from</p>
+</dd>
+<dt><strong>stream</strong><span class="classifier">optional</span></dt><dd><p>CUDA stream to use for copying, defaults to the default stream</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hb</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"abcdef"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">copy_from_host</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hb</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="go">array([97, 98, 99,  0,  0,  0,  0,  0,  0,  0], dtype=uint8)</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.copy_to_host">
+<span class="sig-name descname"><span class="pre">copy_to_host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ary=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.copy_to_host" title="Link to this definition">#</a></dt>
+<dd><p>Copy from a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> to a buffer on host.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ary</strong></dt><dd><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></a>-like buffer to write into</p>
+</dd>
+<dt><strong>stream</strong><span class="classifier">optional</span></dt><dd><p>CUDA stream to use for copying, defaults to the default stream</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="sa">b</span><span class="s2">"abc"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hb</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="go">bytearray(b'abc')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hb</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">copy_to_host</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">hb</span><span class="p">)</span>
+<span class="go">bytearray(b'abc')</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.nbytes">
+<span class="sig-name descname"><span class="pre">nbytes</span></span><a class="headerlink" href="#rmm.DeviceBuffer.nbytes" title="Link to this definition">#</a></dt>
+<dd><p>Gets the size of the buffer in bytes.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.prefetch">
+<span class="sig-name descname"><span class="pre">prefetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.prefetch" title="Link to this definition">#</a></dt>
+<dd><p>Prefetch buffer data to the specified device on the specified stream.</p>
+<p>Assumes the storage for this DeviceBuffer is CUDA managed memory
+(unified memory). If it is not, this function is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>device</strong><span class="classifier">optional</span></dt><dd><p>The CUDA device to which to prefetch the memory for this buffer.
+Defaults to the current CUDA device. To prefetch to the CPU, pass
+<a class="reference external" href="https://nvidia.github.io/cuda-python/cuda-bindings/module/runtime.html#cuda.bindings.runtime.cudaCpuDeviceId" title="(in cuda.bindings)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cudaCpuDeviceId</span></code></a> as the device.</p>
+</dd>
+<dt><strong>stream</strong><span class="classifier">optional</span></dt><dd><p>CUDA stream to use for prefetching. Defaults to self.stream</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.ptr">
+<span class="sig-name descname"><span class="pre">ptr</span></span><a class="headerlink" href="#rmm.DeviceBuffer.ptr" title="Link to this definition">#</a></dt>
+<dd><p>Gets a pointer to the underlying data.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.reserve">
+<span class="sig-name descname"><span class="pre">reserve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_t</span> <span class="pre">new_capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">void</span></span></span><a class="headerlink" href="#rmm.DeviceBuffer.reserve" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_t</span> <span class="pre">new_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">void</span></span></span><a class="headerlink" href="#rmm.DeviceBuffer.resize" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#rmm.DeviceBuffer.size" title="Link to this definition">#</a></dt>
+<dd><p>Gets the size of the buffer in bytes.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.to_device">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">const</span> <span class="pre">unsigned</span> <span class="pre">char[::1]</span> <span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.DeviceBuffer.to_device" title="Link to this definition">#</a></dt>
+<dd><p>Calls <code class="docutils literal notranslate"><span class="pre">to_device</span></code> function on arguments provided.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rmm.DeviceBuffer.tobytes">
+<span class="sig-name descname"><span class="pre">tobytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Stream</span> <span class="pre">stream=DEFAULT_STREAM</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><span class="pre">bytes</span></a></span></span><a class="headerlink" href="#rmm.DeviceBuffer.tobytes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="rmm.RMMError">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">RMMError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">errcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.RMMError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#Exception" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.disable_logging">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">disable_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rmm.disable_logging" title="Link to this definition">#</a></dt>
+<dd><p>Disable logging if it was enabled previously using
+<a class="reference internal" href="#rmm.reinitialize" title="rmm.reinitialize"><code class="xref py py-func docutils literal notranslate"><span class="pre">rmm.reinitialize()</span></code></a> or <a class="reference internal" href="#rmm.enable_logging" title="rmm.enable_logging"><code class="xref py py-func docutils literal notranslate"><span class="pre">rmm.enable_logging()</span></code></a>.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.enable_logging">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">enable_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.enable_logging" title="Link to this definition">#</a></dt>
+<dd><p>Enable logging of runtime events for all devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>log_file_name</strong><span class="classifier">str, optional</span></dt><dd><p>Name of the log file. If not specified, the environment variable
+<code class="docutils literal notranslate"><span class="pre">RMM_LOG_FILE</span></code> is used. A <a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a> is thrown if neither is
+available. A separate log file is produced for each device, and the
+suffix <code class="docutils literal notranslate"><span class="pre">".dev{id}"</span></code> is automatically added to the log file name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Note that if you use the environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES</span></code>
+with logging enabled, the suffix may not be what you expect. For
+example, if you set <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES=1</span></code>, the log file produced
+will still have suffix <code class="docutils literal notranslate"><span class="pre">0</span></code>. Similarly, if you set
+<code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES=1,0</span></code> and use devices 0 and 1, the log file
+with suffix <code class="docutils literal notranslate"><span class="pre">0</span></code> will correspond to the GPU with device ID <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+Use <a class="reference internal" href="#rmm.get_log_filenames" title="rmm.get_log_filenames"><code class="xref py py-func docutils literal notranslate"><span class="pre">rmm.get_log_filenames()</span></code></a> to get the log file names
+corresponding to each device.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.flush_logger">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">flush_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rmm.flush_logger" title="Link to this definition">#</a></dt>
+<dd><p>Flush the debug logger. This will cause any buffered log messages to
+be written to the log file.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#rmm.set_flush_level" title="rmm.set_flush_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_flush_level</span></code></a></dt><dd><p>Set the flush level for the debug logger.</p>
+</dd>
+<dt><a class="reference internal" href="#rmm.get_flush_level" title="rmm.get_flush_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_flush_level</span></code></a></dt><dd><p>Get the current debug logging flush level.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">flush_logger</span><span class="p">()</span> <span class="c1"># flush the logger</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.get_flush_level">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">get_flush_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rmm.get_flush_level" title="Link to this definition">#</a></dt>
+<dd><p>Get the current debug logging flush level for the RMM logger. Messages of
+this level or higher will automatically flush to the file.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>logging_level</dt><dd><p>The current flush level, an instance of the <code class="docutils literal notranslate"><span class="pre">logging_level</span></code>
+enum.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#rmm.set_flush_level" title="rmm.set_flush_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_flush_level</span></code></a></dt><dd><p>Set the flush level for the logger.</p>
+</dd>
+<dt><a class="reference internal" href="#rmm.flush_logger" title="rmm.flush_logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flush_logger</span></code></a></dt><dd><p>Flush the logger.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">flush_level</span><span class="p">()</span> <span class="c1"># get current flush level</span>
+<span class="go">&lt;logging_level.INFO: 2&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.get_log_filenames">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">get_log_filenames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rmm.get_log_filenames" title="Link to this definition">#</a></dt>
+<dd><p>Returns the log filename (or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not writing logs)
+for each device in use.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">reinitialize</span><span class="p">(</span><span class="n">devices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">logging</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log_file_name</span><span class="o">=</span><span class="s2">"rmm.log"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">get_log_filenames</span><span class="p">()</span>
+<span class="go">{0: '/home/user/workspace/rapids/rmm/python/rmm.dev0.log',</span>
+<span class="go"> 1: '/home/user/workspace/rapids/rmm/python/rmm.dev1.log'}</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.get_logging_level">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">get_logging_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rmm.get_logging_level" title="Link to this definition">#</a></dt>
+<dd><p>Get the current debug logging level.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>level</strong><span class="classifier">logging_level</span></dt><dd><p>The current debug logging level, an instance of the <code class="docutils literal notranslate"><span class="pre">logging_level</span></code>
+enum.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#rmm.set_logging_level" title="rmm.set_logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_logging_level</span></code></a></dt><dd><p>Set the debug logging level.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">get_logging_level</span><span class="p">()</span> <span class="c1"># get current logging level</span>
+<span class="go">&lt;logging_level.INFO: 2&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.is_initialized">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#rmm.is_initialized" title="Link to this definition">#</a></dt>
+<dd><p>Returns True if RMM has been initialized, False otherwise.</p>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="rmm.level_enum">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">level_enum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.level_enum" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">denominator</span></code></dt><dd><p>the denominator of a rational number in lowest terms</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">imag</span></code></dt><dd><p>the imaginary part of a complex number</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerator</span></code></dt><dd><p>the numerator of a rational number in lowest terms</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">real</span></code></dt><dd><p>the real part of a complex number</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_integer_ratio</span></code>(/)</p></td>
+<td><p>Return a pair of integers, whose ratio is equal to the original int.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bit_count</span></code>(/)</p></td>
+<td><p>Number of ones in the binary representation of the absolute value of self.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bit_length</span></code>(/)</p></td>
+<td><p>Number of bits necessary to represent self in binary.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">conjugate</span></code></p></td>
+<td><p>Returns self, the complex conjugate of any int.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_bytes</span></code>(/, bytes[, byteorder, signed])</p></td>
+<td><p>Return the integer represented by the given array of bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_integer</span></code>(/)</p></td>
+<td><p>Returns True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_bytes</span></code>(/[, length, byteorder, signed])</p></td>
+<td><p>Return an array of bytes representing an integer.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.critical">
+<span class="sig-name descname"><span class="pre">critical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#rmm.level_enum.critical" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#rmm.level_enum.debug" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.error">
+<span class="sig-name descname"><span class="pre">error</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#rmm.level_enum.error" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.info">
+<span class="sig-name descname"><span class="pre">info</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#rmm.level_enum.info" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.n_levels">
+<span class="sig-name descname"><span class="pre">n_levels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#rmm.level_enum.n_levels" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.off">
+<span class="sig-name descname"><span class="pre">off</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#rmm.level_enum.off" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.trace">
+<span class="sig-name descname"><span class="pre">trace</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#rmm.level_enum.trace" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rmm.level_enum.warn">
+<span class="sig-name descname"><span class="pre">warn</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#rmm.level_enum.warn" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.register_reinitialize_hook">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">register_reinitialize_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rmm.register_reinitialize_hook" title="Link to this definition">#</a></dt>
+<dd><p>Add a function to the list of functions (“hooks”) that will be
+called before <a class="reference internal" href="#rmm.reinitialize" title="rmm.reinitialize"><code class="xref py py-func docutils literal notranslate"><span class="pre">reinitialize()</span></code></a>.</p>
+<p>A user or library may register hooks to perform any necessary
+cleanup before RMM is reinitialized. For example, a library with
+an internal cache of objects that use device memory allocated by
+RMM can register a hook to release those references before RMM is
+reinitialized, thus ensuring that the relevant device memory
+resource can be deallocated.</p>
+<p>Hooks are called in the <em>reverse</em> order they are registered. This
+is useful, for example, when a library registers multiple hooks
+and needs them to run in a specific order for cleanup to be safe.
+Hooks cannot rely on being registered in a particular order
+relative to hooks registered by other packages, since that is
+determined by package import ordering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>func</strong><span class="classifier">callable</span></dt><dd><p>Function to be called before <a class="reference internal" href="#rmm.reinitialize" title="rmm.reinitialize"><code class="xref py py-func docutils literal notranslate"><span class="pre">reinitialize()</span></code></a></p>
+</dd>
+<dt><strong>args, kwargs</strong></dt><dd><p>Positional and keyword arguments to be passed to <cite>func</cite></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.reinitialize">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">reinitialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool_allocator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">managed_memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_pool_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_pool_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#rmm.reinitialize" title="Link to this definition">#</a></dt>
+<dd><p>Finalizes and then initializes RMM using the options passed. Using memory
+from a previous initialization of RMM is undefined behavior and should be
+avoided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pool_allocator</strong><span class="classifier">bool, default False</span></dt><dd><p>If True, use a pool allocation strategy which can greatly improve
+performance.</p>
+</dd>
+<dt><strong>managed_memory</strong><span class="classifier">bool, default False</span></dt><dd><p>If True, use managed memory for device memory allocation</p>
+</dd>
+<dt><strong>initial_pool_size</strong><span class="classifier">int | str, default None</span></dt><dd><p>When <cite>pool_allocator</cite> is True, this indicates the initial pool size in
+bytes. By default, 1/2 of the total GPU memory is used.
+When <cite>pool_allocator</cite> is False, this argument is ignored if provided.
+A string argument is parsed using <cite>parse_bytes</cite>.</p>
+</dd>
+<dt><strong>maximum_pool_size</strong><span class="classifier">int | str, default None</span></dt><dd><p>When <cite>pool_allocator</cite> is True, this indicates the maximum pool size in
+bytes. By default, the total available memory on the GPU is used.
+When <cite>pool_allocator</cite> is False, this argument is ignored if provided.
+A string argument is parsed using <cite>parse_bytes</cite>.</p>
+</dd>
+<dt><strong>devices</strong><span class="classifier">int or List[int], default 0</span></dt><dd><p>GPU device  IDs to register. By default registers only GPU 0.</p>
+</dd>
+<dt><strong>logging</strong><span class="classifier">bool, default False</span></dt><dd><p>If True, enable run-time logging of all memory events
+(alloc, free, realloc).
+This has a significant performance impact.</p>
+</dd>
+<dt><strong>log_file_name</strong><span class="classifier">str</span></dt><dd><p>Name of the log file. If not specified, the environment variable
+<code class="docutils literal notranslate"><span class="pre">RMM_LOG_FILE</span></code> is used. A <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if neither is
+available. A separate log file is produced for each device, and the
+suffix <cite>“.dev{id}”</cite> is automatically added to the log file name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Note that if you use the environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES</span></code> with
+logging enabled, the suffix may not be what you expect. For example, if you
+set <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES=1</span></code>, the log file produced will still have
+suffix <code class="docutils literal notranslate"><span class="pre">0</span></code>. Similarly, if you set <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES=1,0</span></code> and use
+devices 0 and 1, the log file with suffix <code class="docutils literal notranslate"><span class="pre">0</span></code> will correspond to the GPU
+with device ID <code class="docutils literal notranslate"><span class="pre">1</span></code>. Use <cite>rmm.get_log_filenames()</cite> to get the log file
+names corresponding to each device.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.set_flush_level">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">set_flush_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.set_flush_level" title="Link to this definition">#</a></dt>
+<dd><p>Set the flush level for the debug logger. Messages of this level or higher
+will automatically flush to the file.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>level</strong><span class="classifier">logging_level</span></dt><dd><p>The debug logging level. Valid values are instances of the
+<code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If the logging level is not an instance of the <code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#rmm.get_flush_level" title="rmm.get_flush_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_flush_level</span></code></a></dt><dd><p>Get the current debug logging flush level.</p>
+</dd>
+<dt><a class="reference internal" href="#rmm.flush_logger" title="rmm.flush_logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flush_logger</span></code></a></dt><dd><p>Flush the logger.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">flush_on</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">logging_level</span><span class="o">.</span><span class="n">WARN</span><span class="p">)</span> <span class="c1"># set flush level to warn</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.set_logging_level">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">set_logging_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.set_logging_level" title="Link to this definition">#</a></dt>
+<dd><p>Set the debug logging level.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>level</strong><span class="classifier">logging_level</span></dt><dd><p>The debug logging level. Valid values are instances of the
+<code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>TypeError</dt><dd><p>If the logging level is not an instance of the <code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#rmm.get_logging_level" title="rmm.get_logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_logging_level</span></code></a></dt><dd><p>Get the current debug logging level.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">set_logging_level</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">logging_level</span><span class="o">.</span><span class="n">WARN</span><span class="p">)</span> <span class="c1"># set logging level to warn</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.should_log">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">should_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.should_log" title="Link to this definition">#</a></dt>
+<dd><p>Check if a message at the given level would be logged.</p>
+<p>A message at the given level would be logged if the current debug logging
+level is set to a level that is at least as verbose than the given level,
+<em>and</em> the RMM module is compiled for a logging level at least as verbose.
+If these conditions are not both met, this function will return false.</p>
+<p>Debug logging prints messages to a log file. See
+<a class="reference external" href="https://github.com/rapidsai/rmm#debug-logging">Debug Logging</a>
+for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>level</strong><span class="classifier">logging_level</span></dt><dd><p>The debug logging level. Valid values are instances of the
+<code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>should_log</strong><span class="classifier">bool</span></dt><dd><p>True if a message at the given level would be logged, False otherwise.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>TypeError</dt><dd><p>If the logging level is not an instance of the <code class="docutils literal notranslate"><span class="pre">logging_level</span></code> enum.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="rmm.unregister_reinitialize_hook">
+<span class="sig-prename descclassname"><span class="pre">rmm.</span></span><span class="sig-name descname"><span class="pre">unregister_reinitialize_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#rmm.unregister_reinitialize_hook" title="Link to this definition">#</a></dt>
+<dd><p>Remove <cite>func</cite> from list of hooks that will be called before
+<a class="reference internal" href="#rmm.reinitialize" title="rmm.reinitialize"><code class="xref py py-func docutils literal notranslate"><span class="pre">reinitialize()</span></code></a>.</p>
+<p>If <cite>func</cite> was registered more than once, every instance of it will
+be removed from the list of hooks.</p>
+</dd></dl>
+</section>
+</article>
+<footer class="prev-next-footer d-print-none">
+<div class="prev-next-area">
+<a class="left-prev" href="index.html" title="previous page">
+<i class="fa-solid fa-angle-left"></i>
+<div class="prev-next-info">
+<p class="prev-next-subtitle">previous</p>
+<p class="prev-next-title">Python API</p>
+</div>
+</a>
+<a class="right-next" href="mr.html" title="next page">
+<div class="prev-next-info">
+<p class="prev-next-subtitle">next</p>
+<p class="prev-next-title">rmm.mr (Memory Resources)</p>
+</div>
+<i class="fa-solid fa-angle-right"></i>
+</a>
+</div>
+</footer>
+</div>
+<dialog id="pst-secondary-sidebar-modal"></dialog>
+<div class="bd-sidebar-secondary bd-toc" id="pst-secondary-sidebar"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item"><div class="page-toc tocsection onthispage" id="pst-page-navigation-heading-2">
+<i class="fa-solid fa-list"></i> Contents
+  </div>
+<nav aria-labelledby="pst-page-navigation-heading-2" class="page-toc" id="pst-page-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.capacity"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_from_device"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_from_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_from_host"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_from_host()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.copy_to_host"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.copy_to_host()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.nbytes"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.nbytes</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.prefetch"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.prefetch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.ptr"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.ptr</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.reserve"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.reserve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.resize"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.resize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.size"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.to_device"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.to_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.DeviceBuffer.tobytes"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.tobytes()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.RMMError"><code class="docutils literal notranslate"><span class="pre">RMMError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.disable_logging"><code class="docutils literal notranslate"><span class="pre">disable_logging()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.enable_logging"><code class="docutils literal notranslate"><span class="pre">enable_logging()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.flush_logger"><code class="docutils literal notranslate"><span class="pre">flush_logger()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_flush_level"><code class="docutils literal notranslate"><span class="pre">get_flush_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_log_filenames"><code class="docutils literal notranslate"><span class="pre">get_log_filenames()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.get_logging_level"><code class="docutils literal notranslate"><span class="pre">get_logging_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.is_initialized"><code class="docutils literal notranslate"><span class="pre">is_initialized()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum"><code class="docutils literal notranslate"><span class="pre">level_enum</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.critical"><code class="docutils literal notranslate"><span class="pre">level_enum.critical</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.debug"><code class="docutils literal notranslate"><span class="pre">level_enum.debug</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.error"><code class="docutils literal notranslate"><span class="pre">level_enum.error</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.info"><code class="docutils literal notranslate"><span class="pre">level_enum.info</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.n_levels"><code class="docutils literal notranslate"><span class="pre">level_enum.n_levels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.off"><code class="docutils literal notranslate"><span class="pre">level_enum.off</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.trace"><code class="docutils literal notranslate"><span class="pre">level_enum.trace</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.level_enum.warn"><code class="docutils literal notranslate"><span class="pre">level_enum.warn</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.register_reinitialize_hook"><code class="docutils literal notranslate"><span class="pre">register_reinitialize_hook()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.reinitialize"><code class="docutils literal notranslate"><span class="pre">reinitialize()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.set_flush_level"><code class="docutils literal notranslate"><span class="pre">set_flush_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.set_logging_level"><code class="docutils literal notranslate"><span class="pre">set_logging_level()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.should_log"><code class="docutils literal notranslate"><span class="pre">should_log()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rmm.unregister_reinitialize_hook"><code class="docutils literal notranslate"><span class="pre">unregister_reinitialize_hook()</span></code></a></li>
+</ul>
+</nav></div>
+</div></div>
+</div>
+<footer class="bd-footer-content">
+<p>
+</p>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script defer="" src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer="" src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+<footer class="rocm-footer">
+<div class="container-lg">
+<section class="bottom-menu menu py-45">
+<div class="row d-flex align-items-center">
+<div class="col-12 text-center">
+<ul>
+<li><a href="https://www.amd.com/en/corporate/copyright" target="_blank">Terms and Conditions</a></li>
+<li><a href="https://www.amd.com/en/corporate/privacy" target="_blank">Privacy</a></li>
+<li><a href="https://www.amd.com/en/corporate/trademarks" target="_blank">Trademarks</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/corporate/cr/supply-chain-transparency.pdf" target="_blank">Supply Chain Transparency</a></li>
+<li><a href="https://www.amd.com/en/corporate/competition" target="_blank">Fair and Open Competition</a></li>
+<li><a href="https://www.amd.com/system/files/documents/amd-uk-tax-strategy.pdf" target="_blank">UK Tax Strategy</a></li>
+<li><a href="https://www.amd.com/en/corporate/cookies" target="_blank">Cookie Policy</a></li>
+<!-- OneTrust Cookies Settings button start -->
+<li><a class="ot-sdk-show-settings" href="#cookie-settings" id="ot-sdk-btn">Cookie Settings</a></li>
+<!-- OneTrust Cookies Settings button end -->
+</ul>
+</div>
+</div>
+<div class="row d-flex align-items-center">
+<div class="col-12 text-center">
+<div>
+<span class="copyright">© 2026 Advanced Micro Devices, Inc</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</footer>
+<!-- <div id="rdc-watermark-container">
+    <img id="rdc-watermark" src="../_static/images/alpha-watermark.svg" alt="DRAFT watermark"/>
+</div> -->
+</body>
+</html>

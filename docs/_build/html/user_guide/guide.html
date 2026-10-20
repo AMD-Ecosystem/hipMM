@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+
+<html data-content_root="../" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>User Guide — hipMM 5.0.0 documentation</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+<!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+<noscript>
+<style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+</noscript>
+<!-- Loaded before other Sphinx assets -->
+<link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
+<link href="../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="https://docs.rapids.ai/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/custom.css?v=24396f60" rel="stylesheet" type="text/css"/>
+<link href="../_static/rocm_header.css?v=e999025a" rel="stylesheet" type="text/css"/>
+<link href="../_static/rocm_footer.css?v=7095035a" rel="stylesheet" type="text/css"/>
+<link href="../_static/fonts.css?v=fcff5274" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
+<!-- So that users can add custom icons -->
+<script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<link as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" rel="preload"/>
+<script src="../_static/jquery.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options.js?v=05b0d459"></script>
+<script src="../_static/doctools.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../_static/copybutton.js?v=4ea706d9"></script>
+<script defer="defer" src="https://docs.rapids.ai/assets/js/custom.js"></script>
+<script async="async" src="../_static/code_word_breaks.js?v=327952c4"></script>
+<script async="async" src="../_static/renameVersionLinks.js?v=929fe5e4"></script>
+<script async="async" src="../_static/rdcMisc.js?v=01f88d96"></script>
+<script async="async" src="../_static/theme_mode_captions.js?v=15f4ec5d"></script>
+<script defer="defer" src="../_static/search.js?v=90a4452c"></script>
+<script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+<script src="../_static/design-tabs.js?v=f930bc37"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/guide';</script>
+<script async="async" src="https://download.amd.com/js/analytics/analyticsinit.js"></script>
+<link href="https://www.amd.com/content/dam/code/images/favicon/favicon.ico" rel="icon"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../cpp/index.html" rel="next" title="C++ API"/>
+<link href="../index.html" rel="prev" title="HIP Memory Manager for AMD GPUs (hipMM)"/>
+<meta content="vo35SZt_GASsTHAEmdww7AYKPCvZyzLvOXBl8guBME4" name="google-site-verification"/>
+</head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main-content">Skip to main content</a></div>
+<div id="pst-scroll-pixel-helper"></div>
+<button class="btn rounded-pill" id="pst-back-to-top" type="button">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<dialog id="pst-search-dialog">
+<form action="../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" name="q" placeholder="Search..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</dialog>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
+</div>
+<header class="common-header">
+<nav class="navbar navbar-expand-xl">
+<div class="container-fluid main-nav rocm-header">
+<div class="header-logo">
+<div class="header-logo-title">
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler collapsed" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" data-tracking-information="mainMenuToggle" id="nav-icon" type="button">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<a class="navbar-brand" href="https://www.amd.com/">
+<img alt="AMD Logo" class="d-inline-block align-text-top hover-opacity" src="../_static/images/amd-header-logo.svg" title="AMD Logo" width="90"/>
+</a>
+<div class="vr mx-40 my-25"></div>
+<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.09</a>
+</div>
+<a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
+</div>
+<div class="icon-nav text-center d-flex ms-auto"></div>
+</div>
+</nav>
+<nav class="navbar navbar-expand-xl second-level-nav">
+<div class="container-fluid main-nav">
+<div class="navbar-nav-container collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav nav-mega me-auto mb-2 mb-lg-0 col-xl-10">
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM" id="navgithub" role="button" target="_blank">
+                                        GitHub
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/ROCm/ROCm/discussions" id="navcommunity" role="button" target="_blank">
+                                        Community
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/" id="navblogs" role="button" target="_blank">
+                                        Blogs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://rocm.docs.amd.com" id="navrocm-docs" role="button" target="_blank">
+                                        ROCm Docs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/rocm-hub.html" id="navrocm-developer-hub" role="button" target="_blank">
+                                        ROCm Developer Hub
+                                    </a>
+</li>
+<li class="nav-item dropdown">
+<a aria-expanded="false" class="nav-link top-level header-menu-links dropdown-toggle header-nav-dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navamd-toolkits" role="button">
+                                        AMD Toolkits
+                                    </a>
+<ul aria-labelledby="navamd-toolkits" class="dropdown-menu header-nav-dropdown-menu">
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/datascience/en/latest/index.html" target="_blank">AMD Data Science</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/finance/en/latest/index.html" target="_blank">AMD Finance</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/lifescience/en/latest/index.html" target="_blank">AMD Life Science</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/llmextension/en/latest/index.html" target="_blank">AMD LLM Extension</a></li>
+<li><a class="dropdown-item" href="https://rocm.docs.amd.com/projects/simulation/en/latest/index.html" target="_blank">AMD Simulation</a></li>
+</ul>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://instinct.docs.amd.com" id="navsystems-and-infra-docs" role="button" target="_blank">
+                                        Systems and Infra Docs
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://www.amd.com/en/developer/resources/infinity-hub.html" id="navinfinity-hub" role="button" target="_blank">
+                                        Infinity Hub
+                                    </a>
+</li>
+<li class="nav-item">
+<a aria-expanded="false" class="nav-link top-level header-menu-links" href="https://github.com/AMD-AIOSS/hipMM/issues/new/choose" id="navsupport" role="button" target="_blank">
+                                        Support
+                                    </a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<dialog id="pst-primary-sidebar-modal"></dialog>
+<div class="bd-sidebar-primary bd-sidebar" id="pst-primary-sidebar">
+<div class="sidebar-header-items sidebar-primary__section">
+<div class="sidebar-header-items__center">
+<div class="navbar-item">
+<a class="navbar-brand logo" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">
+<p>AMD Data Science</p>
+</a></div>
+</div>
+</div>
+<div class="sidebar-primary-items__start sidebar-primary__section">
+<div class="sidebar-primary-item">
+<a class="navbar-brand logo" href="../index.html">
+<p class="title logo__title">hipMM 5.0.0 documentation</p>
+</a></div>
+<div class="sidebar-primary-item">
+<button aria-label="Search" class="btn search-button-field search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass"></i>
+<span class="search-button__default-text">Search</span>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+<div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links bd-docs-nav">
+<div class="bd-toc-item navbar-nav active">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">User Guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cpp/index.html">C++ API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cpp/memory_resources/index.html">Memory Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resources.html">Memory Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resource_adaptors.html">Memory Resource Adaptors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/data_containers.html">Data Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/thrust_integrations.html">Thrust Integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_device_management.html">CUDA Device Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_streams.html">CUDA Streams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/errors.html">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/utilities.html">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp/rmm_namespace.html">Namespaces</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../python/index.html">Python API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../python/rmm.html">rmm (top-level)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/mr.html">rmm.mr (Memory Resources)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/allocators.html">rmm.allocators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/statistics.html">rmm.statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/pylibrmm.html">rmm.pylibrmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/librmm.html">rmm.librmm</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install/hipMM-support.html">System requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/INSTALL.html">Installing hipMM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/BUILD.html">Building and installing hipMM from source</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/hipmm/python_api.html">hipMM API reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">About</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+</div>
+</nav></div>
+</div>
+<div class="sidebar-primary-items__end sidebar-primary__section">
+<div class="sidebar-primary-item">
+<div class="flat" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" id="ethical-ad-placement">
+</div></div>
+</div>
+</div>
+<main class="bd-main" id="main-content" role="main">
+<div class="sbt-scroll-pixel-helper"></div>
+<div class="bd-content">
+<div class="bd-article-container">
+<div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+<div class="header-article-items__start">
+<div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__primary" title="Toggle primary sidebar">
+<span class="fa-solid fa-angle-right"></span>
+</label></div>
+<div class="header-article-item">
+<nav aria-label="Breadcrumb" class="d-print-none">
+<ul class="bd-breadcrumbs">
+<li class="breadcrumb-item breadcrumb-home">
+<a aria-label="Home" class="nav-link" href="../index.html">
+<i class="fa-solid fa-home"></i>
+</a>
+</li>
+<li aria-current="page" class="breadcrumb-item active"><span class="ellipsis">User Guide</span></li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="header-article-items__end">
+<div class="header-article-item">
+<div class="article-header-buttons">
+<button aria-label="Color mode" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" data-bs-placement="bottom" data-bs-title="Color mode" data-bs-toggle="tooltip">
+<i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+<i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+<i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
+</button>
+<button aria-label="Search" class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Search">
+<i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" data-bs-placement="bottom" data-bs-toggle="tooltip" title="Toggle secondary sidebar">
+<span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+</div>
+</div>
+</div>
+<div class="onlyprint" id="jb-print-docs-body">
+<h1>User Guide</h1>
+<!-- Table of contents -->
+<div id="print-main-content">
+<div id="jb-print-toc">
+<div>
+<h2> Contents </h2>
+</div>
+<nav aria-label="Page">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm">Using RMM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devicebuffer-objects"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prefetching-a-devicebuffer">Prefetching a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memoryresource-objects"><code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-third-party-libraries">Using RMM with third-party libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-cupy">Using RMM with CuPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-numba">Using RMM with Numba</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-pytorch">Using RMM with PyTorch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-statistics-and-profiling">Memory statistics and profiling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-profiler">Memory Profiler</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div id="searchbox"></div>
+<article class="bd-article">
+<section class="tex2jax_ignore mathjax_ignore" id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1><div class="sd-container-fluid sd-sphinx-override sd-p-0 sd-mt-2 sd-mb-4 sd-p-2 sd-rounded-1 docutils" id="rocm-docs-core-article-info">
+<div class="sd-row sd-row-cols-2 sd-gx-2 sd-gy-1 docutils">
+<div class="sd-col sd-d-flex-row sd-align-minor-center docutils">
+<div class="sd-container-fluid sd-sphinx-override docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-gx-3 sd-gy-1 docutils">
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;">
+<span class="sd-pr-2 article-info-date-svg">
+<svg aria-hidden="true" class="sd-octicon sd-octicon-calendar" height="16.0px" version="1.1" viewbox="0 0 16 16" width="16.0px">
+<path d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z" fill-rule="evenodd"></path>
+</svg>
+</span>
+                            2026-07-15
+                        </p>
+</div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;">
+<span class="sd-pr-2 article-info-read-time-svg">
+<svg aria-hidden="true" class="sd-octicon sd-octicon-clock" height="16.0px" version="1.1" viewbox="0 0 16 16" width="16.0px">
+<path d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z" fill-rule="evenodd"></path>
+</svg>
+</span>
+                            7 min read time
+                        </p>
+</div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils" style="color:gray;">
+                        Applies to Linux
+                    </div>
+<div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils">
+<p class="sd-p-0 sd-m-0" style="color:gray;"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<p>Achieving optimal performance in GPU-centric workflows frequently requires
+customizing how GPU (“device”) memory is allocated.</p>
+<p>RMM is a package that enables you to allocate device memory
+in a highly configurable way. For example, it enables you to
+allocate and use pools of GPU memory, or to use
+<a class="reference external" href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">managed memory</a>
+for allocations.</p>
+<p>You can also easily configure other libraries like Numba and CuPy
+to use RMM for allocating device memory.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>See the project <a class="reference external" href="https://github.com/rapidsai/rmm">README</a> for how to install RMM.</p>
+</section>
+<section id="using-rmm">
+<h2>Using RMM<a class="headerlink" href="#using-rmm" title="Link to this heading">#</a></h2>
+<p>There are two ways to use RMM in Python code:</p>
+<ol class="arabic simple">
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">rmm.DeviceBuffer</span></code> API to explicitly create and manage
+device memory allocations</p></li>
+<li><p>Transparently via external libraries such as CuPy and Numba</p></li>
+</ol>
+<p>RMM provides a <code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> abstraction to control <em>how</em> device
+memory is allocated in both the above uses.</p>
+<section id="devicebuffer-objects">
+<h3><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> Objects<a class="headerlink" href="#devicebuffer-objects" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> represents an <strong>untyped, uninitialized device memory
+allocation</strong>.  <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code>s can be created by providing the
+size of the allocation in bytes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The size of the allocation and the memory address associated with it
+can be accessed via the <code class="docutils literal notranslate"><span class="pre">.size</span></code> and <code class="docutils literal notranslate"><span class="pre">.ptr</span></code> attributes respectively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="o">.</span><span class="n">size</span>
+<span class="go">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="o">.</span><span class="n">ptr</span>
+<span class="go">140202544726016</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code>s can also be created by copying data from host memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="s2">"int8"</span><span class="p">))</span>  <span class="c1"># to_device expects an 8-bit type or `bytes`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="o">.</span><span class="n">size</span>
+<span class="go">24</span>
+</pre></div>
+</div>
+<p>Conversely, the data underlying a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> can be copied to the host:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">tobytes</span><span class="p">())</span>
+<span class="go">array([1., 2., 3.])</span>
+</pre></div>
+</div>
+<section id="prefetching-a-devicebuffer">
+<h4>Prefetching a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code><a class="headerlink" href="#prefetching-a-devicebuffer" title="Link to this heading">#</a></h4>
+<p><a class="reference external" href="https://developer.nvidia.com/blog/unified-memory-cuda-beginners/">CUDA Unified Memory</a>, also known as managed memory, can be allocated using an
+<code class="docutils literal notranslate"><span class="pre">rmm.mr.ManagedMemoryResource</span></code> explicitly, or by calling <code class="docutils literal notranslate"><span class="pre">rmm.reinitialize</span></code>
+with <code class="docutils literal notranslate"><span class="pre">managed_memory=True</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> backed by managed memory or other
+migratable memory (such as
+<a class="reference external" href="https://developer.nvidia.com/blog/simplifying-gpu-application-development-with-heterogeneous-memory-management/">HMM/ATS</a>
+memory) may be prefetched to a specified device, for example to reduce or eliminate page faults.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">reinitialize</span><span class="p">(</span><span class="n">managed_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="o">.</span><span class="n">prefetch</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above example prefetches the <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> memory to the current CUDA device
+on the stream that the <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> last used (e.g. at construction). The
+destination device ID and stream are optional parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">reinitialize</span><span class="p">(</span><span class="n">managed_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rmm.pylibrmm.stream</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span> <span class="c1"># prefetch to device on stream.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">DeviceBuffer.prefetch()</span></code> is a no-op if the <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> is not backed
+by migratable memory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rmm.pylibrmm.stream.Stream</span></code> implements the <a class="reference external" href="https://nvidia.github.io/cuda-python/cuda-core/latest/interoperability.html#cuda-stream-protocol">CUDA Stream Protocol</a>, so it can be used with
+<code class="docutils literal notranslate"><span class="pre">cuda.core.</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">cuda.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm.pylibrmm.stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_current</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm_stream</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">pylibrmm</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cuda_stream</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">create_stream</span><span class="p">(</span><span class="n">rmm_stream</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="memoryresource-objects">
+<h3><code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> objects<a class="headerlink" href="#memoryresource-objects" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> objects are used to configure how device memory allocations are made by
+RMM.</p>
+<p>By default if a <code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> is not set explicitly, RMM uses the <code class="docutils literal notranslate"><span class="pre">CudaMemoryResource</span></code>, which
+uses <code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> for allocating device memory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rmm.reinitialize()</span></code> provides an easy way to initialize RMM with specific memory resource options
+across multiple devices. See <code class="docutils literal notranslate"><span class="pre">help(rmm.reinitialize)</span></code> for full details.</p>
+<p>For lower-level control, the <code class="docutils literal notranslate"><span class="pre">rmm.mr.set_current_device_resource()</span></code> function can be
+used to set a different MemoryResource for the current CUDA device.  For
+example, enabling the <code class="docutils literal notranslate"><span class="pre">ManagedMemoryResource</span></code> tells RMM to use
+<code class="docutils literal notranslate"><span class="pre">cudaMallocManaged</span></code> instead of <code class="docutils literal notranslate"><span class="pre">cudaMalloc</span></code> for allocating memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">set_current_device_resource</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">ManagedMemoryResource</span><span class="p">())</span>
+</pre></div>
+</div>
+<blockquote>
+<div><dl class="myst field-list simple">
+<dt class="field-odd">warning<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The default resource must be set for any device <strong>before</strong>
+allocating any device memory on that device.  Setting or changing the
+resource after device allocations have been made can lead to unexpected
+behaviour or crashes.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>As another example, <code class="docutils literal notranslate"><span class="pre">PoolMemoryResource</span></code> allows you to allocate a
+large “pool” of device memory up-front. Subsequent allocations will
+draw from this pool of already allocated memory.  The example
+below shows how to construct a PoolMemoryResource with an initial size
+of 1 GiB and a maximum size of 4 GiB. The pool uses
+<code class="docutils literal notranslate"><span class="pre">CudaMemoryResource</span></code> as its underlying (“upstream”) memory resource:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">PoolMemoryResource</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">CudaMemoryResource</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">initial_pool_size</span><span class="o">=</span><span class="s2">"1GiB"</span><span class="p">,</span> <span class="c1"># equivalent to initial_pool_size=2**30</span>
+<span class="gp">... </span>    <span class="n">maximum_pool_size</span><span class="o">=</span><span class="s2">"4GiB"</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">set_current_device_resource</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, to use a pool of managed memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pool</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">PoolMemoryResource</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">ManagedMemoryResource</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">initial_pool_size</span><span class="o">=</span><span class="s2">"1GiB"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">maximum_pool_size</span><span class="o">=</span><span class="s2">"4GiB"</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">set_current_device_resource</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Other <code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code>s include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FixedSizeMemoryResource</span></code> for allocating fixed blocks of memory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BinningMemoryResource</span></code> for allocating blocks within specified “bin” sizes from different memory
+resources</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code>s are highly configurable and can be composed together in different ways.
+See <code class="docutils literal notranslate"><span class="pre">help(rmm.mr)</span></code> for more information.</p>
+</section>
+</section>
+<section id="using-rmm-with-third-party-libraries">
+<h2>Using RMM with third-party libraries<a class="headerlink" href="#using-rmm-with-third-party-libraries" title="Link to this heading">#</a></h2>
+<p>A number of libraries provide hooks to control their device
+allocations. RMM provides implementations of these for
+<a class="reference external" href="https://cupy.dev">CuPy</a>,
+<a class="reference external" href="https://numba.readthedocs.io/en/stable/">numba</a>, and <a class="reference external" href="https://pytorch.org">PyTorch</a> in the
+<code class="docutils literal notranslate"><span class="pre">rmm.allocators</span></code> submodule. All these approaches configure the library
+to use the <em>current</em> RMM memory resource for device
+allocations.</p>
+<section id="using-rmm-with-cupy">
+<h3>Using RMM with CuPy<a class="headerlink" href="#using-rmm-with-cupy" title="Link to this heading">#</a></h3>
+<p>You can configure <a class="reference external" href="https://cupy.dev/">CuPy</a> to use RMM for memory
+allocations by setting the CuPy CUDA allocator to
+<code class="docutils literal notranslate"><span class="pre">rmm.allocators.cupy.rmm_cupy_allocator</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rmm.allocators.cupy</span><span class="w"> </span><span class="kn">import</span> <span class="n">rmm_cupy_allocator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cupy</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_allocator</span><span class="p">(</span><span class="n">rmm_cupy_allocator</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-rmm-with-numba">
+<h3>Using RMM with Numba<a class="headerlink" href="#using-rmm-with-numba" title="Link to this heading">#</a></h3>
+<p>You can configure <a class="reference external" href="https://numba.readthedocs.io/en/stable/">Numba</a> to use RMM for memory allocations using the
+Numba <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/external-memory.html#setting-emm-plugin">EMM Plugin</a>.</p>
+<p>This can be done in two ways:</p>
+<ol class="arabic simple">
+<li><p>Setting the environment variable <code class="docutils literal notranslate"><span class="pre">NUMBA_CUDA_MEMORY_MANAGER</span></code>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">NUMBA_CUDA_MEMORY_MANAGER</span><span class="o">=</span>rmm.allocators.numba<span class="w"> </span>python<span class="w"> </span><span class="o">(</span>args<span class="o">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">set_memory_manager()</span></code> function provided by Numba:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">cuda</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rmm.allocators.numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">RMMNumbaManager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cuda</span><span class="o">.</span><span class="n">set_memory_manager</span><span class="p">(</span><span class="n">RMMNumbaManager</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-rmm-with-pytorch">
+<h3>Using RMM with PyTorch<a class="headerlink" href="#using-rmm-with-pytorch" title="Link to this heading">#</a></h3>
+<p>You can configure
+<a class="reference external" href="https://pytorch.org/docs/stable/notes/cuda.html">PyTorch</a> to use RMM
+for memory allocations using their by configuring the current
+allocator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rmm.allocators.torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">rmm_torch_allocator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">change_current_allocator</span><span class="p">(</span><span class="n">rmm_torch_allocator</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="memory-statistics-and-profiling">
+<h2>Memory statistics and profiling<a class="headerlink" href="#memory-statistics-and-profiling" title="Link to this heading">#</a></h2>
+<p>RMM can profile memory usage and track memory statistics by using either of the following:</p>
+<ul class="simple">
+<li><p>Use the context manager <code class="docutils literal notranslate"><span class="pre">rmm.statistics.statistics()</span></code> to enable statistics tracking for a specific code block.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">rmm.statistics.enable_statistics()</span></code> to enable statistics tracking globally.</p></li>
+</ul>
+<p>Common to both usages is that they modify the currently active RMM memory resource. The current device resource is wrapped with a <code class="docutils literal notranslate"><span class="pre">StatisticsResourceAdaptor</span></code> which must remain the topmost resource throughout the statistics tracking:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">rmm.statistics</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># We start with the default CUDA memory resource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">get_current_device_resource</span><span class="p">()</span>
+<span class="go">&lt;rmm.pylibrmm.memory_resource.CudaMemoryResource object at 0x7fa0da48a8e0&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># When using statistics, we get a StatisticsResourceAdaptor with the context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">statistics</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">get_current_device_resource</span><span class="p">()</span>
+<span class="go">&lt;rmm.pylibrmm.memory_resource.StatisticsResourceAdaptor object at 0x7fa0dd6e4a40&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># We can also enable statistics globally</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">enable_statistics</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">mr</span><span class="o">.</span><span class="n">get_current_device_resource</span><span class="p">())</span>
+<span class="go">&lt;rmm.pylibrmm.memory_resource.StatisticsResourceAdaptor object at 0x7f9a11340a40&gt;</span>
+</pre></div>
+</div>
+<p>With statistics enabled, you can query statistics of the current and peak bytes and number of allocations performed by the current RMM memory resource:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buf</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">get_statistics</span><span class="p">()</span>
+<span class="go">Statistics(current_bytes=16, current_count=1, peak_bytes=16, peak_count=1, total_bytes=16, total_count=1)</span>
+</pre></div>
+</div>
+<section id="memory-profiler">
+<h3>Memory Profiler<a class="headerlink" href="#memory-profiler" title="Link to this heading">#</a></h3>
+<p>To profile a specific block of code, first enable memory statistics by calling <code class="docutils literal notranslate"><span class="pre">rmm.statistics.enable_statistics()</span></code>. To profile a function, use <code class="docutils literal notranslate"><span class="pre">profiler</span></code> as a function decorator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">profiler</span><span class="p">()</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># By default, the profiler write to rmm.statistics.default_profiler_records</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">default_profiler_records</span><span class="o">.</span><span class="n">report</span><span class="p">())</span>
+<span class="go">Memory Profiling</span>
+<span class="go">================</span>
+
+<span class="go">Legends:</span>
+<span class="go">  ncalls       - number of times the function or code block was called</span>
+<span class="go">  memory_peak  - peak memory allocated in function or code block (in bytes)</span>
+<span class="go">  memory_total - total memory allocated in function or code block (in bytes)</span>
+
+<span class="go">Ordered by: memory_peak</span>
+
+<span class="go">ncalls     memory_peak    memory_total  filename:lineno(function)</span>
+<span class="go">     1           1,008           1,008  &lt;ipython-input-11-5fc63161ac29&gt;:1(f)</span>
+</pre></div>
+</div>
+<p>To profile a code block, use <code class="docutils literal notranslate"><span class="pre">profiler</span></code> as a context manager:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">profiler</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"my code block"</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">default_profiler_records</span><span class="o">.</span><span class="n">report</span><span class="p">())</span>
+<span class="go">Memory Profiling</span>
+<span class="go">================</span>
+
+<span class="go">Legends:</span>
+<span class="go">  ncalls       - number of times the function or code block was called</span>
+<span class="go">  memory_peak  - peak memory allocated in function or code block (in bytes)</span>
+<span class="go">  memory_total - total memory allocated in function or code block (in bytes)</span>
+
+<span class="go">Ordered by: memory_peak</span>
+
+<span class="go">ncalls     memory_peak    memory_total  filename:lineno(function)</span>
+<span class="go">     1           1,008           1,008  &lt;ipython-input-11-5fc63161ac29&gt;:1(f)</span>
+<span class="go">     1              32              32  my code block</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">profiler</span></code> supports nesting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">profiler</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">buf1</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">profiler</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">buf2</span> <span class="o">=</span> <span class="n">rmm</span><span class="o">.</span><span class="n">DeviceBuffer</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rmm</span><span class="o">.</span><span class="n">statistics</span><span class="o">.</span><span class="n">default_profiler_records</span><span class="o">.</span><span class="n">report</span><span class="p">())</span>
+<span class="go">Memory Profiling</span>
+<span class="go">================</span>
+
+<span class="go">Legends:</span>
+<span class="go">  ncalls       - number of times the function or code block was called</span>
+<span class="go">  memory_peak  - peak memory allocated in function or code block (in bytes)</span>
+<span class="go">  memory_total - total memory allocated in function or code block (in bytes)</span>
+
+<span class="go">Ordered by: memory_peak</span>
+
+<span class="go">ncalls     memory_peak    memory_total  filename:lineno(function)</span>
+<span class="go">     1           1,008           1,008  &lt;ipython-input-4-865fbe04e29f&gt;:1(f)</span>
+<span class="go">     1              32              32  my code block</span>
+<span class="go">     1              32              32  outer</span>
+<span class="go">     1              16              16  inner</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</article>
+<footer class="prev-next-footer d-print-none">
+<div class="prev-next-area">
+<a class="left-prev" href="../index.html" title="previous page">
+<i class="fa-solid fa-angle-left"></i>
+<div class="prev-next-info">
+<p class="prev-next-subtitle">previous</p>
+<p class="prev-next-title">HIP Memory Manager for AMD GPUs (hipMM)</p>
+</div>
+</a>
+<a class="right-next" href="../cpp/index.html" title="next page">
+<div class="prev-next-info">
+<p class="prev-next-subtitle">next</p>
+<p class="prev-next-title">C++ API</p>
+</div>
+<i class="fa-solid fa-angle-right"></i>
+</a>
+</div>
+</footer>
+</div>
+<dialog id="pst-secondary-sidebar-modal"></dialog>
+<div class="bd-sidebar-secondary bd-toc" id="pst-secondary-sidebar"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item"><div class="page-toc tocsection onthispage" id="pst-page-navigation-heading-2">
+<i class="fa-solid fa-list"></i> Contents
+  </div>
+<nav aria-labelledby="pst-page-navigation-heading-2" class="page-toc" id="pst-page-toc-nav">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm">Using RMM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devicebuffer-objects"><code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code> Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prefetching-a-devicebuffer">Prefetching a <code class="docutils literal notranslate"><span class="pre">DeviceBuffer</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memoryresource-objects"><code class="docutils literal notranslate"><span class="pre">MemoryResource</span></code> objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-third-party-libraries">Using RMM with third-party libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-cupy">Using RMM with CuPy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-numba">Using RMM with Numba</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rmm-with-pytorch">Using RMM with PyTorch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-statistics-and-profiling">Memory statistics and profiling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-profiler">Memory Profiler</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div></div>
+</div>
+<footer class="bd-footer-content">
+<p>
+</p>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script defer="" src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer="" src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+<footer class="rocm-footer">
+<div class="container-lg">
+<section class="bottom-menu menu py-45">
+<div class="row d-flex align-items-center">
+<div class="col-12 text-center">
+<ul>
+<li><a href="https://www.amd.com/en/corporate/copyright" target="_blank">Terms and Conditions</a></li>
+<li><a href="https://www.amd.com/en/corporate/privacy" target="_blank">Privacy</a></li>
+<li><a href="https://www.amd.com/en/corporate/trademarks" target="_blank">Trademarks</a></li>
+<li><a href="https://www.amd.com/content/dam/amd/en/documents/corporate/cr/supply-chain-transparency.pdf" target="_blank">Supply Chain Transparency</a></li>
+<li><a href="https://www.amd.com/en/corporate/competition" target="_blank">Fair and Open Competition</a></li>
+<li><a href="https://www.amd.com/system/files/documents/amd-uk-tax-strategy.pdf" target="_blank">UK Tax Strategy</a></li>
+<li><a href="https://www.amd.com/en/corporate/cookies" target="_blank">Cookie Policy</a></li>
+<!-- OneTrust Cookies Settings button start -->
+<li><a class="ot-sdk-show-settings" href="#cookie-settings" id="ot-sdk-btn">Cookie Settings</a></li>
+<!-- OneTrust Cookies Settings button end -->
+</ul>
+</div>
+</div>
+<div class="row d-flex align-items-center">
+<div class="col-12 text-center">
+<div>
+<span class="copyright">© 2026 Advanced Micro Devices, Inc</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</footer>
+<!-- <div id="rdc-watermark-container">
+    <img id="rdc-watermark" src="../_static/images/alpha-watermark.svg" alt="DRAFT watermark"/>
+</div> -->
+</body>
+</html>
