@@ -31,7 +31,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="https://docs.rapids.ai/assets/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=24396f60" />
@@ -129,7 +129,7 @@
                         
         
     
-    <a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.09</a>
+    <a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.10</a>
                     </div>
                     <a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
                 </div>
@@ -294,35 +294,7 @@
 </button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="user_guide/guide.html">User Guide</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cpp/index.html">C++ API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="cpp/memory_resources/index.html">Memory Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="cpp/memory_resources/memory_resources.html">Memory Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpp/memory_resources/memory_resource_adaptors.html">Memory Resource Adaptors</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/data_containers.html">Data Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/thrust_integrations.html">Thrust Integrations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/cuda_device_management.html">CUDA Device Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/cuda_streams.html">CUDA Streams</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/errors.html">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/utilities.html">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpp/rmm_namespace.html">Namespaces</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="python/index.html">Python API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="python/rmm.html">rmm (top-level)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/mr.html">rmm.mr (Memory Resources)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/allocators.html">rmm.allocators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/statistics.html">rmm.statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/pylibrmm.html">rmm.pylibrmm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python/librmm.html">rmm.librmm</a></li>
-</ul>
-</details></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="install/hipMM-support.html">System requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install/INSTALL.html">Installing hipMM</a></li>
@@ -455,9 +427,13 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.add">add() (rmm.statistics.ProfilerRecords method)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.add">add() (hipmm.statistics.ProfilerRecords method)</a>
 
       <ul>
+        <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.MemoryRecord.add">(hipmm.statistics.ProfilerRecords.MemoryRecord method)</a>
+</li>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.add">(rmm.statistics.ProfilerRecords method)</a>
+</li>
         <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.add">(rmm.statistics.ProfilerRecords.MemoryRecord method)</a>
 </li>
       </ul></li>
@@ -631,14 +607,14 @@
         <li><a href="python/rmm.html#rmm.DeviceBuffer.copy_to_host">(rmm.DeviceBuffer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.critical">critical (hipmm.level_enum attribute)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.level_enum.critical">(rmm.level_enum attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncMemoryResource">CudaAsyncMemoryResource (class in hipmm.mr)</a>
 
       <ul>
@@ -661,10 +637,18 @@
 </li>
       <li><a href="python/pylibrmm.html#rmm.pylibrmm.stream.CudaStreamFlags">CudaStreamFlags (class in rmm.pylibrmm.stream)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.current_bytes">current_bytes (rmm.statistics.Statistics attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.current_bytes">current_bytes (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.current_bytes">(rmm.statistics.Statistics attribute)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.current_count">current_count (rmm.statistics.Statistics attribute)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.current_count">current_count (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.current_count">(rmm.statistics.Statistics attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -807,8 +791,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python/statistics.html#rmm.statistics.enable_statistics">enable_statistics() (in module rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.enable_statistics">enable_statistics() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.enable_statistics">(in module rmm.statistics)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.error">error (hipmm.level_enum attribute)</a>
 
       <ul>
@@ -927,22 +915,26 @@
         <li><a href="python/mr.html#rmm.mr.TrackingResourceAdaptor.get_outstanding_allocations_str">(rmm.mr.TrackingResourceAdaptor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource">get_per_device_resource() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.get_per_device_resource">(in module rmm.mr)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource_type">get_per_device_resource_type() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.get_per_device_resource_type">(in module rmm.mr)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.get_statistics">get_statistics() (in module rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.get_statistics">get_statistics() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.get_statistics">(in module rmm.statistics)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.get_upstream">get_upstream() (hipmm.mr.ArenaMemoryResource method)</a>
 
       <ul>
@@ -1141,16 +1133,26 @@
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.memhostalloc">(rmm.allocators.numba.RMMNumbaManager method)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_peak">memory_peak (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_peak">memory_peak (hipmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_peak">(rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_total">memory_total (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_total">memory_total (hipmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.memory_total">(rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.allocators.numba.RMMNumbaManager.mempin">mempin() (hipmm.allocators.numba.RMMNumbaManager method)</a>
 
       <ul>
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.mempin">(rmm.allocators.numba.RMMNumbaManager method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     module
 
@@ -1206,8 +1208,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python/pylibrmm.html#rmm.pylibrmm.stream.CudaStreamFlags.NON_BLOCKING">NON_BLOCKING (rmm.pylibrmm.stream.CudaStreamFlags attribute)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.num_calls">num_calls (rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.MemoryRecord.num_calls">num_calls (hipmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord.num_calls">(rmm.statistics.ProfilerRecords.MemoryRecord attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1226,10 +1232,18 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.peak_bytes">peak_bytes (rmm.statistics.Statistics attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.peak_bytes">peak_bytes (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.peak_bytes">(rmm.statistics.Statistics attribute)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.peak_count">peak_count (rmm.statistics.Statistics attribute)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.peak_count">peak_count (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.peak_count">(rmm.statistics.Statistics attribute)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.PinnedHostMemoryResource">PinnedHostMemoryResource (class in hipmm.mr)</a>
 
       <ul>
@@ -1260,30 +1274,50 @@
         <li><a href="python/mr.html#rmm.mr.StatisticsResourceAdaptor.pop_counters">(rmm.mr.StatisticsResourceAdaptor method)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.pop_statistics">pop_statistics() (in module rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.pop_statistics">pop_statistics() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.pop_statistics">(in module rmm.statistics)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.prefetch">prefetch() (hipmm.DeviceBuffer method)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.DeviceBuffer.prefetch">(rmm.DeviceBuffer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor">PrefetchResourceAdaptor (class in hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.PrefetchResourceAdaptor">(class in rmm.mr)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.profiler">profiler() (in module rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.profiler">profiler() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.profiler">(in module rmm.statistics)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerContext">ProfilerContext (class in rmm.statistics)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerContext">ProfilerContext (class in hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerContext">(class in rmm.statistics)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords">ProfilerRecords (class in rmm.statistics)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords">ProfilerRecords (class in hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords">(class in rmm.statistics)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord">ProfilerRecords.MemoryRecord (class in rmm.statistics)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.MemoryRecord">ProfilerRecords.MemoryRecord (class in hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord">(class in rmm.statistics)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.ptr">ptr (hipmm.DeviceBuffer attribute)</a>
 
       <ul>
@@ -1296,16 +1330,24 @@
         <li><a href="python/mr.html#rmm.mr.StatisticsResourceAdaptor.push_counters">(rmm.mr.StatisticsResourceAdaptor method)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.push_statistics">push_statistics() (in module rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.push_statistics">push_statistics() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.push_statistics">(in module rmm.statistics)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.records">records (rmm.statistics.ProfilerRecords property)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.records">records (hipmm.statistics.ProfilerRecords property)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.records">(rmm.statistics.ProfilerRecords property)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.register_reinitialize_hook">register_reinitialize_hook() (in module hipmm)</a>
 
       <ul>
@@ -1318,8 +1360,12 @@
         <li><a href="python/rmm.html#rmm.reinitialize">(in module rmm)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.report">report() (rmm.statistics.ProfilerRecords method)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.ProfilerRecords.report">report() (hipmm.statistics.ProfilerRecords method)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.ProfilerRecords.report">(rmm.statistics.ProfilerRecords method)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.reserve">reserve() (hipmm.DeviceBuffer method)</a>
 
       <ul>
@@ -1460,10 +1506,18 @@
         <li><a href="python/rmm.html#rmm.DeviceBuffer.size">(rmm.DeviceBuffer attribute)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics">Statistics (class in rmm.statistics)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics">Statistics (class in hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics">(class in rmm.statistics)</a>
 </li>
-      <li><a href="python/statistics.html#rmm.statistics.statistics">statistics() (in module rmm.statistics)</a>
+      </ul></li>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.statistics">statistics() (in module hipmm.statistics)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.statistics">(in module rmm.statistics)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor">StatisticsResourceAdaptor (class in hipmm.mr)</a>
 
       <ul>
@@ -1500,12 +1554,20 @@
         <li><a href="python/rmm.html#rmm.DeviceBuffer.tobytes">(rmm.DeviceBuffer method)</a>
 </li>
       </ul></li>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.total_bytes">total_bytes (rmm.statistics.Statistics attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.total_bytes">total_bytes (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.total_bytes">(rmm.statistics.Statistics attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python/statistics.html#rmm.statistics.Statistics.total_count">total_count (rmm.statistics.Statistics attribute)</a>
+      <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.total_count">total_count (hipmm.statistics.Statistics attribute)</a>
+
+      <ul>
+        <li><a href="python/statistics.html#rmm.statistics.Statistics.total_count">(rmm.statistics.Statistics attribute)</a>
 </li>
+      </ul></li>
       <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.trace">trace (hipmm.level_enum attribute)</a>
 
       <ul>

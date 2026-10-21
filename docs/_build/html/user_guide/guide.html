@@ -24,7 +24,7 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
 <link href="../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
 <link href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" rel="stylesheet" type="text/css"/>
-<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="https://docs.rapids.ai/assets/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/custom.css?v=24396f60" rel="stylesheet" type="text/css"/>
@@ -58,8 +58,6 @@
 <link href="https://www.amd.com/content/dam/code/images/favicon/favicon.ico" rel="icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="../cpp/index.html" rel="next" title="C++ API"/>
-<link href="../index.html" rel="prev" title="HIP Memory Manager for AMD GPUs (hipMM)"/>
 <meta content="vo35SZt_GASsTHAEmdww7AYKPCvZyzLvOXBl8guBME4" name="google-site-verification"/>
 </head>
 <body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
@@ -91,7 +89,7 @@
 <img alt="AMD Logo" class="d-inline-block align-text-top hover-opacity" src="../_static/images/amd-header-logo.svg" title="AMD Logo" width="90"/>
 </a>
 <div class="vr mx-40 my-25"></div>
-<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.09</a>
+<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.10</a>
 </div>
 <a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
 </div>
@@ -184,34 +182,6 @@
 </button></div>
 <div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links bd-docs-nav">
 <div class="bd-toc-item navbar-nav active">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">User Guide</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cpp/index.html">C++ API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../cpp/memory_resources/index.html">Memory Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resources.html">Memory Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cpp/memory_resources/memory_resource_adaptors.html">Memory Resource Adaptors</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/data_containers.html">Data Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/thrust_integrations.html">Thrust Integrations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_device_management.html">CUDA Device Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/cuda_streams.html">CUDA Streams</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/errors.html">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/utilities.html">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cpp/rmm_namespace.html">Namespaces</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../python/index.html">Python API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../python/rmm.html">rmm (top-level)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/mr.html">rmm.mr (Memory Resources)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/allocators.html">rmm.allocators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/statistics.html">rmm.statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/pylibrmm.html">rmm.pylibrmm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/librmm.html">rmm.librmm</a></li>
-</ul>
-</details></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../install/hipMM-support.html">System requirements</a></li>
@@ -664,20 +634,6 @@ allocator.</p>
 </article>
 <footer class="prev-next-footer d-print-none">
 <div class="prev-next-area">
-<a class="left-prev" href="../index.html" title="previous page">
-<i class="fa-solid fa-angle-left"></i>
-<div class="prev-next-info">
-<p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">HIP Memory Manager for AMD GPUs (hipMM)</p>
-</div>
-</a>
-<a class="right-next" href="../cpp/index.html" title="next page">
-<div class="prev-next-info">
-<p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">C++ API</p>
-</div>
-<i class="fa-solid fa-angle-right"></i>
-</a>
 </div>
 </footer>
 </div>

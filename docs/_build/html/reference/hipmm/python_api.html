@@ -26,7 +26,7 @@
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
 <link href="../../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
 <link href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" rel="stylesheet" type="text/css"/>
-<link href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" rel="stylesheet" type="text/css"/>
 <link href="../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="https://docs.rapids.ai/assets/css/custom.css" rel="stylesheet" type="text/css"/>
 <link href="../../_static/custom.css?v=24396f60" rel="stylesheet" type="text/css"/>
@@ -93,7 +93,7 @@
 <img alt="AMD Logo" class="d-inline-block align-text-top hover-opacity" src="../../_static/images/amd-header-logo.svg" title="AMD Logo" width="90"/>
 </a>
 <div class="vr mx-40 my-25"></div>
-<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.09</a>
+<a class="klavika-font hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest">Data Science 26.10</a>
 </div>
 <a class="header-all-versions hover-opacity" href="https://rocm.docs.amd.com/projects/rocm-ds/en/latest/release/versions.html">Version List</a>
 </div>
@@ -186,34 +186,6 @@
 </button></div>
 <div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links bd-docs-nav">
 <div class="bd-toc-item navbar-nav active">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/guide.html">User Guide</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../cpp/index.html">C++ API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../cpp/memory_resources/index.html">Memory Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../cpp/memory_resources/memory_resources.html">Memory Resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../cpp/memory_resources/memory_resource_adaptors.html">Memory Resource Adaptors</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/data_containers.html">Data Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/thrust_integrations.html">Thrust Integrations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/cuda_device_management.html">CUDA Device Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/cuda_streams.html">CUDA Streams</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/errors.html">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/utilities.html">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../cpp/rmm_namespace.html">Namespaces</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../python/index.html">Python API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../python/rmm.html">rmm (top-level)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/mr.html">rmm.mr (Memory Resources)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/allocators.html">rmm.allocators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/statistics.html">rmm.statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/pylibrmm.html">rmm.pylibrmm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/librmm.html">rmm.librmm</a></li>
-</ul>
-</details></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Install</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../install/hipMM-support.html">System requirements</a></li>
@@ -499,7 +471,38 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-hipmm.statistics">Memory Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-hipmm.statistics">Memory Statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerContext"><code class="docutils literal notranslate"><span class="pre">ProfilerContext</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.add"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.add()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_peak"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.memory_peak</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_total"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.memory_total</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.num_calls"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.num_calls</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.add"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.add()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.records"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.records</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.report"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.report()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics"><code class="docutils literal notranslate"><span class="pre">Statistics</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.current_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.current_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.current_count"><code class="docutils literal notranslate"><span class="pre">Statistics.current_count</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.peak_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.peak_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.peak_count"><code class="docutils literal notranslate"><span class="pre">Statistics.peak_count</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.total_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.total_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.total_count"><code class="docutils literal notranslate"><span class="pre">Statistics.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.enable_statistics"><code class="docutils literal notranslate"><span class="pre">enable_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.get_statistics"><code class="docutils literal notranslate"><span class="pre">get_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.pop_statistics"><code class="docutils literal notranslate"><span class="pre">pop_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.profiler"><code class="docutils literal notranslate"><span class="pre">profiler()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.push_statistics"><code class="docutils literal notranslate"><span class="pre">push_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.statistics"><code class="docutils literal notranslate"><span class="pre">statistics()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </nav>
 </div>
@@ -530,7 +533,7 @@
 <path d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z" fill-rule="evenodd"></path>
 </svg>
 </span>
-                            33 min read time
+                            37 min read time
                         </p>
 </div>
 <div class="sd-col sd-col-auto sd-d-flex-row sd-align-minor-center docutils" style="color:gray;">
@@ -3068,6 +3071,308 @@ ensure that host allocations are also cleaned up.</p>
 <span class="target" id="module-hipmm.allocators.torch"></span></section>
 <section id="module-hipmm.statistics">
 <span id="memory-statistics"></span><h2>Memory Statistics<a class="headerlink" href="#module-hipmm.statistics" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerContext">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">ProfilerContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.ProfilerRecords" title="rmm.statistics.ProfilerRecords"><span class="pre">ProfilerRecords</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hipmm.statistics.ProfilerContext" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Context manager and decorator for profiling memory usage.</p>
+<p>This class can be used both as a decorator and as a context manager
+to profile memory allocations in functions or code blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>records</strong><span class="classifier">ProfilerRecords</span></dt><dd><p>The profiler records that the memory statistics are written to.</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>The name of the memory profile. Mandatory when used as a context
+manager. Optional when used as a decorator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(func)</p></td>
+<td><p>Use the profiler as a decorator.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Examples</p>
+<p>As a decorator:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@profiler</span><span class="p">()</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>As a context manager:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">profiler</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"my_code_block"</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">ProfilerRecords</span></span><a class="headerlink" href="#hipmm.statistics.ProfilerRecords" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Records of the memory statistics recorded by a profiler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#hipmm.statistics.ProfilerRecords.records" title="hipmm.statistics.ProfilerRecords.records"><code class="xref py py-obj docutils literal notranslate"><span class="pre">records</span></code></a></dt><dd><p>Dictionary mapping record names to their memory statistics.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hipmm.statistics.ProfilerRecords.MemoryRecord" title="hipmm.statistics.ProfilerRecords.MemoryRecord"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MemoryRecord</span></code></a>([num_calls, memory_total, ...])</p></td>
+<td><p>Memory statistics of a single code block.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hipmm.statistics.ProfilerRecords.add" title="hipmm.statistics.ProfilerRecords.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a>(name, data)</p></td>
+<td><p>Add memory statistics to the record named <cite>name</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hipmm.statistics.ProfilerRecords.report" title="hipmm.statistics.ProfilerRecords.report"><code class="xref py py-obj docutils literal notranslate"><span class="pre">report</span></code></a>([ordered_by])</p></td>
+<td><p>Pretty format the recorded memory statistics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.MemoryRecord">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MemoryRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_peak</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.MemoryRecord" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Memory statistics of a single code block.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>num_calls</strong></dt><dd><p>Number of times this code block was invoked.</p>
+</dd>
+<dt><strong>memory_total</strong></dt><dd><p>Total number of bytes allocated.</p>
+</dd>
+<dt><strong>memory_peak</strong></dt><dd><p>Peak number of bytes allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>add</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.MemoryRecord.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_peak</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.add" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.MemoryRecord.memory_peak">
+<span class="sig-name descname"><span class="pre">memory_peak</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_peak" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.MemoryRecord.memory_total">
+<span class="sig-name descname"><span class="pre">memory_total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_total" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.MemoryRecord.num_calls">
+<span class="sig-name descname"><span class="pre">num_calls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.num_calls" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.Statistics" title="rmm.statistics.Statistics"><span class="pre">Statistics</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.add" title="Link to this definition">#</a></dt>
+<dd><p>Add memory statistics to the record named <cite>name</cite>.</p>
+<p>This method is thread-safe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong></dt><dd><p>Name of the record.</p>
+</dd>
+<dt><strong>data</strong></dt><dd><p>Memory statistics of <cite>name</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.records">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">records</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../python/statistics.html#rmm.statistics.ProfilerRecords.MemoryRecord" title="rmm.statistics.ProfilerRecords.MemoryRecord"><span class="pre">MemoryRecord</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.records" title="Link to this definition">#</a></dt>
+<dd><p>Dictionary mapping record names to their memory statistics.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="hipmm.statistics.ProfilerRecords.report">
+<span class="sig-name descname"><span class="pre">report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ordered_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'num_calls'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'memory_peak'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'memory_total'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'memory_peak'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#hipmm.statistics.ProfilerRecords.report" title="Link to this definition">#</a></dt>
+<dd><p>Pretty format the recorded memory statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ordered_by</strong></dt><dd><p>Sort the statistics by this attribute.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>The pretty formatted string of the memory statistics</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">Statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hipmm.statistics.Statistics" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Statistics returned by <code class="docutils literal notranslate"><span class="pre">{get,push,pop}_statistics()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>current_bytes</strong></dt><dd><p>Current number of bytes allocated</p>
+</dd>
+<dt><strong>current_count</strong></dt><dd><p>Current number of allocations allocated</p>
+</dd>
+<dt><strong>peak_bytes</strong></dt><dd><p>Peak number of bytes allocated</p>
+</dd>
+<dt><strong>peak_count</strong></dt><dd><p>Peak number of allocations allocated</p>
+</dd>
+<dt><strong>total_bytes</strong></dt><dd><p>Total number of bytes allocated</p>
+</dd>
+<dt><strong>total_count</strong></dt><dd><p>Total number of allocations allocated</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.current_bytes">
+<span class="sig-name descname"><span class="pre">current_bytes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.current_bytes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.current_count">
+<span class="sig-name descname"><span class="pre">current_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.current_count" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.peak_bytes">
+<span class="sig-name descname"><span class="pre">peak_bytes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.peak_bytes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.peak_count">
+<span class="sig-name descname"><span class="pre">peak_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.peak_count" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.total_bytes">
+<span class="sig-name descname"><span class="pre">total_bytes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.total_bytes" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hipmm.statistics.Statistics.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#hipmm.statistics.Statistics.total_count" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.enable_statistics">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">enable_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.enable_statistics" title="Link to this definition">#</a></dt>
+<dd><p>Enable allocation statistics.</p>
+<p>This function is idempotent. If statistics have been enabled for the
+current RMM resource stack, this is a no-op.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This modifies the current RMM memory resource. StatisticsResourceAdaptor
+is pushed onto the current RMM memory resource stack and must remain the
+topmost resource throughout the statistics gathering.</p>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.get_statistics">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">get_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.Statistics" title="rmm.statistics.Statistics"><span class="pre">Statistics</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.get_statistics" title="Link to this definition">#</a></dt>
+<dd><p>Get the current allocation statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>If enabled, returns the current tracked statistics.</dt><dd></dd>
+<dt>If disabled, returns None.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.pop_statistics">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">pop_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.Statistics" title="rmm.statistics.Statistics"><span class="pre">Statistics</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.pop_statistics" title="Link to this definition">#</a></dt>
+<dd><p>Pop the counters of the current allocation statistics stack.</p>
+<p>This returns the counters of current tracked statistics and pops
+them from the stack.</p>
+<p>If statistics are disabled (the current memory resource is not an
+instance of StatisticsResourceAdaptor), this function is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>If enabled, returns the popped counters.</dt><dd></dd>
+<dt>If disabled, returns None.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.profiler">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">profiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.ProfilerRecords" title="rmm.statistics.ProfilerRecords"><span class="pre">ProfilerRecords</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ProfilerRecords({})</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.ProfilerContext" title="rmm.statistics.ProfilerContext"><span class="pre">ProfilerContext</span></a></span></span><a class="headerlink" href="#hipmm.statistics.profiler" title="Link to this definition">#</a></dt>
+<dd><p>Decorator and context to profile function or code block.</p>
+<p>If statistics are enabled (the current memory resource is an
+instance of StatisticsResourceAdaptor), this decorator records the
+memory statistics of the decorated function or code block.</p>
+<p>If statistics are disabled, this decorator/context is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>records</strong></dt><dd><p>The profiler records that the memory statistics are written to. If
+not set, a default profiler records are used.</p>
+</dd>
+<dt><strong>name</strong></dt><dd><p>The name of the memory profile, mandatory when the profiler
+is used as a context manager. If used as a decorator, an empty name
+is allowed. In this case, the name is the filename, line number, and
+function name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.push_statistics">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">push_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="../../python/statistics.html#rmm.statistics.Statistics" title="rmm.statistics.Statistics"><span class="pre">Statistics</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#hipmm.statistics.push_statistics" title="Link to this definition">#</a></dt>
+<dd><p>Push new counters on the current allocation statistics stack.</p>
+<p>This returns the current tracked statistics and pushes a new set
+of zero counters on the stack of statistics.</p>
+<p>If statistics are disabled (the current memory resource is not an
+instance of StatisticsResourceAdaptor), this function is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>If enabled, returns the current tracked statistics _before_ the pop.</dt><dd></dd>
+<dt>If disabled, returns None.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="hipmm.statistics.statistics">
+<span class="sig-prename descclassname"><span class="pre">hipmm.statistics.</span></span><span class="sig-name descname"><span class="pre">statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.15)"><span class="pre">Generator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#hipmm.statistics.statistics" title="Link to this definition">#</a></dt>
+<dd><p>Context to enable allocation statistics.</p>
+<p>If statistics have been enabled already (the current memory resource is an
+instance of StatisticsResourceAdaptor), new counters are pushed on the
+current allocation statistics stack when entering the context and popped
+again when exiting using <cite>push_statistics()</cite> and <cite>push_statistics()</cite>.</p>
+<p>If statistics have not been enabled, a new StatisticsResourceAdaptor is set
+as the current RMM memory resource when entering the context and removed
+again when exiting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the current RMM memory source was changed while in the context.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
 </section>
 </section>
 </article>
@@ -3308,7 +3613,38 @@ ensure that host allocations are also cleaned up.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-hipmm.statistics">Memory Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-hipmm.statistics">Memory Statistics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerContext"><code class="docutils literal notranslate"><span class="pre">ProfilerContext</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.add"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.add()</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_peak"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.memory_peak</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.memory_total"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.memory_total</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.MemoryRecord.num_calls"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.MemoryRecord.num_calls</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.add"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.add()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.records"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.records</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.ProfilerRecords.report"><code class="docutils literal notranslate"><span class="pre">ProfilerRecords.report()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics"><code class="docutils literal notranslate"><span class="pre">Statistics</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.current_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.current_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.current_count"><code class="docutils literal notranslate"><span class="pre">Statistics.current_count</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.peak_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.peak_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.peak_count"><code class="docutils literal notranslate"><span class="pre">Statistics.peak_count</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.total_bytes"><code class="docutils literal notranslate"><span class="pre">Statistics.total_bytes</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.Statistics.total_count"><code class="docutils literal notranslate"><span class="pre">Statistics.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.enable_statistics"><code class="docutils literal notranslate"><span class="pre">enable_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.get_statistics"><code class="docutils literal notranslate"><span class="pre">get_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.pop_statistics"><code class="docutils literal notranslate"><span class="pre">pop_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.profiler"><code class="docutils literal notranslate"><span class="pre">profiler()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.push_statistics"><code class="docutils literal notranslate"><span class="pre">push_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hipmm.statistics.statistics"><code class="docutils literal notranslate"><span class="pre">statistics()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </nav></div>
 </div></div>
