@@ -14,7 +14,7 @@ stable performance in complex, multi-library GPU workflows.
 
 hipMM 5.0.0 improves memory usage efficiency for workloads that leverage hipDF, hipGRAPH, hipRAFT, and hipVS.
 
-The hipMM code is open and hosted at `https://github.com/AMD-Ecosystem/hipMM <https://github.com/AMD-Ecosystem/hipMM>`_.
+The hipMM code is open and hosted at `https://github.com/AMD-AIOSS/hipMM <https://github.com/AMD-AIOSS/hipMM>`_.
 
 The hipMM documentation is structured as follows:
 
