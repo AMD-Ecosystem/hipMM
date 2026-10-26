@@ -965,7 +965,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../../library/include ../../README.md
+INPUT                  = ../../cpp/include ../../README.md
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -2446,7 +2446,11 @@ INCLUDE_FILE_PATTERNS  =
 
 PREDEFINED             = __attribute__(x)= \
                          __inline= \
-                         ROCGRAPH_EXPORT=
+                         ROCGRAPH_EXPORT= \
+                         RMM_NAMESPACE:=rmm \
+                         RMM_EXPORT:= \
+                         RMM_HIDDEN:= \
+                         RMM_CONSTEXPR_FRIEND:=friend
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

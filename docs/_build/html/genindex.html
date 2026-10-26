@@ -33,7 +33,6 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="https://docs.rapids.ai/assets/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=24396f60" />
     <link rel="stylesheet" type="text/css" href="_static/rocm_header.css?v=e999025a" />
     <link rel="stylesheet" type="text/css" href="_static/rocm_footer.css?v=7095035a" />
@@ -53,7 +52,6 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=4ea706d9"></script>
-    <script defer="defer" src="https://docs.rapids.ai/assets/js/custom.js"></script>
     <script async="async" src="_static/code_word_breaks.js?v=327952c4"></script>
     <script async="async" src="_static/renameVersionLinks.js?v=929fe5e4"></script>
     <script async="async" src="_static/rdcMisc.js?v=01f88d96"></script>
@@ -443,6 +441,10 @@
         <li><a href="python/mr.html#rmm.mr.BinningMemoryResource.add_bin">(rmm.mr.BinningMemoryResource method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv410align_downNSt6size_tENSt6size_tE">align_down (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv48align_upNSt6size_tENSt6size_tE">align_up (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.ArenaMemoryResource.allocate">allocate() (hipmm.mr.ArenaMemoryResource method)</a>
 
       <ul>
@@ -527,6 +529,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv419allocate_callback_t">allocate_callback_t (C++ type)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.StatisticsResourceAdaptor.allocation_counts">allocation_counts (hipmm.mr.StatisticsResourceAdaptor attribute)</a>
 
       <ul>
@@ -539,6 +543,8 @@
         <li><a href="python/mr.html#rmm.mr.ArenaMemoryResource">(class in rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv423available_device_memoryv">available_device_memory (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.available_device_memory">available_device_memory() (in module hipmm.mr)</a>
 
       <ul>
@@ -613,8 +619,16 @@
         <li><a href="python/rmm.html#rmm.level_enum.critical">(rmm.level_enum attribute)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv425CUDA_ALLOCATION_ALIGNMENT">CUDA_ALLOCATION_ALIGNMENT (C++ member)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv419cuda_stream_default">cuda_stream_default (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv418cuda_stream_legacy">cuda_stream_legacy (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv422cuda_stream_per_thread">cuda_stream_per_thread (C++ member)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.CudaAsyncMemoryResource">CudaAsyncMemoryResource (class in hipmm.mr)</a>
 
       <ul>
@@ -739,6 +753,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv421deallocate_callback_t">deallocate_callback_t (C++ type)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.level_enum.debug">debug (hipmm.level_enum attribute)</a>
 
       <ul>
@@ -751,6 +767,12 @@
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.defer_cleanup">(rmm.allocators.numba.RMMNumbaManager method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv425device_async_resource_ref">device_async_resource_ref (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv419device_resource_ref">device_resource_ref (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv4I0E13device_vector">device_vector (C++ type)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer">DeviceBuffer (class in hipmm)</a>
 
       <ul>
@@ -803,12 +825,16 @@
         <li><a href="python/rmm.html#rmm.level_enum.error">(rmm.level_enum attribute)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv418exec_policy_nosync">exec_policy_nosync (C++ type)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv418failure_callback_t">failure_callback_t (C++ type)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.FailureCallbackResourceAdaptor">FailureCallbackResourceAdaptor (class in hipmm.mr)</a>
 
       <ul>
@@ -857,12 +883,16 @@
         <li><a href="python/mr.html#rmm.mr.LimitingResourceAdaptor.get_allocation_limit">(rmm.mr.LimitingResourceAdaptor method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv423get_current_cuda_devicev">get_current_cuda_device (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_current_device_resource">get_current_device_resource() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.get_current_device_resource">(in module rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv431get_current_device_resource_refv">get_current_device_resource_ref (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_current_device_resource_type">get_current_device_resource_type() (in module hipmm.mr)</a>
 
       <ul>
@@ -909,20 +939,24 @@
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.get_memory_info">(rmm.allocators.numba.RMMNumbaManager method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv420get_num_cuda_devicesv">get_num_cuda_devices (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.TrackingResourceAdaptor.get_outstanding_allocations_str">get_outstanding_allocations_str() (hipmm.mr.TrackingResourceAdaptor method)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.TrackingResourceAdaptor.get_outstanding_allocations_str">(rmm.mr.TrackingResourceAdaptor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource">get_per_device_resource() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.get_per_device_resource">(in module rmm.mr)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv427get_per_device_resource_ref14cuda_device_id">get_per_device_resource_ref (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.get_per_device_resource_type">get_per_device_resource_type() (in module hipmm.mr)</a>
 
       <ul>
@@ -1008,8 +1042,6 @@
         <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.numba">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     hipmm.allocators.torch
 
@@ -1017,6 +1049,8 @@
         <li><a href="reference/hipmm/python_api.html#module-hipmm.allocators.torch">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     hipmm.mr
 
@@ -1032,6 +1066,14 @@
 </li>
       </ul></li>
       <li><a href="python/pylibrmm.html#rmm.pylibrmm.stream.HipStream">HipStream (in module rmm.pylibrmm.stream)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv423host_async_resource_ref">host_async_resource_ref (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv430host_device_async_resource_ref">host_device_async_resource_ref (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv424host_device_resource_ref">host_device_resource_ref (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv417host_resource_ref">host_resource_ref (C++ type)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1057,10 +1099,12 @@
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.interface_version">(rmm.allocators.numba.RMMNumbaManager property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv410is_alignedNSt6size_tENSt6size_tE">is_aligned (C++ function)</a>
+</li>
       <li><a href="python/pylibrmm.html#rmm.pylibrmm.stream.Stream.is_default">is_default() (rmm.pylibrmm.stream.Stream method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.is_initialized">is_initialized() (in module hipmm)</a>
 
       <ul>
@@ -1071,6 +1115,16 @@
         <li><a href="python/mr.html#rmm.mr.is_initialized">(in module rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv418is_pointer_alignedPvNSt6size_tE">is_pointer_aligned (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv47is_pow2NSt6size_tE">is_pow2 (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I00E19is_resource_adaptor">is_resource_adaptor (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0E19is_resource_adaptorI8ResourceN4cudaSt6void_tIDTcldtclN4cudaSt7declvalI8ResourceEEE21get_upstream_resourceEEEEE">is_resource_adaptor&lt;Resource, cuda::std::void_t&lt;decltype(cuda::std::declval&lt;Resource&gt;().get_upstream_resource())&gt;&gt; (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv422is_supported_alignmentNSt6size_tE">is_supported_alignment (C++ function)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1227,6 +1281,14 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4ne16cuda_stream_view16cuda_stream_view">operator!= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I00EnebRK21polymorphic_allocatorI1TERK21polymorphic_allocatorI1UE">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I00EnebRK24stream_allocator_adaptorI1AERK24stream_allocator_adaptorI1OE">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4lsRNSt7ostreamE16cuda_stream_view">operator&lt;&lt; (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4eq16cuda_stream_view16cuda_stream_view">operator== (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I00EeqbRK21polymorphic_allocatorI1TERK21polymorphic_allocatorI1UE">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I00EeqbRK24stream_allocator_adaptorI1AERK24stream_allocator_adaptorI1OE">[2]</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
@@ -1244,6 +1306,8 @@
         <li><a href="python/statistics.html#rmm.statistics.Statistics.peak_count">(rmm.statistics.Statistics attribute)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv429percent_of_free_device_memoryi">percent_of_free_device_memory (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.PinnedHostMemoryResource">PinnedHostMemoryResource (class in hipmm.mr)</a>
 
       <ul>
@@ -1280,20 +1344,24 @@
         <li><a href="python/statistics.html#rmm.statistics.pop_statistics">(in module rmm.statistics)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/utilities.html#_CPPv48prefetchPKvNSt6size_tEN3rmm14cuda_device_idEN3rmm16cuda_stream_viewE">prefetch (C++ function)</a>, <a href="reference/hipmm/cpp/utilities.html#_CPPv4I0E8prefetchvN4cudaSt4spanIK1TEEN3rmm14cuda_device_idEN3rmm16cuda_stream_viewE">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.prefetch">prefetch() (hipmm.DeviceBuffer method)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.DeviceBuffer.prefetch">(rmm.DeviceBuffer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.PrefetchResourceAdaptor">PrefetchResourceAdaptor (class in hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.PrefetchResourceAdaptor">(class in rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv418process_is_exitingv">process_is_exiting (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.statistics.profiler">profiler() (in module hipmm.statistics)</a>
 
       <ul>
@@ -1378,6 +1446,14 @@
         <li><a href="python/allocators.html#rmm.allocators.numba.RMMNumbaManager.reset">(rmm.allocators.numba.RMMNumbaManager method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv429reset_current_device_resourcev">reset_current_device_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv433reset_current_device_resource_refv">reset_current_device_resource_ref (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv425reset_per_device_resource14cuda_device_id">reset_per_device_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv429reset_per_device_resource_ref14cuda_device_id">reset_per_device_resource_ref (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.resize">resize() (hipmm.DeviceBuffer method)</a>
 
       <ul>
@@ -1391,6 +1467,8 @@
         <li><a href="python/rmm.html#module-rmm">module</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/rmm_namespace.html#_CPPv43rmm">rmm (C++ type)</a>
+</li>
       <li>
     rmm.allocators.cupy
 
@@ -1398,8 +1476,6 @@
         <li><a href="python/allocators.html#module-rmm.allocators.cupy">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     rmm.allocators.numba
 
@@ -1442,6 +1518,646 @@
         <li><a href="python/statistics.html#module-rmm.statistics">module</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm9bad_allocE">rmm::bad_alloc (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm9bad_alloc9bad_allocEPKc">rmm::bad_alloc::bad_alloc (C++ function)</a>, <a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm9bad_alloc9bad_allocERKNSt6stringE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4NK3rmm9bad_alloc4whatEv">rmm::bad_alloc::what (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm14cuda_device_idE">rmm::cuda_device_id (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm14cuda_device_id14cuda_device_idE10value_type">rmm::cuda_device_id::cuda_device_id (C++ function)</a>, <a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm14cuda_device_id14cuda_device_idEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4NK3rmm14cuda_device_id5valueEv">rmm::cuda_device_id::value (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm14cuda_device_id10value_typeE">rmm::cuda_device_id::value_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm10cuda_errorE">rmm::cuda_error (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm20cuda_set_device_raiiE">rmm::cuda_set_device_raii (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm20cuda_set_device_raii20cuda_set_device_raiiE14cuda_device_id">rmm::cuda_set_device_raii::cuda_set_device_raii (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_device_management.html#_CPPv4N3rmm20cuda_set_device_raiiD0Ev">rmm::cuda_set_device_raii::~cuda_set_device_raii (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_streamE">rmm::cuda_stream (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_stream11cuda_streamEN11cuda_stream5flagsE">rmm::cuda_stream::cuda_stream (C++ function)</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_stream11cuda_streamERR11cuda_stream">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_stream5flagsE">rmm::cuda_stream::flags (C++ enum)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_stream5flags12non_blockingE">rmm::cuda_stream::flags::non_blocking (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_stream5flags12sync_defaultE">rmm::cuda_stream::flags::sync_default (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_stream8is_validEv">rmm::cuda_stream::is_valid (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_streamcvN4cuda10stream_refEEv">rmm::cuda_stream::operator cuda::stream_ref (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_streamcv16cuda_stream_viewEv">rmm::cuda_stream::operator cuda_stream_view (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_streamcv12cudaStream_tEv">rmm::cuda_stream::operator cudaStream_t (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm11cuda_streamaSERR11cuda_stream">rmm::cuda_stream::operator= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_stream11synchronizeEv">rmm::cuda_stream::synchronize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_stream20synchronize_no_throwEv">rmm::cuda_stream::synchronize_no_throw (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_stream5valueEv">rmm::cuda_stream::value (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm11cuda_stream4viewEv">rmm::cuda_stream::view (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_poolE">rmm::cuda_stream_pool (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_pool16cuda_stream_poolENSt6size_tEN11cuda_stream5flagsE">rmm::cuda_stream_pool::cuda_stream_pool (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_pool12default_sizeE">rmm::cuda_stream_pool::default_size (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_pool13get_pool_sizeEv">rmm::cuda_stream_pool::get_pool_size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_pool10get_streamENSt6size_tE">rmm::cuda_stream_pool::get_stream (C++ function)</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_pool10get_streamEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_viewE">rmm::cuda_stream_view (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_view16cuda_stream_viewE12cudaStream_t">rmm::cuda_stream_view::cuda_stream_view (C++ function)</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_view16cuda_stream_viewEN4cuda10stream_refE">[1]</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_view16cuda_stream_viewERK16cuda_stream_view">[2]</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_view16cuda_stream_viewERR16cuda_stream_view">[3]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_view10is_defaultEv">rmm::cuda_stream_view::is_default (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_view21is_per_thread_defaultEv">rmm::cuda_stream_view::is_per_thread_default (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_viewcvN4cuda10stream_refEEv">rmm::cuda_stream_view::operator cuda::stream_ref (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_viewcv12cudaStream_tEv">rmm::cuda_stream_view::operator cudaStream_t (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_viewaSERK16cuda_stream_view">rmm::cuda_stream_view::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4N3rmm16cuda_stream_viewaSERR16cuda_stream_view">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_view11synchronizeEv">rmm::cuda_stream_view::synchronize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_view20synchronize_no_throwEv">rmm::cuda_stream_view::synchronize_no_throw (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/cuda_streams.html#_CPPv4NK3rmm16cuda_stream_view5valueEv">rmm::cuda_stream_view::value (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_bufferE">rmm::device_buffer (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer9alignmentEv">rmm::device_buffer::alignment (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer8capacityEv">rmm::device_buffer::capacity (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer4dataEv">rmm::device_buffer::data (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer4dataEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferENSt6size_tE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::device_buffer::device_buffer (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferENSt6size_tENSt6size_tE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[1]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferEPKvNSt6size_tE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[2]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferEPKvNSt6size_tENSt6size_tE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[3]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferERK13device_buffer16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[4]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferERR13device_buffer">[5]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13device_bufferEv">[6]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer8is_emptyEv">rmm::device_buffer::is_empty (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer15memory_resourceEv">rmm::device_buffer::memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_bufferaSERR13device_buffer">rmm::device_buffer::operator= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer7reserveENSt6size_tE16cuda_stream_view">rmm::device_buffer::reserve (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer6resizeENSt6size_tE16cuda_stream_view">rmm::device_buffer::resize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer10set_streamE16cuda_stream_view">rmm::device_buffer::set_stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_buffer13shrink_to_fitE16cuda_stream_view">rmm::device_buffer::shrink_to_fit (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer4sizeEv">rmm::device_buffer::size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer5ssizeEv">rmm::device_buffer::ssize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_buffer6streamEv">rmm::device_buffer::stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_bufferD0Ev">rmm::device_buffer::~device_buffer (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4I0EN3rmm13device_scalarE">rmm::device_scalar (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13const_pointerE">rmm::device_scalar::const_pointer (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar15const_referenceE">rmm::device_scalar::const_reference (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar4dataEv">rmm::device_scalar::data (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_scalar4dataEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::device_scalar::device_scalar (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarERK10value_type16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[1]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarERK13device_scalar">[2]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarERK13device_scalar16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[3]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarERR13device_scalar">[4]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar13device_scalarEv">[5]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalaraSERK13device_scalar">rmm::device_scalar::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalaraSERR13device_scalar">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar7pointerE">rmm::device_scalar::pointer (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar9referenceE">rmm::device_scalar::reference (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar10set_streamE16cuda_stream_view">rmm::device_scalar::set_stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar15set_value_asyncERK10value_type16cuda_stream_view">rmm::device_scalar::set_value_async (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar23set_value_to_zero_asyncE16cuda_stream_view">rmm::device_scalar::set_value_to_zero_async (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_scalar4sizeEv">rmm::device_scalar::size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar9size_typeE">rmm::device_scalar::size_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_scalar6streamEv">rmm::device_scalar::stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm13device_scalar5valueE16cuda_stream_view">rmm::device_scalar::value (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm13device_scalar10value_typeE">rmm::device_scalar::value_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4I0EN3rmm14device_uvectorE">rmm::device_uvector (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector12back_elementE16cuda_stream_view">rmm::device_uvector::back_element (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector5beginEv">rmm::device_uvector::begin (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector5beginEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector8capacityEv">rmm::device_uvector::capacity (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector6cbeginEv">rmm::device_uvector::cbegin (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector4cendEv">rmm::device_uvector::cend (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14const_iteratorE">rmm::device_uvector::const_iterator (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector13const_pointerE">rmm::device_uvector::const_pointer (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector15const_referenceE">rmm::device_uvector::const_reference (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector22const_reverse_iteratorE">rmm::device_uvector::const_reverse_iterator (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector7crbeginEv">rmm::device_uvector::crbegin (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector5crendEv">rmm::device_uvector::crend (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector4dataEv">rmm::device_uvector::data (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector4dataEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14device_uvectorE9size_type16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::device_uvector::device_uvector (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14device_uvectorERK14device_uvector">[1]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14device_uvectorERK14device_uvector16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[2]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14device_uvectorERR14device_uvector">[3]</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector14device_uvectorEv">[4]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector7elementE9size_type16cuda_stream_view">rmm::device_uvector::element (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector11element_ptrE9size_type">rmm::device_uvector::element_ptr (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector11element_ptrE9size_type">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector3endEv">rmm::device_uvector::end (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector3endEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector13front_elementE16cuda_stream_view">rmm::device_uvector::front_element (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector8is_emptyEv">rmm::device_uvector::is_empty (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector8iteratorE">rmm::device_uvector::iterator (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector15memory_resourceEv">rmm::device_uvector::memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvectorcvN4cudaSt4spanIK1TEEEv">rmm::device_uvector::operator cuda::std::span&lt;T const&gt; (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvectorcvN4cudaSt4spanI1TEEEv">rmm::device_uvector::operator cuda::std::span&lt;T&gt; (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvectoraSERK14device_uvector">rmm::device_uvector::operator= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector7pointerE">rmm::device_uvector::pointer (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector6rbeginEv">rmm::device_uvector::rbegin (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector6rbeginEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector9referenceE">rmm::device_uvector::reference (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector7releaseEv">rmm::device_uvector::release (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector4rendEv">rmm::device_uvector::rend (C++ function)</a>, <a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector4rendEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector7reserveE9size_type16cuda_stream_view">rmm::device_uvector::reserve (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector6resizeE9size_type16cuda_stream_view">rmm::device_uvector::resize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector16reverse_iteratorE">rmm::device_uvector::reverse_iterator (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector11set_elementE9size_typeRK1T16cuda_stream_view">rmm::device_uvector::set_element (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector17set_element_asyncE9size_typeRK10value_type16cuda_stream_view">rmm::device_uvector::set_element_async (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector25set_element_to_zero_asyncE9size_type16cuda_stream_view">rmm::device_uvector::set_element_to_zero_async (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector10set_streamE16cuda_stream_view">rmm::device_uvector::set_stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector13shrink_to_fitE16cuda_stream_view">rmm::device_uvector::shrink_to_fit (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector4sizeEv">rmm::device_uvector::size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector9size_typeE">rmm::device_uvector::size_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector5ssizeEv">rmm::device_uvector::ssize (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4NK3rmm14device_uvector6streamEv">rmm::device_uvector::stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/data_containers.html#_CPPv4N3rmm14device_uvector10value_typeE">rmm::device_uvector::value_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv4N3rmm11exec_policyE">rmm::exec_policy (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv4N3rmm11exec_policy11exec_policyE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::exec_policy::exec_policy (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm16invalid_argumentE">rmm::invalid_argument (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm11logic_errorE">rmm::logic_error (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/rmm_namespace.html#_CPPv4N3rmm2mrE">rmm::mr (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24aligned_resource_adaptorE">rmm::mr::aligned_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24aligned_resource_adaptor24aligned_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt6size_tENSt6size_tE">rmm::mr::aligned_resource_adaptor::aligned_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24aligned_resource_adaptor27default_alignment_thresholdE">rmm::mr::aligned_resource_adaptor::default_alignment_threshold (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24aligned_resource_adaptor12get_propertyERK24aligned_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::aligned_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr24aligned_resource_adaptor21get_upstream_resourceEv">rmm::mr::aligned_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24aligned_resource_adaptorD0Ev">rmm::mr::aligned_resource_adaptor::~aligned_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21arena_memory_resourceE">rmm::mr::arena_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21arena_memory_resource21arena_memory_resourceEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt8optionalINSt6size_tEEEb">rmm::mr::arena_memory_resource::arena_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21arena_memory_resource12get_propertyERK21arena_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::arena_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21arena_memory_resourceD0Ev">rmm::mr::arena_memory_resource::~arena_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resourceE">rmm::mr::binning_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resource7add_binENSt6size_tENSt8optionalI25device_async_resource_refEE">rmm::mr::binning_memory_resource::add_bin (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resource23binning_memory_resourceEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::mr::binning_memory_resource::binning_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resource23binning_memory_resourceEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE6int8_t6int8_t">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resource12get_propertyERK23binning_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::binning_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr23binning_memory_resource21get_upstream_resourceEv">rmm::mr::binning_memory_resource::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23binning_memory_resourceD0Ev">rmm::mr::binning_memory_resource::~binning_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24callback_memory_resourceE">rmm::mr::callback_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24callback_memory_resource24callback_memory_resourceE19allocate_callback_t21deallocate_callback_tPvPv">rmm::mr::callback_memory_resource::callback_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24callback_memory_resource24callback_memory_resourceEv">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24callback_memory_resource12get_propertyERK24callback_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::callback_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24callback_memory_resourceD0Ev">rmm::mr::callback_memory_resource::~callback_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resourceE">rmm::mr::cuda_async_managed_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resource34cuda_async_managed_memory_resourceERK34cuda_async_managed_memory_resource">rmm::mr::cuda_async_managed_memory_resource::cuda_async_managed_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resource34cuda_async_managed_memory_resourceERR34cuda_async_managed_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resource34cuda_async_managed_memory_resourceEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resource12get_propertyERK34cuda_async_managed_memory_resourceN4cuda2mr15host_accessibleE">rmm::mr::cuda_async_managed_memory_resource::get_property (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resource12get_propertyERK34cuda_async_managed_memory_resourceN4cuda2mr17device_accessibleE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resourceaSERK34cuda_async_managed_memory_resource">rmm::mr::cuda_async_managed_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resourceaSERR34cuda_async_managed_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr34cuda_async_managed_memory_resource11pool_handleEv">rmm::mr::cuda_async_managed_memory_resource::pool_handle (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr34cuda_async_managed_memory_resourceD0Ev">rmm::mr::cuda_async_managed_memory_resource::~cuda_async_managed_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resourceE">rmm::mr::cuda_async_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_typeE">rmm::mr::cuda_async_memory_resource::allocation_handle_type (C++ enum)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_type6fabricE">rmm::mr::cuda_async_memory_resource::allocation_handle_type::fabric (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_type4noneE">rmm::mr::cuda_async_memory_resource::allocation_handle_type::none (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_type21posix_file_descriptorE">rmm::mr::cuda_async_memory_resource::allocation_handle_type::posix_file_descriptor (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_type5win32E">rmm::mr::cuda_async_memory_resource::allocation_handle_type::win32 (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource22allocation_handle_type9win32_kmtE">rmm::mr::cuda_async_memory_resource::allocation_handle_type::win32_kmt (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource26cuda_async_memory_resourceENSt8optionalINSt6size_tEEENSt8optionalINSt6size_tEEENSt8optionalI22allocation_handle_typeEE">rmm::mr::cuda_async_memory_resource::cuda_async_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource26cuda_async_memory_resourceERK26cuda_async_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource26cuda_async_memory_resourceERR26cuda_async_memory_resource">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource12get_propertyERK26cuda_async_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::cuda_async_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource13mempool_usageE">rmm::mr::cuda_async_memory_resource::mempool_usage (C++ enum)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resource13mempool_usage13hw_decompressE">rmm::mr::cuda_async_memory_resource::mempool_usage::hw_decompress (C++ enumerator)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resourceaSERK26cuda_async_memory_resource">rmm::mr::cuda_async_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resourceaSERR26cuda_async_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr26cuda_async_memory_resource11pool_handleEv">rmm::mr::cuda_async_memory_resource::pool_handle (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26cuda_async_memory_resourceD0Ev">rmm::mr::cuda_async_memory_resource::~cuda_async_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resourceE">rmm::mr::cuda_async_view_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource8allocateEN4cuda10stream_refENSt6size_tENSt6size_tE">rmm::mr::cuda_async_view_memory_resource::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource13allocate_syncENSt6size_tENSt6size_tE">rmm::mr::cuda_async_view_memory_resource::allocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource31cuda_async_view_memory_resourceE13cudaMemPool_t">rmm::mr::cuda_async_view_memory_resource::cuda_async_view_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource31cuda_async_view_memory_resourceERK31cuda_async_view_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource31cuda_async_view_memory_resourceERR31cuda_async_view_memory_resource">[2]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource31cuda_async_view_memory_resourceEv">[3]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource10deallocateEN4cuda10stream_refEPvNSt6size_tENSt6size_tE">rmm::mr::cuda_async_view_memory_resource::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource15deallocate_syncEPvNSt6size_tENSt6size_tE">rmm::mr::cuda_async_view_memory_resource::deallocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resource12get_propertyERK31cuda_async_view_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::cuda_async_view_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr31cuda_async_view_memory_resourceneERK31cuda_async_view_memory_resource">rmm::mr::cuda_async_view_memory_resource::operator!= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resourceaSERK31cuda_async_view_memory_resource">rmm::mr::cuda_async_view_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resourceaSERR31cuda_async_view_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr31cuda_async_view_memory_resourceeqERK31cuda_async_view_memory_resource">rmm::mr::cuda_async_view_memory_resource::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr31cuda_async_view_memory_resource11pool_handleEv">rmm::mr::cuda_async_view_memory_resource::pool_handle (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr31cuda_async_view_memory_resourceD0Ev">rmm::mr::cuda_async_view_memory_resource::~cuda_async_view_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resourceE">rmm::mr::cuda_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource8allocateEN4cuda10stream_refENSt6size_tENSt6size_tE">rmm::mr::cuda_memory_resource::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource13allocate_syncENSt6size_tENSt6size_tE">rmm::mr::cuda_memory_resource::allocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource20cuda_memory_resourceERK20cuda_memory_resource">rmm::mr::cuda_memory_resource::cuda_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource20cuda_memory_resourceERR20cuda_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource20cuda_memory_resourceEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource10deallocateEN4cuda10stream_refEPvNSt6size_tENSt6size_tE">rmm::mr::cuda_memory_resource::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource15deallocate_syncEPvNSt6size_tENSt6size_tE">rmm::mr::cuda_memory_resource::deallocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resource12get_propertyERK20cuda_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::cuda_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr20cuda_memory_resourceneERK20cuda_memory_resource">rmm::mr::cuda_memory_resource::operator!= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resourceaSERK20cuda_memory_resource">rmm::mr::cuda_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resourceaSERR20cuda_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr20cuda_memory_resourceeqERK20cuda_memory_resource">rmm::mr::cuda_memory_resource::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20cuda_memory_resourceD0Ev">rmm::mr::cuda_memory_resource::~cuda_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4I0EN3rmm2mr33failure_callback_resource_adaptorE">rmm::mr::failure_callback_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr33failure_callback_resource_adaptor14exception_typeE">rmm::mr::failure_callback_resource_adaptor::exception_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr33failure_callback_resource_adaptor33failure_callback_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE18failure_callback_tPv">rmm::mr::failure_callback_resource_adaptor::failure_callback_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr33failure_callback_resource_adaptor12get_propertyERK33failure_callback_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::failure_callback_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr33failure_callback_resource_adaptor21get_upstream_resourceEv">rmm::mr::failure_callback_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr33failure_callback_resource_adaptorD0Ev">rmm::mr::failure_callback_resource_adaptor::~failure_callback_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resourceE">rmm::mr::fixed_size_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resource18default_block_sizeE">rmm::mr::fixed_size_memory_resource::default_block_size (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resource29default_blocks_to_preallocateE">rmm::mr::fixed_size_memory_resource::default_blocks_to_preallocate (C++ member)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resource26fixed_size_memory_resourceEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt6size_tENSt6size_tE">rmm::mr::fixed_size_memory_resource::fixed_size_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr26fixed_size_memory_resource14get_block_sizeEv">rmm::mr::fixed_size_memory_resource::get_block_size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resource12get_propertyERK26fixed_size_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::fixed_size_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr26fixed_size_memory_resource21get_upstream_resourceEv">rmm::mr::fixed_size_memory_resource::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr26fixed_size_memory_resourceD0Ev">rmm::mr::fixed_size_memory_resource::~fixed_size_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25limiting_resource_adaptorE">rmm::mr::limiting_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25limiting_resource_adaptor19get_allocated_bytesEv">rmm::mr::limiting_resource_adaptor::get_allocated_bytes (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25limiting_resource_adaptor20get_allocation_limitEv">rmm::mr::limiting_resource_adaptor::get_allocation_limit (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25limiting_resource_adaptor12get_propertyERK25limiting_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::limiting_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25limiting_resource_adaptor21get_upstream_resourceEv">rmm::mr::limiting_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25limiting_resource_adaptor25limiting_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt6size_tENSt6size_tE">rmm::mr::limiting_resource_adaptor::limiting_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25limiting_resource_adaptorD0Ev">rmm::mr::limiting_resource_adaptor::~limiting_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptorE">rmm::mr::logging_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor5flushEv">rmm::mr::logging_resource_adaptor::flush (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor20get_default_filenameEv">rmm::mr::logging_resource_adaptor::get_default_filename (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor12get_propertyERK24logging_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::logging_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr24logging_resource_adaptor21get_upstream_resourceEv">rmm::mr::logging_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr24logging_resource_adaptor6headerEv">rmm::mr::logging_resource_adaptor::header (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor24logging_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt16initializer_listIN13rapids_logger8sink_ptrEEEb">rmm::mr::logging_resource_adaptor::logging_resource_adaptor (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor24logging_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEERKNSt6stringEb">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr24logging_resource_adaptor24logging_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEERNSt7ostreamEb">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resourceE">rmm::mr::managed_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource8allocateEN4cuda10stream_refENSt6size_tENSt6size_tE">rmm::mr::managed_memory_resource::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource13allocate_syncENSt6size_tENSt6size_tE">rmm::mr::managed_memory_resource::allocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource10deallocateEN4cuda10stream_refEPvNSt6size_tENSt6size_tE">rmm::mr::managed_memory_resource::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource15deallocate_syncEPvNSt6size_tENSt6size_tE">rmm::mr::managed_memory_resource::deallocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource12get_propertyERK23managed_memory_resourceN4cuda2mr15host_accessibleE">rmm::mr::managed_memory_resource::get_property (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource12get_propertyERK23managed_memory_resourceN4cuda2mr17device_accessibleE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource23managed_memory_resourceERK23managed_memory_resource">rmm::mr::managed_memory_resource::managed_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource23managed_memory_resourceERR23managed_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resource23managed_memory_resourceEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr23managed_memory_resourceneERK23managed_memory_resource">rmm::mr::managed_memory_resource::operator!= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resourceaSERK23managed_memory_resource">rmm::mr::managed_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resourceaSERR23managed_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr23managed_memory_resourceeqERK23managed_memory_resource">rmm::mr::managed_memory_resource::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr23managed_memory_resourceD0Ev">rmm::mr::managed_memory_resource::~managed_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resourceE">rmm::mr::pinned_host_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource8allocateEN4cuda10stream_refENSt6size_tENSt6size_tE">rmm::mr::pinned_host_memory_resource::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource13allocate_syncENSt6size_tENSt6size_tE">rmm::mr::pinned_host_memory_resource::allocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource10deallocateEN4cuda10stream_refEPvNSt6size_tENSt6size_tE">rmm::mr::pinned_host_memory_resource::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource15deallocate_syncEPvNSt6size_tENSt6size_tE">rmm::mr::pinned_host_memory_resource::deallocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource12get_propertyERK27pinned_host_memory_resourceN4cuda2mr15host_accessibleE">rmm::mr::pinned_host_memory_resource::get_property (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource12get_propertyERK27pinned_host_memory_resourceN4cuda2mr17device_accessibleE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr27pinned_host_memory_resourceneERK27pinned_host_memory_resource">rmm::mr::pinned_host_memory_resource::operator!= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resourceaSERK27pinned_host_memory_resource">rmm::mr::pinned_host_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resourceaSERR27pinned_host_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr27pinned_host_memory_resourceeqERK27pinned_host_memory_resource">rmm::mr::pinned_host_memory_resource::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource27pinned_host_memory_resourceERK27pinned_host_memory_resource">rmm::mr::pinned_host_memory_resource::pinned_host_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource27pinned_host_memory_resourceERR27pinned_host_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resource27pinned_host_memory_resourceEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr27pinned_host_memory_resourceD0Ev">rmm::mr::pinned_host_memory_resource::~pinned_host_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0EN3rmm2mr21polymorphic_allocatorE">rmm::mr::polymorphic_allocator (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21polymorphic_allocator8allocateENSt6size_tE16cuda_stream_view">rmm::mr::polymorphic_allocator::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21polymorphic_allocator10deallocateEP10value_typeNSt6size_tE16cuda_stream_view">rmm::mr::polymorphic_allocator::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr21polymorphic_allocator21get_upstream_resourceEv">rmm::mr::polymorphic_allocator::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0EN3rmm2mr21polymorphic_allocator21polymorphic_allocatorERK21polymorphic_allocatorI1UE">rmm::mr::polymorphic_allocator::polymorphic_allocator (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21polymorphic_allocator21polymorphic_allocatorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21polymorphic_allocator21polymorphic_allocatorEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr21polymorphic_allocator10value_typeE">rmm::mr::polymorphic_allocator::value_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20pool_memory_resourceE">rmm::mr::pool_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20pool_memory_resource12get_propertyERK20pool_memory_resourceN4cuda2mr17device_accessibleE">rmm::mr::pool_memory_resource::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr20pool_memory_resource21get_upstream_resourceEv">rmm::mr::pool_memory_resource::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr20pool_memory_resource20pool_memory_resourceEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEENSt6size_tENSt8optionalINSt6size_tEEE">rmm::mr::pool_memory_resource::pool_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr20pool_memory_resource9pool_sizeEv">rmm::mr::pool_memory_resource::pool_size (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25prefetch_resource_adaptorE">rmm::mr::prefetch_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25prefetch_resource_adaptor12get_propertyERK25prefetch_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::prefetch_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25prefetch_resource_adaptor21get_upstream_resourceEv">rmm::mr::prefetch_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25prefetch_resource_adaptor25prefetch_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::mr::prefetch_resource_adaptor::prefetch_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25prefetch_resource_adaptorD0Ev">rmm::mr::prefetch_resource_adaptor::~prefetch_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resourceE">rmm::mr::sam_headroom_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource12get_propertyERK28sam_headroom_memory_resourceN4cuda2mr15host_accessibleE">rmm::mr::sam_headroom_memory_resource::get_property (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource12get_propertyERK28sam_headroom_memory_resourceN4cuda2mr17device_accessibleE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resourceaSERK28sam_headroom_memory_resource">rmm::mr::sam_headroom_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resourceaSERR28sam_headroom_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource28sam_headroom_memory_resourceENSt6size_tE">rmm::mr::sam_headroom_memory_resource::sam_headroom_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource28sam_headroom_memory_resourceERK28sam_headroom_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource28sam_headroom_memory_resourceERR28sam_headroom_memory_resource">[2]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resource28sam_headroom_memory_resourceEv">[3]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr28sam_headroom_memory_resourceD0Ev">rmm::mr::sam_headroom_memory_resource::~sam_headroom_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptorE">rmm::mr::statistics_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor7counterE">rmm::mr::statistics_resource_adaptor::counter (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr27statistics_resource_adaptor23get_allocations_counterEv">rmm::mr::statistics_resource_adaptor::get_allocations_counter (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr27statistics_resource_adaptor17get_bytes_counterEv">rmm::mr::statistics_resource_adaptor::get_bytes_counter (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor12get_propertyERK27statistics_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::statistics_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr27statistics_resource_adaptor21get_upstream_resourceEv">rmm::mr::statistics_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor12pop_countersEv">rmm::mr::statistics_resource_adaptor::pop_counters (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor13push_countersEv">rmm::mr::statistics_resource_adaptor::push_counters (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor11read_lock_tE">rmm::mr::statistics_resource_adaptor::read_lock_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor27statistics_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::mr::statistics_resource_adaptor::statistics_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptor12write_lock_tE">rmm::mr::statistics_resource_adaptor::write_lock_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr27statistics_resource_adaptorD0Ev">rmm::mr::statistics_resource_adaptor::~statistics_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0EN3rmm2mr24stream_allocator_adaptorE">rmm::mr::stream_allocator_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor8allocateENSt6size_tE">rmm::mr::stream_allocator_adaptor::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor10deallocateEP10value_typeNSt6size_tE">rmm::mr::stream_allocator_adaptor::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0EN3rmm2mr24stream_allocator_adaptor6rebindE">rmm::mr::stream_allocator_adaptor::rebind (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor6rebind5otherE">rmm::mr::stream_allocator_adaptor::rebind::other (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr24stream_allocator_adaptor6streamEv">rmm::mr::stream_allocator_adaptor::stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0EN3rmm2mr24stream_allocator_adaptor24stream_allocator_adaptorERK24stream_allocator_adaptorI14OtherAllocatorE">rmm::mr::stream_allocator_adaptor::stream_allocator_adaptor (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor24stream_allocator_adaptorERK9Allocator16cuda_stream_view">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor24stream_allocator_adaptorEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr24stream_allocator_adaptor20underlying_allocatorEv">rmm::mr::stream_allocator_adaptor::underlying_allocator (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr24stream_allocator_adaptor10value_typeE">rmm::mr::stream_allocator_adaptor::value_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resourceE">rmm::mr::system_memory_resource (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource8allocateEN4cuda10stream_refENSt6size_tENSt6size_tE">rmm::mr::system_memory_resource::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource13allocate_syncENSt6size_tENSt6size_tE">rmm::mr::system_memory_resource::allocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource10deallocateEN4cuda10stream_refEPvNSt6size_tENSt6size_tE">rmm::mr::system_memory_resource::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource15deallocate_syncEPvNSt6size_tENSt6size_tE">rmm::mr::system_memory_resource::deallocate_sync (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource12get_propertyERK22system_memory_resourceN4cuda2mr15host_accessibleE">rmm::mr::system_memory_resource::get_property (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource12get_propertyERK22system_memory_resourceN4cuda2mr17device_accessibleE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr22system_memory_resourceneERK22system_memory_resource">rmm::mr::system_memory_resource::operator!= (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resourceaSERK22system_memory_resource">rmm::mr::system_memory_resource::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resourceaSERR22system_memory_resource">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4NK3rmm2mr22system_memory_resourceeqERK22system_memory_resource">rmm::mr::system_memory_resource::operator== (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource22system_memory_resourceERK22system_memory_resource">rmm::mr::system_memory_resource::system_memory_resource (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource22system_memory_resourceERR22system_memory_resource">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resource22system_memory_resourceEv">[2]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4N3rmm2mr22system_memory_resourceD0Ev">rmm::mr::system_memory_resource::~system_memory_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr28thread_safe_resource_adaptorE">rmm::mr::thread_safe_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr28thread_safe_resource_adaptor12get_propertyERK28thread_safe_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::thread_safe_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr28thread_safe_resource_adaptor21get_upstream_resourceEv">rmm::mr::thread_safe_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr28thread_safe_resource_adaptor6lock_tE">rmm::mr::thread_safe_resource_adaptor::lock_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr28thread_safe_resource_adaptor28thread_safe_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">rmm::mr::thread_safe_resource_adaptor::thread_safe_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr28thread_safe_resource_adaptorD0Ev">rmm::mr::thread_safe_resource_adaptor::~thread_safe_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4I0EN3rmm2mr16thrust_allocatorE">rmm::mr::thrust_allocator (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator8allocateE9size_type">rmm::mr::thrust_allocator::allocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator4BaseE">rmm::mr::thrust_allocator::Base (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator10deallocateE7pointer9size_type">rmm::mr::thrust_allocator::deallocate (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator12get_propertyERK16thrust_allocatorN4cuda2mr17device_accessibleE">rmm::mr::thrust_allocator::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr16thrust_allocator21get_upstream_resourceEv">rmm::mr::thrust_allocator::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocatoraSERK16thrust_allocator">rmm::mr::thrust_allocator::operator= (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocatoraSERR16thrust_allocator">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator7pointerE">rmm::mr::thrust_allocator::pointer (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4I0EN3rmm2mr16thrust_allocator6rebindE">rmm::mr::thrust_allocator::rebind (C++ struct)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator6rebind5otherE">rmm::mr::thrust_allocator::rebind::other (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator9size_typeE">rmm::mr::thrust_allocator::size_type (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr16thrust_allocator6streamEv">rmm::mr::thrust_allocator::stream (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4I0EN3rmm2mr16thrust_allocator16thrust_allocatorE22RMM_EXEC_CHECK_DISABLERK16thrust_allocatorI1UE">rmm::mr::thrust_allocator::thrust_allocator (C++ function)</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator16thrust_allocatorE16cuda_stream_view">[1]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator16thrust_allocatorE16cuda_stream_viewN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">[2]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator16thrust_allocatorERK16thrust_allocator">[3]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator16thrust_allocatorERR16thrust_allocator">[4]</a>, <a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr16thrust_allocator16thrust_allocatorEv">[5]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptorE">rmm::mr::tracking_resource_adaptor (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptor15allocation_infoE">rmm::mr::tracking_resource_adaptor::allocation_info (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25tracking_resource_adaptor19get_allocated_bytesEv">rmm::mr::tracking_resource_adaptor::get_allocated_bytes (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25tracking_resource_adaptor27get_outstanding_allocationsEv">rmm::mr::tracking_resource_adaptor::get_outstanding_allocations (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25tracking_resource_adaptor31get_outstanding_allocations_strEv">rmm::mr::tracking_resource_adaptor::get_outstanding_allocations_str (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptor12get_propertyERK25tracking_resource_adaptorN4cuda2mr17device_accessibleE">rmm::mr::tracking_resource_adaptor::get_property (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25tracking_resource_adaptor21get_upstream_resourceEv">rmm::mr::tracking_resource_adaptor::get_upstream_resource (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4NK3rmm2mr25tracking_resource_adaptor27log_outstanding_allocationsEv">rmm::mr::tracking_resource_adaptor::log_outstanding_allocations (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptor11read_lock_tE">rmm::mr::tracking_resource_adaptor::read_lock_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptor25tracking_resource_adaptorEN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEEb">rmm::mr::tracking_resource_adaptor::tracking_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptor12write_lock_tE">rmm::mr::tracking_resource_adaptor::write_lock_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resource_adaptors.html#_CPPv4N3rmm2mr25tracking_resource_adaptorD0Ev">rmm::mr::tracking_resource_adaptor::~tracking_resource_adaptor (C++ function)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm13out_of_memoryE">rmm::out_of_memory (C++ class)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm13out_of_memory13out_of_memoryEPKc">rmm::out_of_memory::out_of_memory (C++ function)</a>, <a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm13out_of_memory13out_of_memoryERKNSt6stringE">[1]</a>
+</li>
+      <li><a href="reference/hipmm/cpp/errors.html#_CPPv4N3rmm12out_of_rangeE">rmm::out_of_range (C++ class)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.allocators.cupy.rmm_cupy_allocator">rmm_cupy_allocator() (in module hipmm.allocators.cupy)</a>
 
       <ul>
@@ -1468,12 +2184,16 @@
         <li><a href="python/mr.html#rmm.mr.SamHeadroomMemoryResource">(class in rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv427set_current_device_resourceN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">set_current_device_resource (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.set_current_device_resource">set_current_device_resource() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.set_current_device_resource">(in module rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv431set_current_device_resource_ref25device_async_resource_ref">set_current_device_resource_ref (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.set_flush_level">set_flush_level() (in module hipmm)</a>
 
       <ul>
@@ -1486,20 +2206,24 @@
         <li><a href="python/rmm.html#rmm.set_logging_level">(in module rmm)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv423set_per_device_resource14cuda_device_idN4cuda2mr12any_resourceIN4cuda2mr17device_accessibleEEE">set_per_device_resource (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.mr.set_per_device_resource">set_per_device_resource() (in module hipmm.mr)</a>
 
       <ul>
         <li><a href="python/mr.html#rmm.mr.set_per_device_resource">(in module rmm.mr)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv427set_per_device_resource_ref14cuda_device_id25device_async_resource_ref">set_per_device_resource_ref (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.should_log">should_log() (in module hipmm)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.should_log">(in module rmm)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.size">size (hipmm.DeviceBuffer attribute)</a>
 
       <ul>
@@ -1542,26 +2266,32 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv427thrust_exec_policy_nosync_t">thrust_exec_policy_nosync_t (C++ type)</a>
+</li>
+      <li><a href="reference/hipmm/cpp/thrust_integrations.html#_CPPv420thrust_exec_policy_t">thrust_exec_policy_t (C++ type)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.to_device">to_device() (hipmm.DeviceBuffer static method)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.DeviceBuffer.to_device">(rmm.DeviceBuffer static method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/hipmm/cpp/memory_resources/memory_resources.html#_CPPv4I0E36to_device_async_resource_ref_checked25device_async_resource_refP8Resource">to_device_async_resource_ref_checked (C++ function)</a>
+</li>
       <li><a href="reference/hipmm/python_api.html#hipmm.DeviceBuffer.tobytes">tobytes() (hipmm.DeviceBuffer method)</a>
 
       <ul>
         <li><a href="python/rmm.html#rmm.DeviceBuffer.tobytes">(rmm.DeviceBuffer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.total_bytes">total_bytes (hipmm.statistics.Statistics attribute)</a>
 
       <ul>
         <li><a href="python/statistics.html#rmm.statistics.Statistics.total_bytes">(rmm.statistics.Statistics attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/hipmm/python_api.html#hipmm.statistics.Statistics.total_count">total_count (hipmm.statistics.Statistics attribute)</a>
 
       <ul>

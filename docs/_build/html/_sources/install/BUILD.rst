@@ -109,7 +109,7 @@ repository:
    mkdir -p /tmp/hipmm # NOTE: feel free to adapt
 
    cd /tmp/hipmm
-   git clone https://github.com/AMD-Ecosystem/hipMM hipmm -b release/26.09
+   git clone https://github.com/AMD-Ecosystem/hipMM hipmm -b release/26.10
 
 Step 3: Create and activate the hipMM conda environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

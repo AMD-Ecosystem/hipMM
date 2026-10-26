@@ -29,7 +29,6 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
-import re
 
 from rocm_docs import ROCmDocs
 
@@ -85,7 +84,7 @@ doxygen_project = {
 }
 
 # Breathe Configuration
-breathe_projects = {"librmm": "../cpp/doxygen/xml"}
+breathe_projects = {"librmm": "doxygen/xml"}
 breathe_default_project = "librmm"
 
 copybutton_prompt_text = ">>> "
@@ -127,7 +126,7 @@ suppress_warnings = []
 if not os.path.exists(
     os.path.join(breathe_projects["librmm"], "deprecated.xml")
 ):
-    exclude_patterns.append("cpp/deprecated.md")
+    exclude_patterns.append("reference/hipmm/cpp/deprecated.rst")
     suppress_warnings.append("toc.not_readable")
 
 # The name of the Pygments (syntax highlighting) style to use.
@@ -230,98 +229,3 @@ nitpick_ignore = [
     ("py:class", "P"),
     ("py:class", "rmm.statistics.T"),
 ]
-
-
-def on_missing_reference(app, env, node, contnode):
-    if (refid := node.get("refid")) is not None and "hpp" in refid:
-        # We don't want to link to C++ header files directly from the
-        # Sphinx docs, those are pages that doxygen automatically
-        # generates. Adding those would clutter the Sphinx output.
-        return contnode
-
-    python_names_to_skip = [x for x in dir(int) if not x.startswith("__")]
-    if (
-        node["refdomain"] == "py"
-        and (reftarget := node.get("reftarget")) is not None
-        and any(toskip in reftarget for toskip in python_names_to_skip)
-    ):
-        return contnode
-
-    cpp_names_to_skip = [
-        # External names
-        "cudaStream_t",
-        "cudaStreamLegacy",
-        "cudaStreamPerThread",
-        "thrust",
-        "spdlog",
-        "stream_ref",
-        # rapids_logger names
-        "rapids_logger",
-        # libcu++ names
-        "cuda",
-        "cuda::mr",
-        "resource",
-        "resource_ref",
-        "async_resource",
-        "async_resource_ref",
-        "device_accessible",
-        "host_accessible",
-        "forward_property",
-        "enable_if_t",
-        # Unknown types
-        "int64_t",
-        "int8_t",
-        # Internal objects
-        "detail",
-        "RMM_EXEC_CHECK_DISABLE",
-        # Template types
-        "Base",
-        # Unsupported by Breathe
-        # https://github.com/breathe-doc/breathe/issues/355
-        "deprecated",
-    ]
-    if (
-        node["refdomain"] in ("std", "cpp")
-        and (reftarget := node.get("reftarget")) is not None
-    ):
-        if any(toskip in reftarget for toskip in cpp_names_to_skip):
-            return contnode
-
-        # Strip template parameters and just use the base type.
-        if match := re.search("(.*)<.*>", reftarget):
-            reftarget = match.group(1)
-
-        # This is the document we're linking _from_, and hence where
-        # we should try and resolve the xref wrt.
-        refdoc = node.get("refdoc")
-        # Try to find the target prefixed with e.g. namespaces in case that's
-        # all that's missing. Include the empty prefix in case we're searching
-        # for a stripped template.
-        extra_prefixes = ["rmm::", "rmm::mr::", "mr::", ""]
-        for name, dispname, typ, docname, anchor, priority in env.domains[
-            "cpp"
-        ].get_objects():
-            for prefix in extra_prefixes:
-                if (
-                    name == f"{prefix}{reftarget}"
-                    or f"{prefix}{name}" == reftarget
-                ):
-                    return env.domains["cpp"].resolve_xref(
-                        env,
-                        refdoc,
-                        app.builder,
-                        node["reftype"],
-                        name,
-                        node,
-                        contnode,
-                    )
-
-    return None
-
-
-def setup(app):
-    app.add_css_file("https://docs.rapids.ai/assets/css/custom.css")
-    app.add_js_file(
-        "https://docs.rapids.ai/assets/js/custom.js", loading_method="defer"
-    )
-    app.connect("missing-reference", on_missing_reference)
