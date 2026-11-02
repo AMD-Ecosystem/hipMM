@@ -24,7 +24,7 @@
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet"/>
 <link href="../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
 <link href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" rel="stylesheet" type="text/css"/>
-<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
 <link href="../_static/custom.css?v=24396f60" rel="stylesheet" type="text/css"/>
 <link href="../_static/rocm_header.css?v=e999025a" rel="stylesheet" type="text/css"/>
@@ -433,14 +433,14 @@ implementations of this version of the specification.</p>
 <span class="sig-name descname"><span class="pre">memhostalloc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">portable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.allocators.numba.RMMNumbaManager.memhostalloc" title="Link to this definition">#</a></dt>
 <dd><p>Implements the allocation of pinned host memory.</p>
 <p>It is recommended that this method is not overridden by EMM Plugin
-implementations - instead, use the <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/external-memory.html#numba.cuda.BaseCUDAMemoryManager" title="(in Numba v0+untagged.1959)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numba.cuda.BaseCUDAMemoryManager</span></code></a>.</p>
+implementations - instead, use the <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/external-memory.html#numba.cuda.BaseCUDAMemoryManager" title="(in Numba v0+untagged.1691)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numba.cuda.BaseCUDAMemoryManager</span></code></a>.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="rmm.allocators.numba.RMMNumbaManager.mempin">
 <span class="sig-name descname"><span class="pre">mempin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rmm.allocators.numba.RMMNumbaManager.mempin" title="Link to this definition">#</a></dt>
 <dd><p>Implements the pinning of host memory.</p>
 <p>It is recommended that this method is not overridden by EMM Plugin
-implementations - instead, use the <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/external-memory.html#numba.cuda.BaseCUDAMemoryManager" title="(in Numba v0+untagged.1959)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numba.cuda.BaseCUDAMemoryManager</span></code></a>.</p>
+implementations - instead, use the <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/external-memory.html#numba.cuda.BaseCUDAMemoryManager" title="(in Numba v0+untagged.1691)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numba.cuda.BaseCUDAMemoryManager</span></code></a>.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="rmm.allocators.numba.RMMNumbaManager.reset">
