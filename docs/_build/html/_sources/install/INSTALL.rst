@@ -83,7 +83,7 @@ Create and activate a Conda environment with a compatible Python version, such a
       - hip-python~=10.0.0.0
       - hip-python-as-cuda~=10.0.0.0
       - numba-hip~=0.1.6
-      - amd-cupy~=13.5.1
+      - amd-cupy~=14.1.1
       - amd-hipmm==5.0.0
    name: hipmm
 
